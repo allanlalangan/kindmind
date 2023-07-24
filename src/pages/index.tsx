@@ -1,6 +1,13 @@
 import Head from "next/head";
+import {
+  SignOutButton,
+  SignInButton,
+  SignUpButton,
+  useUser,
+} from "@clerk/nextjs";
 
 export default function Home() {
+  const user = useUser();
   return (
     <>
       <Head>
@@ -10,6 +17,22 @@ export default function Home() {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center">
         <h1>Stars</h1>
+        {!!user.user && <h2 className="">Hello {user.user.fullName}</h2>}
+        {!!user.isSignedIn && (
+          <SignOutButton>
+            <button className="underline">Sign Out</button>
+          </SignOutButton>
+        )}
+        {!user.isSignedIn && (
+          <section className="flex flex-col items-center">
+            <SignUpButton>
+              <button className="underline">Create Account</button>
+            </SignUpButton>
+            <SignInButton>
+              <button className="underline">Sign In</button>
+            </SignInButton>
+          </section>
+        )}
       </main>
     </>
   );
