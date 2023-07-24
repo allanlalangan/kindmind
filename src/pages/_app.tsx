@@ -3,6 +3,7 @@ import { api } from "~/utils/api";
 import "~/styles/globals.css";
 import { Libre_Baskerville, Source_Sans_3 } from "next/font/google";
 import localFont from "next/font/local";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const scilla = localFont({
   src: [
@@ -46,11 +47,13 @@ const source_sans_3 = Source_Sans_3({
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <div
-      className={`${libre.variable} ${scilla.variable} ${source_sans_3.variable} font-sans`}
-    >
-      <Component {...pageProps} />
-    </div>
+    <ClerkProvider {...pageProps}>
+      <div
+        className={`${libre.variable} ${scilla.variable} ${source_sans_3.variable} font-sans`}
+      >
+        <Component {...pageProps} />
+      </div>
+    </ClerkProvider>
   );
 };
 
