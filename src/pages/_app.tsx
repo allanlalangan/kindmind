@@ -47,13 +47,20 @@ const source_sans_3 = Source_Sans_3({
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <ClerkProvider {...pageProps}>
+    <>
+      <style jsx global>{`
+        html {
+          font-family: ${source_sans_3.style.fontFamily}, sans-serif;
+        }
+      `}</style>
       <div
-        className={`${libre.variable} ${scilla.variable} ${source_sans_3.variable} font-sans`}
+        className={`${libre.variable} ${scilla.variable} ${source_sans_3.variable}`}
       >
-        <Component {...pageProps} />
+        <ClerkProvider {...pageProps}>
+          <Component {...pageProps} />
+        </ClerkProvider>
       </div>
-    </ClerkProvider>
+    </>
   );
 };
 
