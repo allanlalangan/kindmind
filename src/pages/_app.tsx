@@ -67,9 +67,6 @@ const Stars: AppType = ({
   pageProps,
 }: AppProps & AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
-  if (typeof window !== "undefined") {
-    console.log(localStorage);
-  }
   return (
     <>
       <style jsx global>{`
