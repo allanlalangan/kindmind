@@ -6,6 +6,7 @@ import localFont from "next/font/local";
 import { ClerkProvider } from "@clerk/nextjs";
 import { type ReactElement, type ReactNode } from "react";
 import { type NextPage } from "next";
+import { ThemeProvider } from "next-themes";
 
 const scilla = localFont({
   src: [
@@ -66,6 +67,9 @@ const Stars: AppType = ({
   pageProps,
 }: AppProps & AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
+  if (typeof window !== "undefined") {
+    console.log(localStorage);
+  }
   return (
     <>
       <style jsx global>{`
@@ -76,11 +80,13 @@ const Stars: AppType = ({
       <div
         className={`${libre.variable} ${scilla.variable} ${source_sans_3.variable}`}
       >
-        {getLayout(
-          <ClerkProvider {...pageProps}>
-            <Component {...pageProps} />
-          </ClerkProvider>
-        )}
+        <ThemeProvider attribute="class">
+          {getLayout(
+            <ClerkProvider {...pageProps}>
+              <Component {...pageProps} />
+            </ClerkProvider>
+          )}
+        </ThemeProvider>
       </div>
     </>
   );
