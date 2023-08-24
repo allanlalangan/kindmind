@@ -5,6 +5,12 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
+      gridTemplateRows: {
+        "8": "repeat(8, 1fr)",
+        "10": "repeat(10, 1fr)",
+        "12": "repeat(12, 1fr)",
+        "24": "repeat(24, 1fr)",
+      },
       colors: ({ colors }) => ({
         primary: {
           50: "#F5F5FF",
