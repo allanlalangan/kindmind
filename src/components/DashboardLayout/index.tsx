@@ -24,9 +24,9 @@ export default function DashboardLayout({
               <path
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
                 d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
               />
             </svg>
@@ -35,8 +35,8 @@ export default function DashboardLayout({
         </header>
         <aside
           className={`${
-            !navIsOpen ? "" : "-translate-x-full"
-          } fixed row-span-full row-start-1 h-screen w-1/3 bg-light-400 px-4 py-2 transition dark:bg-base-950 lg:static lg:col-start-1 lg:col-end-3 lg:w-full lg:-translate-x-0`}
+            !navIsOpen ? "-translate-x-full" : ""
+          } fixed row-span-full row-start-1 h-screen w-1/2 bg-light-400 px-4 py-2 transition dark:bg-base-950 md:w-1/3 lg:static lg:col-start-1 lg:col-end-3 lg:w-full lg:-translate-x-0`}
         >
           <span className="font-display text-3xl uppercase tracking-wide text-primary-600 dark:text-tertiary-300">
             Stars
@@ -48,9 +48,7 @@ export default function DashboardLayout({
           </ul>
           <button
             onClick={() => setNavIsOpen(!navIsOpen)}
-            className={`${
-              navIsOpen ? "hidden" : ""
-            } absolute -right-10 top-1 p-2 text-primary-400 dark:text-tertiary-300 lg:hidden`}
+            className={`absolute right-0 top-1 p-2 text-primary-600 dark:text-tertiary-300 lg:hidden`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -60,9 +58,9 @@ export default function DashboardLayout({
             >
               <path
                 fill="currentColor"
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12L5.47 6.53a.75.75 0 0 1 0-1.06Z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               />
             </svg>
           </button>
