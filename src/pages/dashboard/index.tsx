@@ -5,9 +5,7 @@ import DashboardLayout from "~/components/DashboardLayout";
 export default function DashboardPage() {
   return (
     <>
-      <Link className="underline underline-offset-4" href="/">
-        Home
-      </Link>
+      <h1 className="font-serif text-xl dark:text-primary-300">Dashboard</h1>
     </>
   );
 }
