@@ -40,6 +40,7 @@ export default function DashboardLayout({
           } fixed row-span-full row-start-1 h-screen w-1/2 bg-light-400 px-4 py-2 transition dark:bg-base-950 md:w-1/3 lg:static lg:col-start-1 lg:col-end-3 lg:w-full lg:-translate-x-0`}
         >
           <Link
+            onClick={() => setNavIsOpen(false)}
             href="/"
             className="font-display text-3xl uppercase tracking-wide text-primary-600 dark:text-tertiary-300"
           >
@@ -48,6 +49,7 @@ export default function DashboardLayout({
           <ul className="mt-4">
             <li>
               <Link
+                onClick={() => setNavIsOpen(false)}
                 href="/dashboard"
                 className="underline-offset-2 hover:text-primary-600 hover:underline dark:hover:text-tertiary-300"
               >
@@ -56,6 +58,7 @@ export default function DashboardLayout({
             </li>
             <li>
               <Link
+                onClick={() => setNavIsOpen(false)}
                 href="/dashboard/journal"
                 className="underline-offset-2 hover:text-primary-600 hover:underline dark:hover:text-tertiary-300"
               >
@@ -64,6 +67,7 @@ export default function DashboardLayout({
             </li>
             <li>
               <Link
+                onClick={() => setNavIsOpen(false)}
                 href="/dashboard/charts"
                 className="underline-offset-2 hover:text-primary-600 hover:underline dark:hover:text-tertiary-300"
               >
