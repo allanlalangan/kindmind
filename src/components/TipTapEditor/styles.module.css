@@ -1,0 +1,104 @@
+.ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+
+.ProseMirror * {
+  margin-bottom: 1rem;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding: 0 1rem;
+}
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  line-height: 1.1;
+  font-weight: 500;
+  @apply text-primary-500;
+}
+.ProseMirror h1 {
+  font-size: 2.5rem;
+}
+.ProseMirror h2 {
+  font-size: 2rem;
+}
+.ProseMirror h3 {
+  font-size: 1.75rem;
+}
+.ProseMirror h4 {
+  font-size: 1.5rem;
+}
+.ProseMirror h5 {
+  font-size: 1.25rem;
+}
+.ProseMirror h6 {
+  font-size: 1rem;
+}
+
+.ProseMirror ul {
+  list-style-type: disc;
+}
+
+.ProseMirror ul ul li {
+  list-style-type: circle;
+}
+
+.ProseMirror ul ul ul li {
+  list-style-type: square;
+}
+
+.ProseMirror ul ul ul ul li {
+  list-style-type: disc;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+}
+
+.ProseMirror ol ol li {
+  list-style-type: upper-roman;
+}
+
+.ProseMirror ol ol ol li {
+  list-style-type: lower-roman;
+}
+
+.ProseMirror ol ol ol ol li {
+  list-style-type: decimal;
+}
+
+.ProseMirror code {
+  background-color: rgba(97, 97, 97, 0.1);
+  color: #616161;
+}
+.ProseMirror pre {
+  @apply bg-base-950 text-accent-300;
+  font-family: "JetBrainsMono", monospace;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 0.5rem;
+}
+.ProseMirror pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: 0.8rem;
+}
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+}
+.ProseMirror blockquote {
+  margin: 1rem 2rem;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(13, 13, 13, 0.1);
+}
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid rgba(13, 13, 13, 0.1);
+  margin: 2rem 0;
+}

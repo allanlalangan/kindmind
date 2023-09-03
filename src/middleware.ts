@@ -4,7 +4,13 @@ import { authMiddleware } from "@clerk/nextjs";
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/nextjs/middleware for more information about configuring your middleware
 export default authMiddleware({
-  publicRoutes: ["/", "/dashboard", "/dashboard/journal", "/dashboard/charts"],
+  publicRoutes: [
+    "/",
+    "/dashboard",
+    "/dashboard/journal",
+    "/dashboard/journal/new",
+    "/dashboard/charts",
+  ],
 });
 
 export const config = {
