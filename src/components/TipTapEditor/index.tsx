@@ -30,20 +30,18 @@ export default function TipTapEditor({
   return (
     <>
       {isEditable && (
-        <section className="-mx-4 pb-2 md:pt-2">
-          <div className="">
-            <input
-              onChange={(e) => setTitleInputValue(e.target.value)}
-              value={titleInputValue}
-              className="w-full rounded-t bg-transparent p-4 font-serif text-4xl outline-none dark:text-primary-500 dark:placeholder:text-primary-500/50"
-              placeholder="Entry Title..."
-              type="text"
-              name="title"
-              id="title"
-            />
+        <section className="pb-2 md:pt-2">
+          <input
+            onChange={(e) => setTitleInputValue(e.target.value)}
+            value={titleInputValue}
+            className="w-full rounded-t bg-transparent py-4 font-serif text-4xl outline-none dark:text-primary-500 dark:placeholder:text-primary-500/50"
+            placeholder="Entry Title..."
+            type="text"
+            name="title"
+            id="title"
+          />
 
-            <TipTapMenuBar editor={editor} />
-          </div>
+          <TipTapMenuBar editor={editor} />
         </section>
       )}
 

@@ -7,7 +7,7 @@ export default function JournalPage() {
     <>
       <h1 className="mb-4 font-serif text-xl dark:text-primary-300">Journal</h1>
       <Link
-        className="col-span-12 row-start-1 flex items-center rounded bg-primary-500 p-4 text-white transition hover:bg-primary-600 active:bg-primary-700"
+        className="col-span-12 row-start-1 flex items-center rounded bg-secondary-400 p-4 text-base-50 transition-colors hover:bg-secondary-500 active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800"
         href="/dashboard/journal/new"
       >
         <span className="mr-2 h-8 w-8">
