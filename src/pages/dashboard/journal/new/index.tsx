@@ -38,7 +38,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     editorProps: {
       attributes: {
         class:
-          "prose border border-primary-400 rounded dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl p-4 pt-6 focus:outline-none",
+          "prose font-serif bg-light-100 dark:bg-base-700 rounded dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl p-4 focus:outline-none",
       },
     },
     content: tempContent,
@@ -60,8 +60,8 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
         &gt;
         <span className="px-1">Create New Entry</span>
       </section>
-      <section className="flex flex-col gap-4 lg:flex-row">
-        <article className="w-full rounded bg-light-200 p-4 dark:bg-base-800 lg:w-1/2">
+      <section className="mx-2 flex flex-col gap-4 pb-4 lg:flex-row">
+        <article className="h-fit w-full rounded bg-light-200 p-4 dark:bg-base-800 lg:w-1/2">
           <h2 className="mb-4 font-serif text-lg text-primary-600 dark:text-tertiary-200">
             Sample Moon Report
           </h2>
@@ -69,17 +69,17 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
           <p className="mb-2">Moon Phase: {moon_phase_report.moon_phase}</p>
           <p className="mb-2">{moon_phase_report.significance} </p>
           <p className="mb-2">{moon_phase_report.report}</p>
-          <button className="mt-4 w-full rounded bg-secondary-400 px-4 pb-2.5 pt-2 text-base-50 transition-colors hover:bg-secondary-500 active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800">
+          <button className="mt-4 w-full rounded bg-accent-600 px-4 pb-2.5 pt-2 text-base-950 transition-colors hover:bg-accent-700 active:bg-accent-800 dark:bg-accent-400 dark:hover:bg-accent-500 dark:active:bg-accent-600">
             Generate Journal Prompts (work in progress)
           </button>
         </article>
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="flex w-full flex-col rounded lg:w-1/2"
+          className="flex w-full flex-col rounded border border-secondary-800 p-4 dark:border-primary-200 lg:w-1/2"
         >
           <button
             type="button"
-            className="col-span-2 rounded border border-primary-400 p-2 transition"
+            className="col-span-2 rounded bg-secondary-400 px-4 pb-2.5 pt-2 text-base-50 transition-colors hover:bg-secondary-500 active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800"
           >
             Submit Entry
           </button>
