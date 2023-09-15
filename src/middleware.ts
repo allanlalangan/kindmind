@@ -10,8 +10,8 @@ export default authMiddleware({
     "/dashboard/journal",
     "/dashboard/journal/new",
     "/dashboard/charts",
-    "/api/webhooks/user",
   ],
+  ignoredRoutes: ["/api/webhooks/user"],
 });
 
 export const config = {
