@@ -1,11 +1,14 @@
 import type { IncomingHttpHeaders } from "http";
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { WebhookRequiredHeaders } from "svix";
+import { Webhook, type WebhookRequiredHeaders } from "svix";
 import type { WebhookEvent } from "@clerk/nextjs/server";
-import { Webhook } from "svix";
 import { prisma } from "~/server/db";
 
 const webhookSecret: string = process.env.WEBHOOK_SECRET!;
+
+type NextApiRequestWithSvixRequiredHeaders = NextApiRequest & {
+  headers: IncomingHttpHeaders & WebhookRequiredHeaders;
+};
 
 export default async function handler(
   req: NextApiRequestWithSvixRequiredHeaders,
@@ -19,7 +22,7 @@ export default async function handler(
   let evt: WebhookEvent;
   try {
     // Verify the webhook payload and headers
-    evt = wh.verify(payload, headers) as WebhookEvent;
+    evt = (await wh.verify(payload, headers)) as WebhookEvent;
   } catch (error) {
     // If the verification fails, return a 400 error
     return res.status(400).json({ msg: error });
@@ -51,7 +54,3 @@ export default async function handler(
     res.status(200).json({});
   }
 }
-
-type NextApiRequestWithSvixRequiredHeaders = NextApiRequest & {
-  headers: IncomingHttpHeaders & WebhookRequiredHeaders;
-};
