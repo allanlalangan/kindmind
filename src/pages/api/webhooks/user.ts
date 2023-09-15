@@ -38,7 +38,17 @@ export default async function handler(
         clerkId: id!,
       },
     });
-    res.json({});
+    res.status(200);
+  }
+
+  if (eventType ==="user.deleted") {
+    await prisma.user.delete({
+      where: {
+        clerkId: id,
+      },
+    });
+    res.status(200)
+    }
   }
 }
 
