@@ -51,6 +51,6 @@ export default async function handler(
     }
   } catch (error) {
     // If the verification fails, return a 400 error
-    return res.status(400).json({ error });
+    return res.status(400).json({ error, payload, headers });
   }
 }
