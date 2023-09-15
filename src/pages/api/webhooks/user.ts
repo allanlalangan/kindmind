@@ -38,7 +38,7 @@ export default async function handler(
         clerkId: id!,
       },
     });
-    res.status(200);
+    res.status(200).json({});
   }
 
   if (eventType === "user.deleted") {
@@ -47,7 +47,7 @@ export default async function handler(
         clerkId: id,
       },
     });
-    res.status(200);
+    res.status(200).json({});
   }
 }
 
