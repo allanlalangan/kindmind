@@ -1,12 +1,14 @@
 import { useState } from "react";
 import ThemeSwitch from "../ThemeSwitch";
 import Link from "next/link";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = useUser();
   const [navIsOpen, setNavIsOpen] = useState(false);
   return (
     <>
@@ -32,7 +34,10 @@ export default function DashboardLayout({
               />
             </svg>
           </button>
-          <ThemeSwitch />
+          <div className="flex items-center justify-center gap-2">
+            {user.isSignedIn && <UserButton />}
+            <ThemeSwitch />
+          </div>
         </header>
         <aside
           className={`${

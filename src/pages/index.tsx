@@ -4,7 +4,6 @@ import {
   SignInButton,
   SignUpButton,
   useUser,
-  UserButton,
 } from "@clerk/nextjs";
 import Link from "next/link";
 import ThemeSwitch from "~/components/ThemeSwitch";
@@ -21,12 +20,15 @@ export default function Home() {
       <ThemeSwitch />
       <main className="pb-8">
         <section className="mb-8 mt-48 flex flex-col justify-center p-4">
-          <h1 className="font-display text-6xl uppercase tracking-wide text-primary-600 dark:text-tertiary-300">
+          <Link
+            href="/"
+            className="w-fit font-display text-6xl uppercase tracking-wide text-primary-600 dark:text-tertiary-300"
+          >
             Stars
-          </h1>
+          </Link>
           <article className="mb-2">
             <p className="mb-2 font-serif text-2xl dark:text-primary-300">
-              the astrology network
+              astrology journal
             </p>
             <p className="mb-2">
               Create natal charts. Track current and upcoming astrological
@@ -59,7 +61,6 @@ export default function Home() {
             )}
             {!!user.isSignedIn && (
               <>
-                <UserButton />
                 <SignOutButton>
                   <button className="w-fit rounded bg-secondary-400 px-4 pb-2.5 pt-2 text-base-50 transition-colors hover:bg-secondary-500 hover:underline active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800">
                     Sign Out

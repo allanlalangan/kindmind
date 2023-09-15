@@ -78,11 +78,9 @@ const Stars: AppType = ({
         className={`${libre.variable} ${scilla.variable} ${source_sans_3.variable}`}
       >
         <ThemeProvider attribute="class">
-          {getLayout(
-            <ClerkProvider {...pageProps}>
-              <Component {...pageProps} />
-            </ClerkProvider>
-          )}
+          <ClerkProvider {...pageProps}>
+            {getLayout(<Component {...pageProps} />)}
+          </ClerkProvider>
         </ThemeProvider>
       </div>
     </>
