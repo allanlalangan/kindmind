@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import type { WebhookRequiredHeaders } from "svix";
 import type { WebhookEvent } from "@clerk/nextjs/server";
 import { Webhook } from "svix";
+import { buffer } from "micro";
 import { prisma } from "~/server/db";
 
 const webhookSecret: string = process.env.WEBHOOK_SECRET!;
@@ -11,7 +12,7 @@ export default async function handler(
   req: NextApiRequestWithSvixRequiredHeaders,
   res: NextApiResponse
 ) {
-  const payload = JSON.stringify(req.body);
+  const payload = (await buffer(req)).toString();
   const headers = req.headers;
   // Create a new Webhook instance with your webhook secret
   const wh = new Webhook(webhookSecret);
