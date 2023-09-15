@@ -38,7 +38,7 @@ export default async function handler(
         clerkId: id!,
       },
     });
-    res.status(201).json({});
+    res.json({});
   }
 }
 
