@@ -24,17 +24,17 @@ export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
-interface StarsProps {
+interface MyAppProps {
   Component: {
     getLayout?: (page: ReactElement) => ReactNode;
   };
 }
 
-type AppPropsWithLayout = StarsProps & {
+type AppPropsWithLayout = MyAppProps & {
   Component: NextPageWithLayout;
 };
 
-const Stars: AppType = ({
+const App: AppType = ({
   Component,
   pageProps,
 }: AppProps & AppPropsWithLayout) => {
@@ -59,4 +59,4 @@ const Stars: AppType = ({
   );
 };
 
-export default api.withTRPC(Stars);
+export default api.withTRPC(App);
