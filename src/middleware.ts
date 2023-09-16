@@ -9,6 +9,7 @@ export default authMiddleware({
     "/dashboard",
     "/dashboard/journal",
     "/dashboard/journal/new",
+    "/api/trpc/entries.getGuestEntries",
   ],
   ignoredRoutes: ["/api/webhooks/user"],
 });
