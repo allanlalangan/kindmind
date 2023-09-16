@@ -1,8 +1,28 @@
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { type ReactElement } from "react";
+import { api } from "~/utils/api";
 import DashboardLayout from "~/components/DashboardLayout";
 
 export default function JournalPage() {
+  const user = useUser();
+
+  let getAllEntriesQuery;
+
+  if (!user.isSignedIn) {
+    getAllEntriesQuery = api.entries.getGuestEntries.useQuery(undefined, {
+      onSuccess: (data) => {
+        console.log("success", data);
+      },
+    });
+  } else {
+    getAllEntriesQuery = api.entries.getAll.useQuery(undefined, {
+      onSuccess: (data) => {
+        console.log("success", data);
+      },
+    });
+  }
+
   return (
     <>
       <h1 className="mb-4 font-dm text-xl dark:text-primary-300">Journal</h1>
