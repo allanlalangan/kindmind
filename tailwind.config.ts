@@ -81,9 +81,8 @@ export default {
         neutral: colors.zinc,
       }),
       fontFamily: {
-        display: ["var(--font-scilla)"],
-        serif: ["var(--font-libre)"],
-        sans: ["var(--font-source)"],
+        dm: ["var(--font-dm-sans)"],
+        source: ["var(--font-source)"],
       },
     },
   },
