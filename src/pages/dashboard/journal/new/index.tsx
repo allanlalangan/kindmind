@@ -31,7 +31,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     editorProps: {
       attributes: {
         class:
-          "prose font-serif bg-light-100 dark:bg-base-700 rounded dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl p-4 focus:outline-none",
+          "prose font-dm bg-light-100 dark:bg-base-700 rounded dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl p-4 focus:outline-none",
       },
     },
     content: tempContent,
@@ -50,7 +50,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <section className="mb-4 flex items-baseline font-serif dark:text-primary-300">
+      <section className="mb-4 flex items-baseline font-dm dark:text-primary-300">
         <Link
           className="pr-1 text-xl underline-offset-2 hover:underline"
           href="/dashboard/journal"
@@ -86,7 +86,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
         />
         <button
           type="submit"
-          className="col-span-2 rounded bg-secondary-400 px-4 pb-2.5 pt-2 text-lg text-base-50 transition-colors hover:bg-secondary-500 active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800"
+          className="rounded bg-secondary-400 px-4 pb-2.5 pt-2 font-dm text-lg tracking-wide text-base-50 transition-colors hover:bg-secondary-500 active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800"
         >
           Save Entry
         </button>
