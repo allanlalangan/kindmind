@@ -34,7 +34,7 @@ export default function TipTapEditor({
           <input
             onChange={(e) => setTitleInputValue(e.target.value)}
             value={titleInputValue}
-            className="w-full rounded-t bg-transparent py-4 font-serif text-4xl outline-none dark:text-primary-500 dark:placeholder:text-primary-500/50"
+            className="mb-2 w-full rounded-t bg-transparent font-serif text-4xl text-primary-500 outline-none placeholder:text-primary-500/50 dark:text-tertiary-300 dark:placeholder:text-tertiary-200/50"
             placeholder="Entry Title..."
             type="text"
             name="title"

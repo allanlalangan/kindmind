@@ -99,7 +99,7 @@ export default function DashboardLayout({
             </svg>
           </button>
         </aside>
-        <main className="col-span-12 row-span-full row-start-2 flex flex-col p-4 lg:col-start-3 lg:col-end-13">
+        <main className="col-span-12 row-span-full row-start-2 flex flex-col overflow-y-scroll p-4 lg:col-start-3 lg:col-end-13">
           {children}
         </main>
       </div>

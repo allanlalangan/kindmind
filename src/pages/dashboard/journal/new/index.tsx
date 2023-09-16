@@ -72,15 +72,8 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
 
       <form
         onSubmit={onSubmit}
-        className="flex w-full flex-col rounded border border-secondary-800 p-4 dark:border-primary-200"
+        className="flex w-full flex-col rounded border border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-800"
       >
-        <button
-          type="submit"
-          className="col-span-2 rounded bg-secondary-400 px-4 pb-2.5 pt-2 text-base-50 transition-colors hover:bg-secondary-500 active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800"
-        >
-          Submit Entry
-        </button>
-
         <TipTapEditor
           editor={editor}
           modalIsOpen={modalIsOpen}
@@ -91,6 +84,12 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
           setTitleInputValue={setTitleInputValue}
           isEditable={true}
         />
+        <button
+          type="submit"
+          className="col-span-2 rounded bg-secondary-400 px-4 pb-2.5 pt-2 text-lg text-base-50 transition-colors hover:bg-secondary-500 active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800"
+        >
+          Save Entry
+        </button>
       </form>
     </>
   );
