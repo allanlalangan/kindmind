@@ -29,5 +29,5 @@ export default function JournalPage() {
 }
 
 JournalPage.getLayout = function getLayout(page: ReactElement) {
-  return <DashboardLayout>{page}</DashboardLayout>;
+  return <DashboardLayout pageTitle="Journal">{page}</DashboardLayout>;
 };

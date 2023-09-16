@@ -2,16 +2,23 @@ import { useState } from "react";
 import ThemeSwitch from "../ThemeSwitch";
 import Link from "next/link";
 import { UserButton, useUser } from "@clerk/nextjs";
+import Head from "next/head";
 
 export default function DashboardLayout({
   children,
+  pageTitle,
 }: {
   children: React.ReactNode;
+  pageTitle?: string;
 }) {
   const user = useUser();
   const [navIsOpen, setNavIsOpen] = useState(false);
   return (
     <>
+      <Head>
+        <title>{`kindMind | ${pageTitle}`}</title>
+        <meta name="description" content="Journal + Mood & Habit Tracker App" />
+      </Head>
       <div className="grid h-screen grid-cols-12 grid-rows-24">
         <header className="col-span-12 flex h-full items-center justify-between border-b border-light-500 bg-light-300 px-4 py-2 transition dark:border-b dark:border-base-800 dark:bg-base-900 lg:col-start-3 lg:col-end-13 lg:justify-end">
           <button

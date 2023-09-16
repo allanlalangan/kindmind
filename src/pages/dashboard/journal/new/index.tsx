@@ -96,7 +96,11 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
 };
 
 CreateJournalEntryPage.getLayout = function getLayout(page) {
-  return <DashboardLayout>{page}</DashboardLayout>;
+  return (
+    <DashboardLayout pageTitle="Create New Journal Entry">
+      {page}
+    </DashboardLayout>
+  );
 };
 
 export default CreateJournalEntryPage;

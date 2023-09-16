@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { type ReactElement } from "react";
 import DashboardLayout from "~/components/DashboardLayout";
 
@@ -11,5 +10,5 @@ export default function DashboardPage() {
 }
 
 DashboardPage.getLayout = function getLayout(page: ReactElement) {
-  return <DashboardLayout>{page}</DashboardLayout>;
+  return <DashboardLayout pageTitle="Dashboard">{page}</DashboardLayout>;
 };
