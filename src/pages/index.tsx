@@ -1,5 +1,10 @@
 import Head from "next/head";
-import { SignOutButton, SignUpButton, useUser } from "@clerk/nextjs";
+import {
+  SignOutButton,
+  SignUpButton,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 import Link from "next/link";
 import ThemeSwitch from "~/components/ThemeSwitch";
 
@@ -11,8 +16,11 @@ export default function Home() {
         <title>kindMind | Journal + Mood & Habit Tracker</title>
         <meta name="description" content="Journal + Mood & Habit Tracker App" />
       </Head>
-      <header className="absolute col-span-12 flex w-full items-center justify-between border-b border-light-500 bg-light-300 px-4 py-2 transition dark:border-b dark:border-base-800 dark:bg-base-900 lg:justify-end">
-        <ThemeSwitch />
+      <header className="absolute col-span-12 flex w-full items-center justify-end border-b border-light-500 bg-light-300 px-4 py-2 transition dark:border-b dark:border-base-800 dark:bg-base-900">
+        <div className="flex items-center justify-center gap-2">
+          {user.isSignedIn && <UserButton />}
+          <ThemeSwitch />
+        </div>
       </header>
       <main className="flex min-h-screen flex-col justify-center justify-items-center">
         <section className="flex h-full flex-col justify-center px-4">
