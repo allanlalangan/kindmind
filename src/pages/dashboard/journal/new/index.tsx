@@ -2,12 +2,15 @@ import { useUser } from "@clerk/nextjs";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import DashboardLayout from "~/components/DashboardLayout";
 import TipTapEditor from "~/components/TipTapEditor";
 import { type NextPageWithLayout } from "~/pages/_app";
+import { api } from "~/utils/api";
 
 const CreateJournalEntryPage: NextPageWithLayout = () => {
+  const router = useRouter();
   const user = useUser();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -41,11 +44,33 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     },
   });
 
+  let createEntry;
+
+  if (!user.isSignedIn) {
+    createEntry = api.entries.createGuestEntry.useMutation({
+      onSuccess: () => {
+        console.log("success");
+        void router.push("/dashboard/journal");
+      },
+    });
+  } else {
+    createEntry = api.entries.createEntry.useMutation({
+      onSuccess: () => {
+        console.log("success");
+        void router.push("/dashboard/journal");
+      },
+    });
+  }
+
+  const { mutate } = createEntry;
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(user.user?.id);
-    console.log(titleInputValue);
-    console.log(tempContent);
+    if (tempContent === "" || titleInputValue === "") return;
+    mutate({
+      title: titleInputValue,
+      content: tempContent,
+    });
   };
 
   return (
