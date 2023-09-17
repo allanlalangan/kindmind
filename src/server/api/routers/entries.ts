@@ -30,4 +30,33 @@ export const entriesRouter = createTRPCRouter({
       },
     });
   }),
+
+  createGuestEntry: publicProcedure
+    .input(z.object({ content: z.string(), title: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.journalEntry.create({
+        data: {
+          content: input.content,
+          title: input.title,
+        },
+      });
+    }),
+
+  createEntry: protectedProcedure
+    .input(z.object({ content: z.string(), title: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          clerkId: ctx.auth?.userId,
+        },
+      });
+
+      return ctx.prisma.journalEntry.create({
+        data: {
+          content: input.content,
+          title: input.title,
+          userId: user?.id,
+        },
+      });
+    }),
 });
