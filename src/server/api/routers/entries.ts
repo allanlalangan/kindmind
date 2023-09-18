@@ -20,6 +20,12 @@ export const entriesRouter = createTRPCRouter({
       where: {
         userId: user?.id,
       },
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+      },
+      orderBy: { createdAt: "desc" },
     });
   }),
 
@@ -28,6 +34,12 @@ export const entriesRouter = createTRPCRouter({
       where: {
         userId: null,
       },
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+      },
+      orderBy: { createdAt: "desc" },
     });
   }),
 
