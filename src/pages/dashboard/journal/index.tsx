@@ -64,7 +64,7 @@ export default function JournalPage() {
                 key={entry.id}
                 className="flex items-center justify-between rounded bg-light-300 p-4 dark:bg-base-700"
               >
-                <Link href="#">
+                <Link href={`/dashboard/journal/${entry.id}`}>
                   <h3 className="text-2xl text-secondary-400 dark:text-primary-500">
                     {entry.title}
                   </h3>
