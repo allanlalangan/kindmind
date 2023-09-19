@@ -13,7 +13,7 @@ export default function EntryPage() {
       <section className="mb-4 flex items-baseline font-dm dark:text-primary-300">
         <Link
           className="pr-1 text-xl underline-offset-2 hover:underline"
-          href="/dashboard/journal"
+          href="/journal"
         >
           Journal
         </Link>

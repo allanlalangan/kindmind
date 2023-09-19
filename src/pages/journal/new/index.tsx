@@ -50,14 +50,14 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     createEntry = api.entries.createGuestEntry.useMutation({
       onSuccess: () => {
         console.log("success");
-        void router.push("/dashboard/journal");
+        void router.push("/journal");
       },
     });
   } else {
     createEntry = api.entries.createEntry.useMutation({
       onSuccess: () => {
         console.log("success");
-        void router.push("/dashboard/journal");
+        void router.push("/journal");
       },
     });
   }
@@ -78,7 +78,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
       <section className="mb-4 flex items-baseline font-dm dark:text-primary-300">
         <Link
           className="pr-1 text-xl underline-offset-2 hover:underline"
-          href="/dashboard/journal"
+          href="/journal"
         >
           Journal
         </Link>

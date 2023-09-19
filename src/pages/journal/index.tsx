@@ -40,7 +40,7 @@ export default function JournalPage() {
           </h2>
           <Link
             className="flex h-fit items-center justify-center gap-1 rounded bg-secondary-400 p-4 text-base-50 transition-colors hover:bg-secondary-500 active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800 lg:w-fit"
-            href="/dashboard/journal/new"
+            href="/journal/new"
           >
             <span className="h-6 w-6">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 1 26 30">
@@ -64,7 +64,7 @@ export default function JournalPage() {
                 key={entry.id}
                 className="flex items-center justify-between rounded bg-light-300 p-4 dark:bg-base-700"
               >
-                <Link href={`/dashboard/journal/${entry.id}`}>
+                <Link href={`/journal/${entry.id}`}>
                   <h3 className="text-2xl text-secondary-400 dark:text-primary-500">
                     {entry.title}
                   </h3>

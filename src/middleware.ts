@@ -7,9 +7,9 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/dashboard",
-    "/dashboard/journal",
-    "/dashboard/journal/(.*)",
-    "/dashboard/journal/new",
+    "/journal",
+    "/journal/(.*)",
+    "/journal/new",
     "/api/trpc/entries.getGuestEntries",
     "/api/trpc/entries.createGuestEntry",
   ],

@@ -71,7 +71,7 @@ export default function DashboardLayout({
             <li>
               <Link
                 onClick={() => setNavIsOpen(false)}
-                href="/dashboard/journal"
+                href="/journal"
                 className="underline-offset-2 hover:text-primary-600 hover:underline dark:hover:text-tertiary-300"
               >
                 Journal
