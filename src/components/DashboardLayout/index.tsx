@@ -20,7 +20,7 @@ export default function DashboardLayout({
         <meta name="description" content="Journal + Mood & Habit Tracker App" />
       </Head>
       <div className="grid h-screen grid-cols-12 grid-rows-24">
-        <header className="col-span-12 flex h-full items-center justify-between border-b border-light-500 bg-light-300 px-4 py-2 transition dark:border-b dark:border-base-800 dark:bg-base-900 lg:col-start-3 lg:col-end-13 lg:justify-end">
+        <header className="col-span-12 flex h-full items-center justify-between border-b border-light-500 bg-light-300 px-4 py-2 transition dark:border-base-800 dark:bg-base-900 lg:col-start-3 lg:col-end-13 lg:justify-end">
           <button
             onClick={() => setNavIsOpen(!navIsOpen)}
             className="rounded-lg border border-primary-400 bg-light-300 p-1 text-primary-500 transition-colors hover:border-primary-500 hover:bg-light-400 active:border-primary-600 active:bg-light-500 dark:border-tertiary-200 dark:bg-base-900 dark:text-tertiary-300 dark:hover:border-tertiary-300 dark:hover:bg-base-800 dark:active:border-tertiary-400 dark:active:bg-base-900 lg:hidden"
@@ -97,7 +97,7 @@ export default function DashboardLayout({
             </svg>
           </button>
         </aside>
-        <main className="col-span-12 row-span-full row-start-2 flex flex-col p-4 lg:col-start-3 lg:col-end-13">
+        <main className="col-span-12 row-span-full row-start-2 flex flex-col lg:col-start-3 lg:col-end-13">
           {children}
         </main>
       </div>
