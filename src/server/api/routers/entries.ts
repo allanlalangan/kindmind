@@ -72,6 +72,32 @@ export const entriesRouter = createTRPCRouter({
       });
     }),
 
+  getEntry: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          clerkId: ctx.auth?.userId,
+        },
+      });
+      return ctx.prisma.journalEntry.findUnique({
+        where: {
+          userId: user?.id,
+          id: input.id,
+        },
+      });
+    }),
+
+  getGuestEntry: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.journalEntry.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
+
   deleteEntry: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
