@@ -1,10 +1,10 @@
 import { useUser } from "@clerk/nextjs";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import DashboardLayout from "~/components/DashboardLayout";
+import JournalLayout from "~/components/JournalLayout";
 import TipTapEditor from "~/components/TipTapEditor";
 import { type NextPageWithLayout } from "~/pages/_app";
 import { api } from "~/utils/api";
@@ -75,29 +75,9 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <section className="mb-4 flex items-baseline font-dm dark:text-primary-300">
-        <Link
-          className="pr-1 text-xl underline-offset-2 hover:underline"
-          href="/journal"
-        >
-          Journal
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-3.5 w-3.5"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="currentColor"
-            d="M8.025 22L6.25 20.225L14.475 12L6.25 3.775L8.025 2l10 10l-10 10Z"
-          />
-        </svg>
-        <span className="px-1">New Entry</span>
-      </section>
-
       <form
         onSubmit={onSubmit}
-        className="flex w-full flex-col rounded border border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-800"
+        className="flex w-full flex-col border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-800"
       >
         <TipTapEditor
           editor={editor}
@@ -123,7 +103,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
 CreateJournalEntryPage.getLayout = function getLayout(page) {
   return (
     <DashboardLayout pageTitle="Create New Journal Entry">
-      {page}
+      <JournalLayout>{page}</JournalLayout>
     </DashboardLayout>
   );
 };
