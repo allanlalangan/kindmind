@@ -32,7 +32,7 @@ export default function JournalLayout({
   } = getAllEntriesQuery;
   return (
     <>
-      <div className="border-b border-light-500 p-4 font-dm text-2xl dark:border-base-800 dark:text-primary-300">
+      <div className="border-b border-light-500 p-4 font-dm text-2xl dark:border-base-800">
         <Link className="underline-offset-2 hover:underline" href="/journal">
           Journal
         </Link>
@@ -40,16 +40,14 @@ export default function JournalLayout({
       <div className="flex h-full flex-col lg:flex-row">
         <section className="flex h-[50vh] w-full flex-col justify-start border-light-500 dark:border-base-800 lg:h-auto lg:w-1/2 lg:border-r xl:w-1/3">
           <div className="flex w-full items-center justify-between p-4">
-            <h2 className="font-dm text-xl text-primary-600 dark:text-tertiary-300">
-              Recent Entries
-            </h2>
+            <h2 className="font-dm text-xl">Recent Entries</h2>
             <Link
-              className="flex h-fit items-center justify-center gap-1 rounded-md border-primary-400 bg-light-300 p-1 transition-colors hover:border-primary-500 hover:bg-light-200 active:border-primary-600 active:bg-light-500 dark:border-tertiary-200 dark:bg-base-900 dark:hover:border-tertiary-300 dark:hover:bg-base-800 dark:active:border-tertiary-400 dark:active:bg-base-900 lg:w-fit"
+              className="flex h-fit items-center justify-center gap-1 rounded-md bg-light-300 p-1 transition-colors hover:bg-light-200 active:bg-light-500 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900 lg:w-fit"
               href="/journal/new"
             >
               <span className="h-7 w-7">
                 <svg
-                  className="text-primary-500 dark:text-tertiary-300"
+                  className=""
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                 >
@@ -88,9 +86,7 @@ export default function JournalLayout({
                         })}
                       </span>
                     </div>
-                    <h3 className="text-lg text-secondary-400 dark:text-primary-500">
-                      {entry.title}
-                    </h3>
+                    <h3 className="text-lg">{entry.title}</h3>
                   </Link>
                 </li>
               ))}

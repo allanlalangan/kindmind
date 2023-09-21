@@ -24,14 +24,11 @@ export default function Home() {
       </header>
       <main className="flex min-h-screen flex-col justify-center justify-items-center">
         <section className="flex h-full flex-col justify-center px-4">
-          <Link
-            href="/"
-            className="w-fit font-dm text-6xl tracking-wide text-primary-600 dark:text-tertiary-300"
-          >
+          <Link href="/" className="w-fit font-dm text-6xl tracking-wide">
             kindMind
           </Link>
 
-          <p className="mb-2 font-dm text-2xl dark:text-primary-300">
+          <p className="mb-2 font-dm text-2xl">
             journal + mood & habit tracker
           </p>
         </section>
@@ -39,7 +36,7 @@ export default function Home() {
           {!user.isSignedIn && (
             <>
               <SignUpButton mode="modal">
-                <button className="w-fit rounded bg-secondary-400 px-4 pb-2.5 pt-2 text-base-50 transition-colors hover:bg-secondary-500 hover:underline active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800">
+                <button className="w-fit rounded bg-base-800 px-4 pb-2.5 pt-2 text-base-50 hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300">
                   Get Started
                 </button>
               </SignUpButton>
@@ -48,14 +45,14 @@ export default function Home() {
           {!!user.isSignedIn && (
             <>
               <SignOutButton>
-                <button className="w-fit rounded bg-secondary-400 px-4 pb-2.5 pt-2 text-base-50 transition-colors hover:bg-secondary-500 hover:underline active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800">
+                <button className="w-fit rounded bg-base-800 px-4 pb-2.5 pt-2 text-base-50 hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300">
                   Sign Out
                 </button>
               </SignOutButton>
             </>
           )}
           <Link
-            className="w-fit rounded bg-secondary-400 px-4 pb-2.5 pt-2 text-base-50 transition-colors hover:bg-secondary-500 hover:underline active:bg-secondary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:active:bg-primary-800"
+            className="w-fit rounded bg-base-800 px-4 pb-2.5 pt-2 text-base-50 hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
             href="/dashboard"
           >
             Dashboard

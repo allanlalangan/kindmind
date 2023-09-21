@@ -4,7 +4,7 @@ import DashboardLayout from "~/components/DashboardLayout";
 export default function DashboardPage() {
   return (
     <>
-      <h1 className="p-4 font-dm text-2xl dark:text-primary-300">Dashboard</h1>
+      <h1 className="p-4 font-dm text-2xl">Dashboard</h1>
     </>
   );
 }
