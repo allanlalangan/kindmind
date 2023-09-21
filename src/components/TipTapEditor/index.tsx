@@ -29,23 +29,25 @@ export default function TipTapEditor({
   }, [editor, isEditable]);
   return (
     <>
-      {isEditable && (
-        <section className="pb-2 md:pt-2">
-          <input
-            onChange={(e) => setTitleInputValue(e.target.value)}
-            value={titleInputValue}
-            className="mb-2 w-full rounded-t bg-transparent font-dm text-4xl text-primary-500 outline-none placeholder:text-primary-500/50 dark:text-tertiary-300 dark:placeholder:text-tertiary-200/50"
-            placeholder="Entry Title..."
-            type="text"
-            name="title"
-            id="title"
-          />
+      <section className="">
+        {isEditable && (
+          <>
+            <input
+              onChange={(e) => setTitleInputValue(e.target.value)}
+              value={titleInputValue}
+              className="mb-2 w-full rounded-t bg-transparent font-dm text-4xl outline-none"
+              placeholder="Entry Title..."
+              type="text"
+              name="title"
+              id="title"
+            />
 
-          <TipTapMenuBar editor={editor} />
-        </section>
-      )}
+            <TipTapMenuBar editor={editor} />
+          </>
+        )}
 
-      <EditorContent className={styles.ProseMirror} editor={editor} />
+        <EditorContent className={styles.ProseMirror} editor={editor} />
+      </section>
     </>
   );
 }
