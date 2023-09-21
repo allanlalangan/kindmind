@@ -80,22 +80,45 @@ export const entriesRouter = createTRPCRouter({
           clerkId: ctx.auth?.userId,
         },
       });
-      return ctx.prisma.journalEntry.findUnique({
-        where: {
-          userId: user?.id,
-          id: input.id,
-        },
-      });
+
+      try {
+        const journalEntry = await ctx.prisma.journalEntry.findUnique({
+          where: {
+            userId: user?.id,
+            id: input.id,
+          },
+        });
+
+        if (!journalEntry) {
+          // If no journal entry is found, throw a custom error
+          throw new Error("Journal entry not found");
+        }
+
+        return journalEntry;
+      } catch (error) {
+        throw error;
+      }
     }),
 
   getGuestEntry: publicProcedure
     .input(z.object({ id: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.journalEntry.findUnique({
-        where: {
-          id: input.id,
-        },
-      });
+    .query(async ({ ctx, input }) => {
+      try {
+        const journalEntry = await ctx.prisma.journalEntry.findUnique({
+          where: {
+            id: input.id,
+          },
+        });
+
+        if (!journalEntry) {
+          // If no journal entry is found, throw a custom error
+          throw new Error("Journal entry not found");
+        }
+
+        return journalEntry;
+      } catch (error) {
+        throw error;
+      }
     }),
 
   deleteEntry: protectedProcedure
