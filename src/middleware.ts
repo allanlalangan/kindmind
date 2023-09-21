@@ -7,9 +7,13 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/dashboard",
-    "/dashboard/journal",
-    "/dashboard/journal/new",
+    "/journal",
+    "/journal/(.*)",
+    "/journal/new",
     "/api/trpc/entries.getGuestEntries",
+    "/api/trpc/entries.getGuestEntry",
+    "/api/trpc/entries.createGuestEntry",
+    "/api/trpc/entries.deleteGuestEntry",
   ],
   ignoredRoutes: ["/api/webhooks/user"],
 });

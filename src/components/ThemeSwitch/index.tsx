@@ -6,10 +6,10 @@ export default function ThemeSwitch() {
   return (
     <button
       onClick={() => (theme == "dark" ? setTheme("light") : setTheme("dark"))}
-      className="relative flex w-fit items-center justify-between rounded-lg border border-primary-400 bg-light-300 p-1 transition-colors hover:border-primary-500 hover:bg-light-400 active:border-primary-600 active:bg-light-500 dark:border-tertiary-200 dark:bg-base-900 dark:hover:border-tertiary-300 dark:hover:bg-base-800 dark:active:border-tertiary-400 dark:active:bg-base-900"
+      className="relative flex w-fit items-center justify-between rounded-lg border border-base-950 bg-light-300 p-1 transition-colors hover:bg-light-400 active:bg-light-500 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900"
     >
       <svg
-        className="scale-100 text-primary-500 transition-transform dark:scale-0"
+        className="scale-100 text-base-950 transition-transform dark:scale-0"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -21,7 +21,7 @@ export default function ThemeSwitch() {
         />
       </svg>
       <svg
-        className="absolute scale-0 text-tertiary-300 transition-transform dark:scale-100"
+        className="absolute scale-0 text-base-50 transition-transform dark:scale-100"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
