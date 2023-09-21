@@ -74,21 +74,31 @@ export default function JournalLayout({
                 >
                   <Link
                     href={`/journal/${entry.id}`}
-                    className="w-full p-4 transition hover:bg-light-200 hover:dark:bg-base-800"
+                    className="flex w-full items-center gap-2 p-4 transition hover:bg-light-200 hover:dark:bg-base-800"
                   >
+                    <div className="flex flex-col items-center justify-center rounded border border-base-950 px-4 py-2 uppercase dark:border-base-50">
+                      <span className="">
+                        {entry.createdAt.toLocaleString("default", {
+                          month: "short",
+                        })}
+                      </span>
+                      <span className="">
+                        {entry.createdAt.toLocaleString("default", {
+                          day: "numeric",
+                        })}
+                      </span>
+                    </div>
                     <h3 className="text-lg text-secondary-400 dark:text-primary-500">
                       {entry.title}
                     </h3>
-                    <p>{entry.createdAt.toLocaleDateString()}</p>
                   </Link>
                 </li>
               ))}
             </ul>
           )}
         </section>
-        <section className="border-t border-light-500 dark:border-base-800 lg:w-1/2 lg:border-none xl:w-2/3">
-          {children}
-        </section>
+
+        {children}
       </div>
     </>
   );

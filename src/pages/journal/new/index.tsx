@@ -50,14 +50,14 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     createEntry = api.entries.createGuestEntry.useMutation({
       onSuccess: () => {
         console.log("success");
-        void router.push("/journal");
+        void router.push("/journal").then(router.reload);
       },
     });
   } else {
     createEntry = api.entries.createEntry.useMutation({
       onSuccess: () => {
         console.log("success");
-        void router.push("/journal");
+        void router.push("/journal").then(router.reload);
       },
     });
   }
@@ -77,7 +77,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     <>
       <form
         onSubmit={onSubmit}
-        className="flex w-full flex-col border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-800"
+        className="flex w-full flex-col border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-800 xl:w-2/3"
       >
         <TipTapEditor
           editor={editor}
