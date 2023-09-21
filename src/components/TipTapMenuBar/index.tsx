@@ -13,6 +13,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
     <section className="flex flex-wrap items-center justify-between rounded-t border-x border-t border-light-500 p-2 dark:border-base-600">
       <div className="flex flex-wrap items-center gap-1 p-1">
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editor.can().chain().focus().toggleBold().run()}
           className={`h-8 w-8 rounded border p-1 transition ${
@@ -29,6 +30,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleItalic().run()}
           disabled={!editor.can().chain().focus().toggleItalic().run()}
           className={`h-8 w-8 rounded border p-1 transition ${
@@ -45,6 +47,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleStrike().run()}
           disabled={!editor.can().chain().focus().toggleStrike().run()}
           className={`h-8 w-8 rounded border p-1 transition ${
@@ -60,7 +63,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
             />
           </svg>
         </button>
-        {/* <button
+        {/* <button type="button"
           onClick={() => editor.chain().focus().setParagraph().run()}
           className={`h-8 w-8 rounded border p-1 transition ${
             editor.isActive("paragraph")
@@ -76,6 +79,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button> */}
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 1 }).run()
           }
@@ -93,6 +97,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button>
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 2 }).run()
           }
@@ -110,6 +115,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button>
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 3 }).run()
           }
@@ -127,6 +133,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button>
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 4 }).run()
           }
@@ -144,6 +151,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={`h-8 w-8 rounded border p-1 transition ${
             editor.isActive("bulletList")
@@ -159,6 +167,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={`h-8 w-8 rounded border p-1 transition ${
             editor.isActive("orderedList")
@@ -173,7 +182,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
             />
           </svg>
         </button>
-        {/* <button
+        {/* <button type="button"
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={`h-8 w-8 rounded border p-1 transition ${
             editor.isActive("codeBlock")
@@ -189,6 +198,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button> */}
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={`h-8 w-8 rounded border p-1 transition ${
             editor.isActive("blockquote")
@@ -205,7 +215,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
         </button>
       </div>
       <div className="flex items-center gap-1 p-1">
-        {/* <button
+        {/* <button type="button"
           className="h-8 w-8 rounded border border-base-950 p-1 dark:border-base-50 dark:text-base-50 dark:hover:bg-base-700 dark:active:bg-base-900"
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
         >
@@ -214,6 +224,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button> */}
         <button
+          type="button"
           className="h-8 w-8 rounded border border-base-950 p-1 hover:bg-light-300 active:bg-light-400 disabled:border-light-500 disabled:text-base-950/25 disabled:hover:bg-inherit dark:border-base-50 dark:text-base-50 dark:hover:bg-base-700 dark:active:bg-base-900 disabled:dark:border-base-700 disabled:dark:text-base-50/25 disabled:dark:hover:bg-inherit"
           onClick={() => editor.chain().focus().undo().run()}
           disabled={!editor.can().chain().focus().undo().run()}
@@ -226,6 +237,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button>
         <button
+          type="button"
           className="h-8 w-8 rounded border border-base-950 p-1 hover:bg-light-300 active:bg-light-400 disabled:border-light-500 disabled:text-base-950/25 disabled:hover:bg-inherit dark:border-base-50 dark:text-base-50 dark:hover:bg-base-700 dark:active:bg-base-900 disabled:dark:border-base-700 disabled:dark:text-base-50/25 disabled:dark:hover:bg-inherit"
           onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run()}

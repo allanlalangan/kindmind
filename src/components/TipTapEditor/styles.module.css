@@ -43,6 +43,15 @@
   list-style-type: disc;
 }
 
+.ProseMirror ol {
+  list-style-type: decimal;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 2rem;
+}
+
 .ProseMirror ul ul li {
   list-style-type: circle;
 }
@@ -53,10 +62,6 @@
 
 .ProseMirror ul ul ul ul li {
   list-style-type: disc;
-}
-
-.ProseMirror ol {
-  list-style-type: decimal;
 }
 
 .ProseMirror ol ol li {
