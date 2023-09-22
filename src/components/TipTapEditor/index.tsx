@@ -7,8 +7,6 @@ import { useEffect } from "react";
 interface TipTapEditorProps {
   editor: Editor | null;
   refetchEntry?: () => void;
-  modalIsOpen: boolean;
-  setModalIsOpen: (value: boolean) => void;
   content?: string;
   tempContent?: string;
   setTempContent?: (value: string) => void;

@@ -1,25 +1,50 @@
 import { useUser } from "@clerk/nextjs";
+import { useEditor } from "@tiptap/react";
 import { useRouter } from "next/router";
 import { useState, type ReactElement } from "react";
 
 import DashboardLayout from "~/components/DashboardLayout";
 import JournalLayout from "~/components/JournalLayout";
 import { api } from "~/utils/api";
-
-interface entry {
-  content: string;
-  createdAt: Date;
-  id: string;
-  title: string;
-  updatedAt: Date;
-  userId: null | string;
-}
+import StarterKit from "@tiptap/starter-kit";
+import TipTapEditor from "~/components/TipTapEditor";
 
 export default function EntryPage() {
   const user = useUser();
   const router = useRouter();
   const { id } = router.query;
   const [error, setError] = useState<string | false>(false);
+
+  const [isEditable, setIsEditable] = useState(false);
+  const [titleInputValue, setTitleInputValue] = useState("");
+  const [content, setContent] = useState<string | null>(null);
+  const [tempContent, setTempContent] = useState(content);
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit.configure({
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+        },
+        orderedList: {
+          keepMarks: true,
+          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+        },
+      }),
+    ],
+    editorProps: {
+      attributes: {
+        class:
+          "prose bg-light-100 dark:bg-base-700 rounded-b border-light-500 border dark:border-base-600 dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl p-4 focus:outline-none",
+      },
+    },
+    content: content,
+    editable: true,
+    onUpdate: ({ editor }) => {
+      setTempContent?.(editor.getHTML());
+    },
+  });
 
   let getEntry;
   let deleteEntry;
@@ -29,7 +54,13 @@ export default function EntryPage() {
       { id: id as string },
       {
         onSuccess: (data) => {
-          console.log("success", data);
+          if (!!data) {
+            console.log("success", data);
+            editor?.commands.setContent(data.content);
+            setContent(data.content);
+            setTempContent(data.content);
+            setTitleInputValue(data.title);
+          }
         },
         onError: (error) => {
           setError(error.message);
@@ -51,6 +82,10 @@ export default function EntryPage() {
         onSuccess: (data) => {
           if (!!data) {
             console.log("success", data);
+            editor?.commands.setContent(data.content);
+            setContent(data.content);
+            setTempContent(data.content);
+            setTitleInputValue(data.title);
           }
         },
         onError: (error) => {
@@ -78,17 +113,35 @@ export default function EntryPage() {
 
   return (
     <section className="flex w-full flex-col border-t border-light-500 p-4 dark:border-base-800 lg:border-none xl:w-2/3">
-      {isLoading && <span>Loading...</span>}
-      {isError && <span>{error}</span>}
-      {data && (
+      {isLoading ? (
+        <span>Loading...</span>
+      ) : (
         <>
-          <span className="font-dm text-2xl">{data.title}</span>
-          <button
-            onClick={onDelete}
-            className="rounded bg-red-500 px-4 py-2 text-base-50 hover:bg-red-600 active:bg-red-700"
-          >
-            Delete
-          </button>
+          {!data ? (
+            <span>{error}</span>
+          ) : (
+            <>
+              {!isEditable && (
+                <h3 className="mb-4 font-dm text-4xl">{titleInputValue}</h3>
+              )}
+              {!!content && (
+                <>
+                  <TipTapEditor
+                    editor={editor}
+                    content={content}
+                    titleInputValue={titleInputValue}
+                    setTitleInputValue={setTitleInputValue}
+                  />
+                  <button
+                    onClick={onDelete}
+                    className="rounded bg-red-500 px-4 py-2 text-base-50 hover:bg-red-600 active:bg-red-700"
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
+            </>
+          )}
         </>
       )}
     </section>
