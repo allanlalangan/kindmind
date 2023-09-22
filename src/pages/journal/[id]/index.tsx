@@ -19,7 +19,6 @@ export default function EntryPage() {
   const user = useUser();
   const router = useRouter();
   const { id } = router.query;
-  const [entry, setEntry] = useState<entry | null>(null);
   const [error, setError] = useState<string | false>(false);
 
   let getEntry;
@@ -30,21 +29,19 @@ export default function EntryPage() {
       { id: id as string },
       {
         onSuccess: (data) => {
-          if (!!data) {
-            setError(false);
-            setEntry(data);
-          }
+          console.log("success", data);
         },
         onError: (error) => {
           setError(error.message);
         },
+        refetchOnWindowFocus: false,
       }
     );
 
     deleteEntry = api.entries.deleteGuestEntry.useMutation({
       onSuccess: () => {
-        console.log(`Deleted journal entry: ${entry?.title}`);
-        void router.push("/journal").then(router.reload);
+        console.log(`Deleted journal entry: ${data?.title}`);
+        void router.push("/journal?redirected=true");
       },
     });
   } else {
@@ -53,23 +50,25 @@ export default function EntryPage() {
       {
         onSuccess: (data) => {
           if (!!data) {
-            setError(false);
-            setEntry(data);
+            console.log("success", data);
           }
         },
         onError: (error) => {
           setError(error.message);
         },
+        refetchOnWindowFocus: false,
       }
     );
 
     deleteEntry = api.entries.deleteEntry.useMutation({
       onSuccess: () => {
-        console.log(`Deleted journal entry: ${entry?.title}`);
-        void router.push("/journal").then(router.reload);
+        console.log(`Deleted journal entry: ${data?.title}`);
+        void router.push("/journal?redirected=true");
       },
     });
   }
+
+  const { data, isLoading, isError } = getEntry;
   const { mutate } = deleteEntry;
   const onDelete = () => {
     mutate({
@@ -79,11 +78,11 @@ export default function EntryPage() {
 
   return (
     <section className="flex w-full flex-col border-t border-light-500 p-4 dark:border-base-800 lg:border-none xl:w-2/3">
-      {error && <span>{error}</span>}
-      {entry && (
+      {isLoading && <span>Loading...</span>}
+      {isError && <span>{error}</span>}
+      {data && (
         <>
-          <span className="px-1">Entry ID: {id}</span>
-          <span>{entry.title}</span>
+          <span className="font-dm text-2xl">{data.title}</span>
           <button
             onClick={onDelete}
             className="rounded bg-red-500 px-4 py-2 text-base-50 hover:bg-red-600 active:bg-red-700"
