@@ -12,7 +12,6 @@ import { api } from "~/utils/api";
 const CreateJournalEntryPage: NextPageWithLayout = () => {
   const router = useRouter();
   const user = useUser();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [titleInputValue, setTitleInputValue] = useState("");
 
@@ -81,8 +80,6 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
       >
         <TipTapEditor
           editor={editor}
-          modalIsOpen={modalIsOpen}
-          setModalIsOpen={setModalIsOpen}
           content={tempContent}
           setTempContent={setTempContent}
           titleInputValue={titleInputValue}
