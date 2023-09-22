@@ -50,14 +50,14 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     createEntry = api.entries.createGuestEntry.useMutation({
       onSuccess: () => {
         console.log("success");
-        void router.push("/journal").then(router.reload);
+        void router.push("/journal?redirected=true");
       },
     });
   } else {
     createEntry = api.entries.createEntry.useMutation({
       onSuccess: () => {
         console.log("success");
-        void router.push("/journal").then(router.reload);
+        void router.push("/journal?redirected=true");
       },
     });
   }

@@ -38,13 +38,14 @@ export default function EntryPage() {
         onError: (error) => {
           setError(error.message);
         },
+        refetchOnWindowFocus: false,
       }
     );
 
     deleteEntry = api.entries.deleteGuestEntry.useMutation({
       onSuccess: () => {
         console.log(`Deleted journal entry: ${entry?.title}`);
-        void router.push("/journal").then(router.reload);
+        void router.push("/journal?redirected=true");
       },
     });
   } else {
@@ -60,13 +61,14 @@ export default function EntryPage() {
         onError: (error) => {
           setError(error.message);
         },
+        refetchOnWindowFocus: false,
       }
     );
 
     deleteEntry = api.entries.deleteEntry.useMutation({
       onSuccess: () => {
         console.log(`Deleted journal entry: ${entry?.title}`);
-        void router.push("/journal").then(router.reload);
+        void router.push("/journal?redirected=true");
       },
     });
   }

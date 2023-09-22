@@ -1,5 +1,7 @@
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { api } from "~/utils/api";
 
 export default function JournalLayout({
@@ -8,20 +10,22 @@ export default function JournalLayout({
   children: React.ReactNode;
 }) {
   const user = useUser();
+  const router = useRouter();
 
   let getAllEntriesQuery;
-
-  if (!user.isSignedIn) {
-    getAllEntriesQuery = api.entries.getGuestEntries.useQuery(undefined, {
-      onSuccess: (data) => {
-        console.log("success", data);
-      },
-    });
-  } else {
+  if (!!user && user.isSignedIn) {
     getAllEntriesQuery = api.entries.getAll.useQuery(undefined, {
       onSuccess: (data) => {
         console.log("success", data);
       },
+      refetchOnWindowFocus: false,
+    });
+  } else {
+    getAllEntriesQuery = api.entries.getGuestEntries.useQuery(undefined, {
+      onSuccess: (data) => {
+        console.log("success", data);
+      },
+      refetchOnWindowFocus: false,
     });
   }
 
@@ -30,6 +34,14 @@ export default function JournalLayout({
     isLoading,
     refetch: refetchEntries,
   } = getAllEntriesQuery;
+
+  const redirected = router.query.redirected === "true";
+  useEffect(() => {
+    if (redirected) {
+      void refetchEntries();
+    }
+  }, [redirected, refetchEntries]);
+
   return (
     <>
       <div className="border-b border-light-500 p-4 font-dm text-2xl dark:border-base-800">
