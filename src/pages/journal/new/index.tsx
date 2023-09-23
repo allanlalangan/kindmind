@@ -22,18 +22,18 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
       StarterKit.configure({
         bulletList: {
           keepMarks: true,
-          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+          keepAttributes: false,
         },
         orderedList: {
           keepMarks: true,
-          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+          keepAttributes: false,
         },
       }),
     ],
     editorProps: {
       attributes: {
         class:
-          "prose bg-light-100 dark:bg-base-700 rounded-b border-light-500 border dark:border-base-600 dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl p-4 focus:outline-none",
+          "prose p-4 md:pb-4 bg-light-100 dark:bg-base-700 rounded-b border-light-500 border dark:border-base-600 dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:dark:outline-base-200 focus:outline-light-900",
       },
     },
     content: tempContent,
@@ -76,9 +76,10 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     <>
       <form
         onSubmit={onSubmit}
-        className="flex w-full flex-col border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-800 xl:w-2/3"
+        className="flex w-full flex-col border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-900 xl:w-2/3"
       >
         <TipTapEditor
+          isNewEntry={true}
           editor={editor}
           content={tempContent}
           setTempContent={setTempContent}

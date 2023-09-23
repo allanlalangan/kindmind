@@ -42,7 +42,7 @@ export default function DashboardLayout({
             </svg>
           </button>
           <div className="flex items-center justify-center gap-2">
-            {user.isSignedIn && <UserButton />}
+            {user.isSignedIn && <UserButton afterSignOutUrl="/" />}
             <ThemeSwitch />
           </div>
         </header>
