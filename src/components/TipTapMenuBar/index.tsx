@@ -10,7 +10,7 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
   }
 
   return (
-    <section className="flex flex-wrap items-center justify-between rounded-t border-x border-t border-light-500 p-2 dark:border-base-600">
+    <>
       <div className="flex flex-wrap items-center gap-1 p-1">
         <button
           type="button"
@@ -250,6 +250,6 @@ export default function TipTapMenuBar({ editor }: MenuBarProps) {
           </svg>
         </button>
       </div>
-    </section>
+    </>
   );
 }

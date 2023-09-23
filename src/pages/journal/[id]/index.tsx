@@ -14,8 +14,6 @@ export default function EntryPage() {
   const router = useRouter();
   const { id } = router.query;
   const [error, setError] = useState<string | false>(false);
-
-  const [isEditable, setIsEditable] = useState(false);
   const [titleInputValue, setTitleInputValue] = useState("");
   const [content, setContent] = useState<string | null>(null);
   const [tempContent, setTempContent] = useState(content);
@@ -25,22 +23,22 @@ export default function EntryPage() {
       StarterKit.configure({
         bulletList: {
           keepMarks: true,
-          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+          keepAttributes: false,
         },
         orderedList: {
           keepMarks: true,
-          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+          keepAttributes: false,
         },
       }),
     ],
     editorProps: {
       attributes: {
         class:
-          "prose bg-light-100 dark:bg-base-700 rounded-b border-light-500 border dark:border-base-600 dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl p-4 focus:outline-none",
+          "prose p-4 pb-16 md:pb-4 bg-light-100 dark:bg-base-700 rounded-b border-light-500 border dark:border-base-600 dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:dark:outline-base-200 focus:outline-light-900",
       },
     },
-    content: content,
-    editable: true,
+    content,
+    editable: false,
     onUpdate: ({ editor }) => {
       setTempContent?.(editor.getHTML());
     },
@@ -117,27 +115,48 @@ export default function EntryPage() {
         <span>Loading...</span>
       ) : (
         <>
-          {!data ? (
+          {!data && isError ? (
             <span>{error}</span>
           ) : (
             <>
-              {!isEditable && (
-                <h3 className="mb-4 font-dm text-4xl">{titleInputValue}</h3>
+              {!!data && (
+                <div className="mb-2 flex w-full items-center justify-end gap-2">
+                  <button
+                    onClick={() => {
+                      editor?.setEditable(!editor.isEditable);
+                      if (!editor?.isEditable) {
+                        editor?.commands.setContent(content);
+                        setTempContent(content);
+                      }
+                    }}
+                    className="w-fit rounded bg-base-800 px-4 py-2 text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
+                  >
+                    {!editor?.isEditable ? "Edit" : "Discard Changes"}
+                  </button>
+                  <button
+                    onClick={onDelete}
+                    className="rounded bg-red-500 px-4 py-2 text-base-50 transition hover:bg-red-600 active:bg-red-700"
+                  >
+                    Delete
+                  </button>
+                </div>
               )}
+
+              {!editor?.isEditable && (
+                <h3 className="mb-2 py-2 font-dm text-4xl">
+                  {titleInputValue}
+                </h3>
+              )}
+
               {!!content && (
                 <>
                   <TipTapEditor
+                    isEditable={editor?.isEditable}
                     editor={editor}
                     content={content}
                     titleInputValue={titleInputValue}
                     setTitleInputValue={setTitleInputValue}
                   />
-                  <button
-                    onClick={onDelete}
-                    className="rounded bg-red-500 px-4 py-2 text-base-50 hover:bg-red-600 active:bg-red-700"
-                  >
-                    Delete
-                  </button>
                 </>
               )}
             </>
