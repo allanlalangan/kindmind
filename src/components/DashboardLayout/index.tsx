@@ -19,7 +19,7 @@ export default function DashboardLayout({
         <title>{`kindMind | ${pageTitle}`}</title>
         <meta name="description" content="Journal + Mood & Habit Tracker App" />
       </Head>
-      <div className="grid h-screen grid-cols-12 grid-rows-24">
+      <div className="grid h-screen grid-cols-12 grid-rows-24 lg:overflow-y-hidden">
         <header className="col-span-12 flex h-full items-center justify-between border-b border-light-500 bg-light-300 px-4 py-2 transition dark:border-base-800 dark:bg-base-900 lg:col-start-3 lg:col-end-13 lg:justify-end">
           <button
             onClick={() => setNavIsOpen(!navIsOpen)}
