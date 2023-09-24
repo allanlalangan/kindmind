@@ -133,78 +133,80 @@ export default function EntryPage() {
   }, [editor?.isEditable]);
 
   return (
-    <section className="flex min-h-screen w-full flex-col border-t border-light-500 p-4 dark:border-base-800 lg:min-h-fit lg:overflow-y-scroll lg:border-none xl:w-2/3">
-      {isLoading ? (
-        <span>Loading...</span>
-      ) : (
-        <>
-          {!data && isError ? (
-            <span>{error}</span>
-          ) : (
-            <>
-              {!!data && (
-                <div className="mb-2 grid grid-cols-12 gap-1">
-                  {editor?.isEditable && (
+    <section className="col-span-12 row-span-6 overflow-y-scroll border-light-500 p-2 dark:border-base-800 lg:col-span-8 lg:row-span-full lg:row-start-2 lg:p-4">
+      <div className="flex min-h-screen w-full flex-col lg:min-h-0">
+        {isLoading ? (
+          <span>Loading...</span>
+        ) : (
+          <>
+            {!data && isError ? (
+              <span>{error}</span>
+            ) : (
+              <>
+                {!!data && (
+                  <div className="mb-2 grid grid-cols-12 gap-1">
+                    {editor?.isEditable && (
+                      <button
+                        disabled={
+                          tempContent === data.content &&
+                          titleInputValue === data.title
+                        }
+                        onClick={() => {
+                          editor?.setEditable(!editor.isEditable);
+                          mutateUpdate({
+                            id: id as string,
+                            title: titleInputValue ?? "untitled",
+                            content: tempContent ?? "",
+                          });
+                        }}
+                        className="col-span-3 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition active:bg-base-900 enabled:hover:bg-base-700 disabled:bg-neutral-400 disabled:text-neutral-700 dark:bg-base-200 dark:text-base-950 dark:active:bg-base-300 dark:enabled:hover:bg-base-100 disabled:dark:bg-neutral-400 disabled:dark:text-neutral-700"
+                      >
+                        Save
+                      </button>
+                    )}
                     <button
-                      disabled={
-                        tempContent === data.content &&
-                        titleInputValue === data.title
-                      }
                       onClick={() => {
                         editor?.setEditable(!editor.isEditable);
-                        mutateUpdate({
-                          id: id as string,
-                          title: titleInputValue ?? "untitled",
-                          content: tempContent ?? "",
-                        });
+                        if (!editor?.isEditable) {
+                          editor?.commands.setContent(content);
+                          setTempContent(content);
+                          setTitleInputValue(data.title);
+                        }
                       }}
-                      className="col-span-3 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition active:bg-base-900 enabled:hover:bg-base-700 disabled:bg-neutral-400 disabled:text-neutral-700 dark:bg-base-200 dark:text-base-950 dark:active:bg-base-300 dark:enabled:hover:bg-base-100 disabled:dark:bg-neutral-400 disabled:dark:text-neutral-700"
+                      className="col-span-3 col-start-7 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
                     >
-                      Save
+                      {!editor?.isEditable ? "Edit" : "Cancel"}
                     </button>
-                  )}
-                  <button
-                    onClick={() => {
-                      editor?.setEditable(!editor.isEditable);
-                      if (!editor?.isEditable) {
-                        editor?.commands.setContent(content);
-                        setTempContent(content);
-                        setTitleInputValue(data.title);
-                      }
-                    }}
-                    className="col-span-3 col-start-7 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
-                  >
-                    {!editor?.isEditable ? "Edit" : "Cancel"}
-                  </button>
-                  <button
-                    onClick={onDelete}
-                    className="col-span-3 col-start-10 rounded bg-red-500 px-4 py-2 text-sm text-base-50 transition hover:bg-red-600 active:bg-red-700"
-                  >
-                    Delete
-                  </button>
-                </div>
-              )}
-              {!editor?.isEditable && (
-                <h3 className="mb-2 py-2 font-dm text-4xl">
-                  {titleInputValue}
-                </h3>
-              )}
-              {!!content && (
-                <>
-                  <TipTapEditor
-                    isEditable={editor?.isEditable}
-                    editor={editor}
-                    content={content}
-                    titleInputRef={titleInputRef}
-                    titleInputValue={titleInputValue}
-                    setTitleInputValue={setTitleInputValue}
-                  />
-                </>
-              )}
-            </>
-          )}
-        </>
-      )}
+                    <button
+                      onClick={onDelete}
+                      className="col-span-3 col-start-10 rounded bg-red-500 px-4 py-2 text-sm text-base-50 transition hover:bg-red-600 active:bg-red-700"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
+                {!editor?.isEditable && (
+                  <h3 className="mb-2 py-2 font-dm text-4xl">
+                    {titleInputValue}
+                  </h3>
+                )}
+                {!!content && (
+                  <>
+                    <TipTapEditor
+                      isEditable={editor?.isEditable}
+                      editor={editor}
+                      content={content}
+                      titleInputRef={titleInputRef}
+                      titleInputValue={titleInputValue}
+                      setTitleInputValue={setTitleInputValue}
+                    />
+                  </>
+                )}
+              </>
+            )}
+          </>
+        )}
+      </div>
     </section>
   );
 }
