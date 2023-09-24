@@ -12,7 +12,8 @@ import TipTapEditor from "~/components/TipTapEditor";
 export default function EntryPage() {
   const user = useUser();
   const router = useRouter();
-  const titleInputRef = useRef<HTMLInputElement | null>(null);
+  const titleInputRef = useRef<HTMLInputElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const { id } = router.query;
   const [error, setError] = useState<string | false>(false);
   const [titleInputValue, setTitleInputValue] = useState("");
@@ -127,13 +128,21 @@ export default function EntryPage() {
   };
 
   useEffect(() => {
+    editor?.isEditable &&
+      sectionRef?.current?.scrollIntoView({
+        block: "start",
+        behavior: "smooth",
+      });
     if (titleInputRef.current) {
       titleInputRef.current.focus();
     }
   }, [editor?.isEditable]);
 
   return (
-    <section className="flex w-full flex-col border-t border-light-500 p-4 dark:border-base-800 lg:border-none xl:w-2/3">
+    <section
+      ref={sectionRef}
+      className="flex min-h-screen w-full flex-col border-t border-light-500 p-4 dark:border-base-800 lg:min-h-fit lg:overflow-y-scroll lg:border-none xl:w-2/3"
+    >
       {isLoading ? (
         <span>Loading...</span>
       ) : (
@@ -151,6 +160,10 @@ export default function EntryPage() {
                         titleInputValue === data.title
                       }
                       onClick={() => {
+                        sectionRef?.current?.scrollIntoView({
+                          block: "start",
+                          behavior: "smooth",
+                        });
                         editor?.setEditable(!editor.isEditable);
                         mutateUpdate({
                           id: id as string,
@@ -158,42 +171,37 @@ export default function EntryPage() {
                           content: tempContent ?? "",
                         });
                       }}
-                      className="col-span-4 w-fit rounded bg-base-800 px-4 py-2 text-base-50 transition active:bg-base-900 enabled:hover:bg-base-700 disabled:bg-neutral-500 disabled:text-neutral-700 dark:bg-base-200 dark:text-base-950 dark:active:bg-base-300 dark:enabled:hover:bg-base-100 disabled:dark:bg-neutral-500 disabled:dark:text-neutral-700"
+                      className="col-span-3 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition active:bg-base-900 enabled:hover:bg-base-700 disabled:bg-neutral-400 disabled:text-neutral-700 dark:bg-base-200 dark:text-base-950 dark:active:bg-base-300 dark:enabled:hover:bg-base-100 disabled:dark:bg-neutral-400 disabled:dark:text-neutral-700"
                     >
-                      Save Changes
+                      Save
                     </button>
                   )}
-
                   <button
                     onClick={() => {
                       editor?.setEditable(!editor.isEditable);
-                      // titleInputRef?.current?.focus();
                       if (!editor?.isEditable) {
                         editor?.commands.setContent(content);
                         setTempContent(content);
                         setTitleInputValue(data.title);
                       }
                     }}
-                    className="col-span-3 col-start-7 rounded bg-base-800 px-4 py-2 text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
+                    className="col-span-3 col-start-7 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
                   >
-                    {!editor?.isEditable ? "Edit" : "Discard Changes"}
+                    {!editor?.isEditable ? "Edit" : "Cancel"}
                   </button>
-
                   <button
                     onClick={onDelete}
-                    className="col-span-3 col-start-10 rounded bg-red-500 px-4 py-2 text-base-50 transition hover:bg-red-600 active:bg-red-700"
+                    className="col-span-3 col-start-10 rounded bg-red-500 px-4 py-2 text-sm text-base-50 transition hover:bg-red-600 active:bg-red-700"
                   >
                     Delete
                   </button>
                 </div>
               )}
-
               {!editor?.isEditable && (
                 <h3 className="mb-2 py-2 font-dm text-4xl">
                   {titleInputValue}
                 </h3>
               )}
-
               {!!content && (
                 <>
                   <TipTapEditor

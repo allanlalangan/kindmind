@@ -14,6 +14,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   const user = useUser();
 
   const titleInputRef = useRef<HTMLInputElement | null>(null);
+  const sectionRef = useRef<HTMLFormElement>(null);
   const [titleInputValue, setTitleInputValue] = useState("");
 
   const [tempContent, setTempContent] = useState("");
@@ -45,6 +46,10 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   });
 
   useEffect(() => {
+    sectionRef?.current?.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
     if (titleInputRef.current) {
       titleInputRef.current.focus();
     }
@@ -82,9 +87,18 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   return (
     <>
       <form
+        ref={sectionRef}
         onSubmit={onSubmit}
-        className="flex w-full flex-col border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-900 xl:w-2/3"
+        className="flex min-h-screen w-full flex-col border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-900 lg:min-h-full lg:overflow-y-scroll xl:w-2/3"
       >
+        <div className="mb-2 grid grid-cols-12">
+          <button
+            type="submit"
+            className="col-span-3 col-start-10 rounded bg-base-800 px-4 pb-2.5 pt-2 font-dm text-sm text-base-50 transition-colors hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 hover:dark:bg-base-100 active:dark:bg-base-300"
+          >
+            Save
+          </button>
+        </div>
         <TipTapEditor
           isNewEntry={true}
           editor={editor}
@@ -95,12 +109,6 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
           setTitleInputValue={setTitleInputValue}
           isEditable={true}
         />
-        <button
-          type="submit"
-          className="rounded bg-base-800 px-4 pb-2.5 pt-2 font-dm text-lg tracking-wide text-base-50 transition-colors hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 hover:dark:bg-base-100 active:dark:bg-base-300"
-        >
-          Save Entry
-        </button>
       </form>
     </>
   );
