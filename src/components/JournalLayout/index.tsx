@@ -84,21 +84,39 @@ export default function JournalLayout({
                 >
                   <Link
                     href={`/journal/${entry.id}`}
-                    className="flex w-full items-center gap-2 p-4 transition hover:bg-light-200 hover:dark:bg-base-800"
+                    className={`flex w-full items-center justify-between p-4 transition hover:bg-light-200 hover:dark:bg-base-800 ${
+                      router.query.id === entry.id &&
+                      "bg-light-200 dark:bg-base-800"
+                    }`}
                   >
-                    <div className="flex flex-col items-center justify-center rounded border border-base-950 px-4 py-2 uppercase dark:border-base-50">
-                      <span className="">
-                        {entry.createdAt.toLocaleString("default", {
-                          month: "short",
-                        })}
-                      </span>
-                      <span className="">
-                        {entry.createdAt.toLocaleString("default", {
-                          day: "numeric",
-                        })}
-                      </span>
+                    <div className="flex items-center gap-2">
+                      <div className="flex flex-col items-center justify-center rounded border border-base-950 px-4 py-2 uppercase dark:border-base-50">
+                        <span className="">
+                          {entry.createdAt.toLocaleString("default", {
+                            month: "short",
+                          })}
+                        </span>
+                        <span className="">
+                          {entry.createdAt.toLocaleString("default", {
+                            day: "numeric",
+                          })}
+                        </span>
+                      </div>
+                      <h3 className="text-lg">{entry.title}</h3>
                     </div>
-                    <h3 className="text-lg">{entry.title}</h3>
+                    {router.query.id === entry.id && (
+                      <span className="h-8 w-8">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M12.6 12L8 7.4L9.4 6l6 6l-6 6L8 16.6l4.6-4.6Z"
+                          />
+                        </svg>
+                      </span>
+                    )}
                   </Link>
                 </li>
               ))}
