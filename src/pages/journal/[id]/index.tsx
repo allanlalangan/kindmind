@@ -133,7 +133,7 @@ export default function EntryPage() {
   }, [editor?.isEditable]);
 
   return (
-    <section className="flex min-h-screen w-full flex-col border-t border-light-500 p-4 dark:border-base-800 lg:min-h-fit lg:overflow-y-scroll lg:border-none xl:w-2/3">
+    <section className="col-span-12 row-span-6 flex w-full flex-col overflow-y-scroll border-light-500 p-4 dark:border-base-800 lg:col-span-8 lg:row-span-full lg:row-start-2 lg:border-l">
       {isLoading ? (
         <span>Loading...</span>
       ) : (

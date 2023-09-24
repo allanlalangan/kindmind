@@ -83,7 +83,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     <>
       <form
         onSubmit={onSubmit}
-        className="flex min-h-screen w-full flex-col border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-900 lg:min-h-full lg:overflow-y-scroll xl:w-2/3"
+        className="col-span-12 row-span-6 flex w-full flex-col overflow-y-scroll border-light-500 p-4 dark:border-base-800 dark:bg-base-900 lg:col-span-8 lg:row-span-full lg:row-start-2 lg:min-h-0 lg:border-l"
       >
         <div className="mb-2 grid grid-cols-12">
           <button
