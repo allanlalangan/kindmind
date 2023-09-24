@@ -44,13 +44,13 @@ export default function JournalLayout({
 
   return (
     <>
-      <div className="col-span-12 row-span-1 row-start-1 border-b border-light-500 p-4 font-dm text-2xl dark:border-base-800">
+      <div className="col-span-12 row-start-1 flex items-center border-b border-light-500 p-2 font-dm text-2xl dark:border-base-800 lg:row-span-1 lg:p-4">
         <Link className="underline-offset-2 hover:underline" href="/journal">
           Journal
         </Link>
       </div>
       {/* <div className="col-span-6 flex h-full flex-col lg:flex-row"> */}
-      <div className="col-span-12 row-span-1 flex w-full items-center justify-between p-4 lg:col-span-4">
+      <div className="col-span-12 flex w-full items-center justify-between border-light-500 p-2 dark:border-base-800 lg:col-span-4 lg:row-span-1 lg:border-r lg:p-4">
         <h2 className="font-dm text-xl">Recent Entries</h2>
         <Link
           className="flex h-fit items-center justify-center gap-1 rounded-md bg-light-300 p-1 transition-colors hover:bg-light-200 active:bg-light-500 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900 lg:w-fit"
@@ -70,7 +70,7 @@ export default function JournalLayout({
           </span>
         </Link>
       </div>
-      <section className="col-span-12 row-span-4 flex w-full flex-col justify-start border-light-500 dark:border-base-800 lg:col-span-4 lg:row-span-full lg:row-start-3">
+      <section className="col-span-12 row-span-3 flex w-full flex-col justify-start border-light-500 dark:border-base-800 lg:col-span-4 lg:row-span-full lg:row-start-3 lg:border-r">
         {isLoading ? (
           <span>Loading...</span>
         ) : (
@@ -84,12 +84,12 @@ export default function JournalLayout({
               >
                 <Link
                   href={`/journal/${entry.id}`}
-                  className={`flex w-full items-center justify-between gap-2 p-4 transition hover:bg-light-200 hover:dark:bg-base-800 ${
+                  className={`flex w-full items-center justify-start gap-2 p-2 transition hover:bg-light-200 hover:dark:bg-base-800 lg:p-4 ${
                     router.query.id === entry.id &&
                     "bg-light-200 dark:bg-base-800"
                   }`}
                 >
-                  <div className="flex w-1/4 flex-col items-center justify-center rounded border border-base-950 px-4 py-2 font-dm uppercase dark:border-base-50">
+                  <div className="flex w-1/6 flex-col items-center justify-center rounded border border-base-950 font-dm uppercase dark:border-base-50 lg:w-1/4">
                     <span className="text-sm">
                       {entry.createdAt.toLocaleString("default", {
                         month: "short",
@@ -101,7 +101,7 @@ export default function JournalLayout({
                       })}
                     </span>
                   </div>
-                  <h3 className="w-3/4 truncate">{entry.title}</h3>
+                  <h3 className="truncate lg:w-3/4">{entry.title}</h3>
                 </Link>
               </li>
             ))}

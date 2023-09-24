@@ -81,29 +81,31 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <form
-        onSubmit={onSubmit}
-        className="col-span-12 row-span-6 flex w-full flex-col overflow-y-scroll border-light-500 p-4 dark:border-base-800 dark:bg-base-900 lg:col-span-8 lg:row-span-full lg:row-start-2 lg:min-h-0 lg:border-l"
-      >
-        <div className="mb-2 grid grid-cols-12">
-          <button
-            type="submit"
-            className="col-span-3 col-start-10 rounded bg-base-800 px-4 pb-2.5 pt-2 font-dm text-sm text-base-50 transition-colors hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 hover:dark:bg-base-100 active:dark:bg-base-300"
-          >
-            Save
-          </button>
-        </div>
-        <TipTapEditor
-          isNewEntry={true}
-          editor={editor}
-          content={tempContent}
-          setTempContent={setTempContent}
-          titleInputRef={titleInputRef}
-          titleInputValue={titleInputValue}
-          setTitleInputValue={setTitleInputValue}
-          isEditable={true}
-        />
-      </form>
+      <section className="col-span-12 row-span-6 overflow-y-scroll border-light-500 p-2 dark:border-base-800 dark:bg-base-900 lg:col-span-8 lg:row-span-full lg:row-start-2 lg:min-h-0 lg:p-4">
+        <form
+          onSubmit={onSubmit}
+          className="flex min-h-screen w-full flex-col lg:min-h-0"
+        >
+          <div className="mb-2 grid grid-cols-12">
+            <button
+              type="submit"
+              className="col-span-3 col-start-10 rounded bg-base-800 px-4 pb-2.5 pt-2 font-dm text-sm text-base-50 transition-colors hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 hover:dark:bg-base-100 active:dark:bg-base-300"
+            >
+              Save
+            </button>
+          </div>
+          <TipTapEditor
+            isNewEntry={true}
+            editor={editor}
+            content={tempContent}
+            setTempContent={setTempContent}
+            titleInputRef={titleInputRef}
+            titleInputValue={titleInputValue}
+            setTitleInputValue={setTitleInputValue}
+            isEditable={true}
+          />
+        </form>
+      </section>
     </>
   );
 };
