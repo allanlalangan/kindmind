@@ -46,6 +46,7 @@ export default function EntryPage() {
 
   let getEntry;
   let deleteEntry;
+  let updateEntry;
 
   if (!user.isSignedIn) {
     getEntry = api.entries.getGuestEntry.useQuery(
@@ -66,6 +67,15 @@ export default function EntryPage() {
         refetchOnWindowFocus: false,
       }
     );
+
+    updateEntry = api.entries.updateGuestEntry.useMutation({
+      onSuccess: () => {
+        console.log(`Updated journal entry: ${data?.title}`);
+        void router
+          .push("/journal?redirected=true")
+          .then(() => router.push(`/journal/${id as string}`));
+      },
+    });
 
     deleteEntry = api.entries.deleteGuestEntry.useMutation({
       onSuccess: () => {
@@ -93,6 +103,15 @@ export default function EntryPage() {
       }
     );
 
+    updateEntry = api.entries.updateEntry.useMutation({
+      onSuccess: (data) => {
+        console.log(`Updated journal entry: ${data?.title}`);
+        void router
+          .push("/journal?redirected=true")
+          .then(() => router.push(`/journal/${id as string}`));
+      },
+    });
+
     deleteEntry = api.entries.deleteEntry.useMutation({
       onSuccess: () => {
         console.log(`Deleted journal entry: ${data?.title}`);
@@ -102,9 +121,10 @@ export default function EntryPage() {
   }
 
   const { data, isLoading, isError } = getEntry;
-  const { mutate } = deleteEntry;
+  const { mutate: mutateUpdate } = updateEntry;
+  const { mutate: mutateDelete } = deleteEntry;
   const onDelete = () => {
-    mutate({
+    mutateDelete({
       id: id as string,
     });
   };
@@ -120,22 +140,44 @@ export default function EntryPage() {
           ) : (
             <>
               {!!data && (
-                <div className="mb-2 flex w-full items-center justify-end gap-2">
+                <div className="mb-2 grid grid-cols-12 gap-1">
+                  {editor?.isEditable && (
+                    <button
+                      disabled={
+                        tempContent === data.content &&
+                        titleInputValue === data.title
+                      }
+                      onClick={() => {
+                        editor?.setEditable(!editor.isEditable);
+                        mutateUpdate({
+                          id: id as string,
+                          title: titleInputValue ?? "untitled",
+                          content: tempContent ?? "",
+                        });
+                      }}
+                      className="col-span-4 w-fit rounded bg-base-800 px-4 py-2 text-base-50 transition active:bg-base-900 enabled:hover:bg-base-700 disabled:bg-neutral-500 disabled:text-neutral-700 dark:bg-base-200 dark:text-base-950 dark:active:bg-base-300 dark:enabled:hover:bg-base-100 disabled:dark:bg-neutral-500 disabled:dark:text-neutral-700"
+                    >
+                      Save Changes
+                    </button>
+                  )}
+
                   <button
                     onClick={() => {
                       editor?.setEditable(!editor.isEditable);
                       if (!editor?.isEditable) {
                         editor?.commands.setContent(content);
                         setTempContent(content);
+                        setTitleInputValue(data.title);
                       }
                     }}
-                    className="w-fit rounded bg-base-800 px-4 py-2 text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
+                    className="col-span-3 col-start-7 rounded bg-base-800 px-4 py-2 text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
                   >
                     {!editor?.isEditable ? "Edit" : "Discard Changes"}
                   </button>
+
                   <button
                     onClick={onDelete}
-                    className="rounded bg-red-500 px-4 py-2 text-base-50 transition hover:bg-red-600 active:bg-red-700"
+                    className="col-span-3 col-start-10 rounded bg-red-500 px-4 py-2 text-base-50 transition hover:bg-red-600 active:bg-red-700"
                   >
                     Delete
                   </button>
