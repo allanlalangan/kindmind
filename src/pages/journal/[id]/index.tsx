@@ -35,7 +35,7 @@ export default function EntryPage() {
     editorProps: {
       attributes: {
         class:
-          "prose p-4 pb-16 md:pb-4 bg-light-100 dark:bg-base-700 rounded-b border-light-500 border dark:border-base-600 dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:dark:outline-base-200 focus:outline-light-900",
+          "min-h-[25vh] prose p-4 pb-16 md:pb-4 bg-light-100 dark:bg-base-700 rounded-b border-light-500 border dark:border-base-600 dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:dark:outline-base-200 focus:outline-light-900",
       },
     },
     content,
