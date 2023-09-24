@@ -11,6 +11,7 @@ interface TipTapEditorProps {
   tempContent?: string;
   setTempContent?: (value: string) => void;
   isEditable?: boolean;
+  titleInputRef?: React.MutableRefObject<HTMLInputElement | null>;
   setIsEditable?: (value: boolean) => void;
   titleInputValue?: string;
   setTitleInputValue: (value: string) => void;
@@ -19,6 +20,7 @@ interface TipTapEditorProps {
 export default function TipTapEditor({
   isNewEntry,
   editor,
+  titleInputRef,
   titleInputValue,
   setTitleInputValue,
 }: TipTapEditorProps) {
@@ -27,6 +29,7 @@ export default function TipTapEditor({
       {editor?.isEditable && (
         <>
           <input
+            ref={titleInputRef}
             onChange={(e) => setTitleInputValue(e.target.value)}
             value={titleInputValue}
             className="mb-2 w-full rounded-t bg-transparent py-2 font-dm text-4xl focus:outline-light-900 focus:dark:outline-base-200"

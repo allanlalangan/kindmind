@@ -2,7 +2,7 @@ import { useUser } from "@clerk/nextjs";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DashboardLayout from "~/components/DashboardLayout";
 import JournalLayout from "~/components/JournalLayout";
 import TipTapEditor from "~/components/TipTapEditor";
@@ -13,6 +13,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   const router = useRouter();
   const user = useUser();
 
+  const titleInputRef = useRef<HTMLInputElement | null>(null);
   const [titleInputValue, setTitleInputValue] = useState("");
 
   const [tempContent, setTempContent] = useState("");
@@ -42,6 +43,12 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
       setTempContent?.(editor.getHTML());
     },
   });
+
+  useEffect(() => {
+    if (titleInputRef.current) {
+      titleInputRef.current.focus();
+    }
+  }, [editor]);
 
   let createEntry;
 
@@ -83,6 +90,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
           editor={editor}
           content={tempContent}
           setTempContent={setTempContent}
+          titleInputRef={titleInputRef}
           titleInputValue={titleInputValue}
           setTitleInputValue={setTitleInputValue}
           isEditable={true}
