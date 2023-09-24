@@ -14,7 +14,6 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   const user = useUser();
 
   const titleInputRef = useRef<HTMLInputElement | null>(null);
-  const sectionRef = useRef<HTMLFormElement>(null);
   const [titleInputValue, setTitleInputValue] = useState("");
 
   const [tempContent, setTempContent] = useState("");
@@ -46,10 +45,6 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   });
 
   useEffect(() => {
-    sectionRef?.current?.scrollIntoView({
-      block: "start",
-      behavior: "smooth",
-    });
     if (titleInputRef.current) {
       titleInputRef.current.focus();
     }
@@ -87,7 +82,6 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   return (
     <>
       <form
-        ref={sectionRef}
         onSubmit={onSubmit}
         className="flex min-h-screen w-full flex-col border-light-500 bg-light-200 p-4 dark:border-base-700 dark:bg-base-900 lg:min-h-full lg:overflow-y-scroll xl:w-2/3"
       >

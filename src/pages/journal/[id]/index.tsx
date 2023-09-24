@@ -13,7 +13,6 @@ export default function EntryPage() {
   const user = useUser();
   const router = useRouter();
   const titleInputRef = useRef<HTMLInputElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
   const { id } = router.query;
   const [error, setError] = useState<string | false>(false);
   const [titleInputValue, setTitleInputValue] = useState("");
@@ -128,21 +127,13 @@ export default function EntryPage() {
   };
 
   useEffect(() => {
-    editor?.isEditable &&
-      sectionRef?.current?.scrollIntoView({
-        block: "start",
-        behavior: "smooth",
-      });
     if (titleInputRef.current) {
       titleInputRef.current.focus();
     }
   }, [editor?.isEditable]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="flex min-h-screen w-full flex-col border-t border-light-500 p-4 dark:border-base-800 lg:min-h-fit lg:overflow-y-scroll lg:border-none xl:w-2/3"
-    >
+    <section className="flex min-h-screen w-full flex-col border-t border-light-500 p-4 dark:border-base-800 lg:min-h-fit lg:overflow-y-scroll lg:border-none xl:w-2/3">
       {isLoading ? (
         <span>Loading...</span>
       ) : (
@@ -160,10 +151,6 @@ export default function EntryPage() {
                         titleInputValue === data.title
                       }
                       onClick={() => {
-                        sectionRef?.current?.scrollIntoView({
-                          block: "start",
-                          behavior: "smooth",
-                        });
                         editor?.setEditable(!editor.isEditable);
                         mutateUpdate({
                           id: id as string,
