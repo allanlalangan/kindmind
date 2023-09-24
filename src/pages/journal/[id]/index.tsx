@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/nextjs";
 import { useEditor } from "@tiptap/react";
 import { useRouter } from "next/router";
-import { useState, type ReactElement } from "react";
+import { useState, type ReactElement, useRef, useEffect } from "react";
 
 import DashboardLayout from "~/components/DashboardLayout";
 import JournalLayout from "~/components/JournalLayout";
@@ -12,6 +12,7 @@ import TipTapEditor from "~/components/TipTapEditor";
 export default function EntryPage() {
   const user = useUser();
   const router = useRouter();
+  const titleInputRef = useRef<HTMLInputElement | null>(null);
   const { id } = router.query;
   const [error, setError] = useState<string | false>(false);
   const [titleInputValue, setTitleInputValue] = useState("");
@@ -54,7 +55,7 @@ export default function EntryPage() {
       {
         onSuccess: (data) => {
           if (!!data) {
-            console.log("success", data);
+            editor?.setEditable(false);
             editor?.commands.setContent(data.content);
             setContent(data.content);
             setTempContent(data.content);
@@ -70,7 +71,6 @@ export default function EntryPage() {
 
     updateEntry = api.entries.updateGuestEntry.useMutation({
       onSuccess: () => {
-        console.log(`Updated journal entry: ${data?.title}`);
         void router
           .push("/journal?redirected=true")
           .then(() => router.push(`/journal/${id as string}`));
@@ -79,7 +79,6 @@ export default function EntryPage() {
 
     deleteEntry = api.entries.deleteGuestEntry.useMutation({
       onSuccess: () => {
-        console.log(`Deleted journal entry: ${data?.title}`);
         void router.push("/journal?redirected=true");
       },
     });
@@ -89,7 +88,7 @@ export default function EntryPage() {
       {
         onSuccess: (data) => {
           if (!!data) {
-            console.log("success", data);
+            editor?.setEditable(false);
             editor?.commands.setContent(data.content);
             setContent(data.content);
             setTempContent(data.content);
@@ -105,7 +104,6 @@ export default function EntryPage() {
 
     updateEntry = api.entries.updateEntry.useMutation({
       onSuccess: (data) => {
-        console.log(`Updated journal entry: ${data?.title}`);
         void router
           .push("/journal?redirected=true")
           .then(() => router.push(`/journal/${id as string}`));
@@ -114,7 +112,6 @@ export default function EntryPage() {
 
     deleteEntry = api.entries.deleteEntry.useMutation({
       onSuccess: () => {
-        console.log(`Deleted journal entry: ${data?.title}`);
         void router.push("/journal?redirected=true");
       },
     });
@@ -128,6 +125,12 @@ export default function EntryPage() {
       id: id as string,
     });
   };
+
+  useEffect(() => {
+    if (titleInputRef.current) {
+      titleInputRef.current.focus();
+    }
+  }, [editor?.isEditable]);
 
   return (
     <section className="flex w-full flex-col border-t border-light-500 p-4 dark:border-base-800 lg:border-none xl:w-2/3">
@@ -164,6 +167,7 @@ export default function EntryPage() {
                   <button
                     onClick={() => {
                       editor?.setEditable(!editor.isEditable);
+                      // titleInputRef?.current?.focus();
                       if (!editor?.isEditable) {
                         editor?.commands.setContent(content);
                         setTempContent(content);
@@ -196,6 +200,7 @@ export default function EntryPage() {
                     isEditable={editor?.isEditable}
                     editor={editor}
                     content={content}
+                    titleInputRef={titleInputRef}
                     titleInputValue={titleInputValue}
                     setTitleInputValue={setTitleInputValue}
                   />
