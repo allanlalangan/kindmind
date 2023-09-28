@@ -103,6 +103,14 @@ export default function JournalPage() {
           </ul>
         )}
       </section>
+      <div className="col-span-12 row-span-full row-start-6 flex justify-center p-4 lg:col-span-8 lg:row-start-2">
+        <Link
+          className="flex h-fit items-center justify-center gap-1 rounded-md bg-light-300 p-4 font-dm text-lg underline-offset-2 transition-colors hover:bg-light-200 hover:underline active:bg-light-500 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900 lg:w-fit"
+          href="/journal/new_"
+        >
+          New Entry Test
+        </Link>
+      </div>
     </>
   );
 }
