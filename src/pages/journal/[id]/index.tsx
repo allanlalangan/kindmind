@@ -141,7 +141,7 @@ export default function EntryPage() {
         <span className="text-xl">&gt;</span>
         <span className="text-base">{data?.title}</span>
       </div>
-      <section className="col-span-12 row-span-6 row-start-2 overflow-y-scroll border-light-500 p-2 dark:border-base-800 lg:p-4">
+      <section className="col-span-12 row-span-full row-start-2 overflow-y-scroll border-light-500 p-2 dark:border-base-800 lg:p-4">
         <div className="flex min-h-screen w-full flex-col lg:min-h-0">
           {isLoading ? (
             <span>Loading...</span>

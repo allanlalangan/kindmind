@@ -94,7 +94,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
         <span className="text-xl">&gt;</span>
         <span className="text-base italic">New Entry</span>
       </div>
-      <section className="col-span-12 row-span-6 row-start-2 overflow-y-scroll border-light-500 p-2 dark:border-base-800 lg:p-4">
+      <section className="col-span-12 row-span-full row-start-2 overflow-y-scroll border-light-500 p-2 dark:border-base-800 lg:p-4">
         <form
           onSubmit={onSubmit}
           className="flex min-h-screen w-full flex-col lg:min-h-0"
