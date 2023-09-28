@@ -1,10 +1,44 @@
+import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 import { type ReactElement } from "react";
 import DashboardLayout from "~/components/DashboardLayout";
+import { api } from "~/utils/api";
 
 export default function DashboardPage() {
+  const user = useUser();
+  let getTodayEntries;
+  if (!user.isSignedIn) {
+    getTodayEntries = api.entries.getTodayGuestEntry.useQuery(undefined, {
+      onSuccess: (data) => {
+        console.log("success", data);
+      },
+      refetchOnWindowFocus: false,
+    });
+  } else {
+    getTodayEntries = api.entries.getTodayEntry.useQuery(undefined, {
+      onSuccess: (data) => {
+        console.log("success", data);
+      },
+      refetchOnWindowFocus: false,
+    });
+  }
+
+  const { data: todayEntries } = getTodayEntries;
+
   return (
     <>
-      <h1 className="p-4 font-dm text-2xl">Dashboard</h1>
+      <div className="col-span-12 row-start-1 flex items-baseline border-b border-light-500 p-2 font-dm text-2xl dark:border-base-800 lg:row-span-1 lg:p-4">
+        <Link className="underline-offset-2 hover:underline" href="/dashboard">
+          Dashboard
+        </Link>
+      </div>
+      <section className="col-span-12 flex items-center justify-center">
+        {todayEntries?.length === 0 ? (
+          <p>You haven&apos;t logged an entry today.</p>
+        ) : (
+          ""
+        )}
+      </section>
     </>
   );
 }

@@ -1,10 +1,10 @@
 import { useUser } from "@clerk/nextjs";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import DashboardLayout from "~/components/DashboardLayout";
-import JournalLayout from "~/components/JournalLayout";
 import TipTapEditor from "~/components/TipTapEditor";
 import { type NextPageWithLayout } from "~/pages/_app";
 import { api } from "~/utils/api";
@@ -79,9 +79,22 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     });
   };
 
+  const today = new Date();
+
   return (
     <>
-      <section className="col-span-12 row-span-6 overflow-y-scroll border-light-500 p-2 dark:border-base-800 dark:bg-base-900 lg:col-span-8 lg:row-span-full lg:row-start-2 lg:min-h-0 lg:p-4">
+      <div className="col-span-12 flex items-baseline gap-2 border-b border-light-500 p-2 font-dm text-2xl dark:border-base-800 lg:row-span-1 lg:p-4">
+        <Link className="underline-offset-2 hover:underline" href="/journal">
+          Journal
+        </Link>
+        <span className="text-xl">&gt;</span>
+        <time className="text-base" dateTime={today.toDateString()}>
+          {today.toDateString()}
+        </time>
+        <span className="text-xl">&gt;</span>
+        <span className="text-base italic">New Entry</span>
+      </div>
+      <section className="col-span-12 row-span-6 row-start-2 overflow-y-scroll border-light-500 p-2 dark:border-base-800 lg:p-4">
         <form
           onSubmit={onSubmit}
           className="flex min-h-screen w-full flex-col lg:min-h-0"
@@ -113,7 +126,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
 CreateJournalEntryPage.getLayout = function getLayout(page) {
   return (
     <DashboardLayout pageTitle="Create New Journal Entry">
-      <JournalLayout>{page}</JournalLayout>
+      {page}
     </DashboardLayout>
   );
 };

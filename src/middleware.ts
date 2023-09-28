@@ -12,6 +12,7 @@ export default authMiddleware({
     "/journal/new",
     "/api/trpc/entries.getGuestEntries",
     "/api/trpc/entries.getGuestEntry",
+    "/api/trpc/entries.getTodayGuestEntry",
     "/api/trpc/entries.createGuestEntry",
     "/api/trpc/entries.updateGuestEntry",
     "/api/trpc/entries.deleteGuestEntry",
