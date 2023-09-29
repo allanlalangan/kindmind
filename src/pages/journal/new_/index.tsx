@@ -1,10 +1,12 @@
-import Link from "next/link";
-import DashboardLayout from "~/components/DashboardLayout";
-import TipTapEditor from "~/components/TipTapEditor";
 import { type NextPageWithLayout } from "~/pages/_app";
+import DashboardLayout from "~/components/DashboardLayout";
+import DialogModal from "~/components/DialogModal";
+import Link from "next/link";
+import { useState } from "react";
 
 const CreateJournalEntryPage: NextPageWithLayout = () => {
   const today = new Date();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
     <>
@@ -93,28 +95,49 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
             </div>
           </div>
         </div>
-        <section className="col-span-12 col-start-1 grid grid-cols-12 grid-rows-3 gap-1">
-          <button className="col-span-6 col-start-1 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300">
-            Record Mood 💭
-          </button>
-          <button className="col-span-6 col-start-1 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300">
-            Write Journal Entry 📝
-          </button>
-          <button className="col-span-6 col-start-1 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300">
-            Log Activity 🏃
-          </button>
-
-          <button className="col-span-6 col-start-7 row-start-1 rounded bg-teal-700 px-4 py-2 text-sm text-base-50 transition hover:bg-teal-600 active:bg-teal-800">
-            Eat 🥗
-          </button>
-          <button className="col-span-6 col-start-7 row-start-2 rounded bg-teal-700 px-4 py-2 text-sm text-base-50 transition hover:bg-teal-600 active:bg-teal-800">
-            Hydrate 💧
-          </button>
-          <button className="col-span-6 col-start-7 row-start-3 rounded bg-teal-700 px-4 py-2 text-sm text-base-50 transition hover:bg-teal-600 active:bg-teal-800">
-            Supplement / Medication 💊
-          </button>
-        </section>
+        <button
+          onClick={() => setModalIsOpen(true)}
+          className="col-span-12 row-span-2 flex items-center justify-center gap-2 rounded bg-base-800 px-4 py-2 font-dm uppercase text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
+        >
+          <svg
+            className="h-8 w-8"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
+            />
+          </svg>
+          <span>Add Block</span>
+        </button>
       </section>
+      <DialogModal
+        isOpen={modalIsOpen}
+        handleClose={() => {
+          setModalIsOpen(false);
+        }}
+      >
+        <button className="col-span-6 col-start-1 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300">
+          Record Mood 💭
+        </button>
+        <button className="col-span-6 col-start-1 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300">
+          Write Journal Entry 📝
+        </button>
+        <button className="col-span-6 col-start-1 rounded bg-base-800 px-4 py-2 text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300">
+          Log Activity 🏃
+        </button>
+
+        <button className="col-span-6 col-start-7 row-start-1 rounded bg-teal-700 px-4 py-2 text-sm text-base-50 transition hover:bg-teal-600 active:bg-teal-800">
+          Eat 🥗
+        </button>
+        <button className="col-span-6 col-start-7 row-start-2 rounded bg-teal-700 px-4 py-2 text-sm text-base-50 transition hover:bg-teal-600 active:bg-teal-800">
+          Hydrate 💧
+        </button>
+        <button className="col-span-6 col-start-7 row-start-3 rounded bg-teal-700 px-4 py-2 text-sm text-base-50 transition hover:bg-teal-600 active:bg-teal-800">
+          Supplement / Medication 💊
+        </button>
+      </DialogModal>
     </>
   );
 };
