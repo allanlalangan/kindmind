@@ -4,6 +4,7 @@ import DialogModal from "~/components/DialogModal";
 import Link from "next/link";
 import { useState } from "react";
 import MoodSelector from "~/components/MoodSelector";
+import ActivitySelector from "~/components/ActivitySelector";
 
 const CreateJournalEntryPage: NextPageWithLayout = () => {
   const today = new Date();
@@ -45,6 +46,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
         }}
       >
         <MoodSelector />
+        <ActivitySelector />
       </DialogModal>
     </>
   );
