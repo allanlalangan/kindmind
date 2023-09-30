@@ -21,11 +21,9 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
           {today.toDateString()}
         </time>
       </div>
-
-      <section className="col-span-12 row-span-full row-start-2 flex flex-col overflow-y-scroll border-light-500 p-2 dark:border-base-800 lg:p-4"></section>
       <button
         onClick={() => setModalIsOpen(true)}
-        className="col-span-12 row-span-2 m-2 flex items-center justify-center gap-2 rounded bg-base-800 p-4 font-dm uppercase text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300 lg:m-4"
+        className="col-span-12 m-2 flex items-center justify-center gap-2 rounded bg-base-800 p-4 font-dm uppercase text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300 lg:m-4"
       >
         <svg
           className="h-8 w-8"

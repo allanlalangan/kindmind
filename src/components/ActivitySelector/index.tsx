@@ -1,6 +1,6 @@
 export default function ActivitySelector() {
   return (
-    <fieldset className="col-span-12 flex flex-col justify-center gap-2 rounded border border-light-500 p-4 dark:border-base-600">
+    <fieldset className="col-span-12 flex flex-col justify-center gap-2 rounded border border-light-500 p-2 dark:border-base-600 lg:p-4">
       <legend className="px-2 font-dm text-lg">Activities</legend>
       <p className="mx-auto">What did you do?</p>
       <div className="grid grid-cols-12 gap-2">
