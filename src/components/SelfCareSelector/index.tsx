@@ -7,7 +7,7 @@ export default function SelfCareSelector() {
         <input
           className="peer sr-only"
           type="checkbox"
-          name="activity"
+          name="self_care"
           id="exercise"
         />
         <label
@@ -32,7 +32,7 @@ export default function SelfCareSelector() {
         <input
           className="peer sr-only"
           type="checkbox"
-          name="activity"
+          name="self_care"
           id="journal"
         />
         <label
@@ -60,7 +60,7 @@ export default function SelfCareSelector() {
         <input
           className="peer sr-only"
           type="checkbox"
-          name="activity"
+          name="self_care"
           id="grooming"
         />
         <label
@@ -85,7 +85,7 @@ export default function SelfCareSelector() {
         <input
           className="peer sr-only"
           type="checkbox"
-          name="activity"
+          name="self_care"
           id="meditate"
         />
         <label

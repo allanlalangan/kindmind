@@ -4,12 +4,7 @@ export default function WorkSelector() {
       <legend className="px-2 text-sm">Work</legend>
 
       <div className="col-span-3 flex flex-col">
-        <input
-          className="peer sr-only"
-          type="checkbox"
-          name="activity"
-          id="job"
-        />
+        <input className="peer sr-only" type="checkbox" name="work" id="job" />
         <label
           className="flex w-full cursor-pointer flex-col items-center rounded p-2 transition hover:bg-light-400 peer-checked:bg-light-500 dark:hover:bg-base-700 dark:peer-checked:bg-base-600"
           htmlFor="job"
@@ -32,7 +27,7 @@ export default function WorkSelector() {
         <input
           className="peer sr-only"
           type="checkbox"
-          name="activity"
+          name="work"
           id="study"
         />
         <label
@@ -57,7 +52,7 @@ export default function WorkSelector() {
         <input
           className="peer sr-only"
           type="checkbox"
-          name="activity"
+          name="work"
           id="clean"
         />
         <label
@@ -82,7 +77,7 @@ export default function WorkSelector() {
         <input
           className="peer sr-only"
           type="checkbox"
-          name="activity"
+          name="work"
           id="errands"
         />
         <label
