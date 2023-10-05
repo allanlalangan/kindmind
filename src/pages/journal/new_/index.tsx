@@ -8,10 +8,21 @@ import SelfCareSelector from "~/components/SelfCareSelector";
 import WorkSelector from "~/components/WorkSelector";
 import ActivitySelector from "~/components/ActivitySelector";
 import HealthSelector from "~/components/HealthSelector";
+import {
+  activity_fieldset,
+  self_care_fieldset,
+  work_fieldset,
+  health_fieldset,
+} from "~/lib/event_selectors";
 
 const CreateJournalEntryPage: NextPageWithLayout = () => {
   const today = new Date();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const [selfCareFieldset, setSelfCareFieldset] = useState(self_care_fieldset);
+  const [activityFieldset, setActivityFieldset] = useState(activity_fieldset);
+  const [workFieldset, setWorkFieldset] = useState(work_fieldset);
+  const [healthFieldset, setHealthFieldset] = useState(health_fieldset);
 
   return (
     <>
@@ -47,7 +58,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
         }}
       >
         <MoodSelector />
-        <SelfCareSelector />
+        <SelfCareSelector fieldset={selfCareFieldset} />
         <ActivitySelector />
         <WorkSelector />
         <HealthSelector />
