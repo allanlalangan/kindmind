@@ -58,7 +58,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
         }}
       >
         <MoodSelector />
-        <SelfCareSelector fieldset={selfCareFieldset} />
+        <SelfCareSelector />
         <ActivitySelector />
         <WorkSelector />
         <HealthSelector />
