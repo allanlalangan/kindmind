@@ -1,13 +1,10 @@
 import { type NextPageWithLayout } from "~/pages/_app";
 import DashboardLayout from "~/components/DashboardLayout";
-import DialogModal from "~/components/DialogModal";
 import Link from "next/link";
 import { useState } from "react";
 import MoodSelector from "~/components/MoodSelector";
-import SelfCareSelector from "~/components/SelfCareSelector";
-import WorkSelector from "~/components/WorkSelector";
-import ActivitySelector from "~/components/ActivitySelector";
-import HealthSelector from "~/components/HealthSelector";
+import EventSelector from "~/components/EventSelector";
+import DialogModal from "~/components/DialogModal";
 import {
   activity_fieldset,
   self_care_fieldset,
@@ -58,10 +55,16 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
         }}
       >
         <MoodSelector />
-        <SelfCareSelector />
-        <ActivitySelector />
-        <WorkSelector />
-        <HealthSelector />
+        <EventSelector
+          fieldset={selfCareFieldset}
+          setState={setSelfCareFieldset}
+        />
+        <EventSelector
+          fieldset={activityFieldset}
+          setState={setActivityFieldset}
+        />
+        <EventSelector fieldset={workFieldset} setState={setWorkFieldset} />
+        <EventSelector fieldset={healthFieldset} setState={setHealthFieldset} />
         <fieldset className="col-span-12 flex flex-col justify-center gap-2 rounded border border-light-500 p-2 dark:border-base-600 lg:p-4">
           <legend className="px-2 text-sm">Notes</legend>
           <textarea
