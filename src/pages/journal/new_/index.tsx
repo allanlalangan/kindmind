@@ -16,10 +16,22 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   const today = new Date();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const [notes, setNotes] = useState("");
   const [selfCareFieldset, setSelfCareFieldset] = useState(self_care_fieldset);
   const [activityFieldset, setActivityFieldset] = useState(activity_fieldset);
   const [workFieldset, setWorkFieldset] = useState(work_fieldset);
   const [healthFieldset, setHealthFieldset] = useState(health_fieldset);
+
+  const handleSubmit = () => {
+    setModalIsOpen(false);
+    console.log(
+      selfCareFieldset.checkboxes,
+      activityFieldset.checkboxes,
+      workFieldset.checkboxes,
+      healthFieldset.checkboxes
+    );
+    console.log(notes);
+  };
 
   return (
     <>
@@ -69,11 +81,13 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
           <legend className="px-2 text-sm">Notes</legend>
           <textarea
             name="notes"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
             className="rounded border border-light-500 bg-light-100 p-4 focus:outline-light-900 dark:border-base-600 dark:bg-base-700 focus:dark:outline-base-200 md:pb-4"
           ></textarea>
         </fieldset>
         <button
-          onClick={() => setModalIsOpen(true)}
+          onClick={handleSubmit}
           className="col-span-12 flex items-center justify-center gap-2 rounded bg-base-800 p-2 font-dm uppercase text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
         >
           <svg
