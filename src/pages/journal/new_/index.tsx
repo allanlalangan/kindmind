@@ -16,6 +16,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   const today = new Date();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const [mood, setMood] = useState<number | null>(null);
   const [notes, setNotes] = useState("");
   const [selfCareFieldset, setSelfCareFieldset] = useState(self_care_fieldset);
   const [activityFieldset, setActivityFieldset] = useState(activity_fieldset);
@@ -24,6 +25,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
 
   const handleSubmit = () => {
     setModalIsOpen(false);
+    console.log(mood);
     console.log(
       selfCareFieldset.checkboxes,
       activityFieldset.checkboxes,
@@ -31,6 +33,13 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
       healthFieldset.checkboxes
     );
     console.log(notes);
+
+    setMood(null);
+    setNotes("");
+    setSelfCareFieldset(self_care_fieldset);
+    setActivityFieldset(activity_fieldset);
+    setWorkFieldset(work_fieldset);
+    setHealthFieldset(health_fieldset);
   };
 
   return (
@@ -66,7 +75,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
           setModalIsOpen(false);
         }}
       >
-        <MoodSelector />
+        <MoodSelector selectedMood={mood} setSelectedMood={setMood} />
         <EventSelector
           fieldset={selfCareFieldset}
           setState={setSelfCareFieldset}
