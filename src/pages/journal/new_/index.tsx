@@ -1,16 +1,46 @@
 import { type NextPageWithLayout } from "~/pages/_app";
 import DashboardLayout from "~/components/DashboardLayout";
-import DialogModal from "~/components/DialogModal";
 import Link from "next/link";
 import { useState } from "react";
 import MoodSelector from "~/components/MoodSelector";
-import SelfCareSelector from "~/components/SelfCareSelector";
-import WorkSelector from "~/components/WorkSelector";
-import ActivitySelector from "~/components/ActivitySelector";
+import EventSelector from "~/components/EventSelector";
+import DialogModal from "~/components/DialogModal";
+import {
+  activity_fieldset,
+  self_care_fieldset,
+  work_fieldset,
+  health_fieldset,
+} from "~/lib/event_selectors";
 
 const CreateJournalEntryPage: NextPageWithLayout = () => {
   const today = new Date();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const [mood, setMood] = useState<number | null>(null);
+  const [notes, setNotes] = useState("");
+  const [selfCareFieldset, setSelfCareFieldset] = useState(self_care_fieldset);
+  const [activityFieldset, setActivityFieldset] = useState(activity_fieldset);
+  const [workFieldset, setWorkFieldset] = useState(work_fieldset);
+  const [healthFieldset, setHealthFieldset] = useState(health_fieldset);
+
+  const handleSubmit = () => {
+    setModalIsOpen(false);
+    console.log(mood);
+    console.log(
+      selfCareFieldset.checkboxes,
+      activityFieldset.checkboxes,
+      workFieldset.checkboxes,
+      healthFieldset.checkboxes
+    );
+    console.log(notes);
+
+    setMood(null);
+    setNotes("");
+    setSelfCareFieldset(self_care_fieldset);
+    setActivityFieldset(activity_fieldset);
+    setWorkFieldset(work_fieldset);
+    setHealthFieldset(health_fieldset);
+  };
 
   return (
     <>
@@ -45,19 +75,28 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
           setModalIsOpen(false);
         }}
       >
-        <MoodSelector />
-        <SelfCareSelector />
-        <ActivitySelector />
-        <WorkSelector />
+        <MoodSelector selectedMood={mood} setSelectedMood={setMood} />
+        <EventSelector
+          fieldset={selfCareFieldset}
+          setState={setSelfCareFieldset}
+        />
+        <EventSelector
+          fieldset={activityFieldset}
+          setState={setActivityFieldset}
+        />
+        <EventSelector fieldset={workFieldset} setState={setWorkFieldset} />
+        <EventSelector fieldset={healthFieldset} setState={setHealthFieldset} />
         <fieldset className="col-span-12 flex flex-col justify-center gap-2 rounded border border-light-500 p-2 dark:border-base-600 lg:p-4">
           <legend className="px-2 text-sm">Notes</legend>
           <textarea
-            name=""
+            name="notes"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
             className="rounded border border-light-500 bg-light-100 p-4 focus:outline-light-900 dark:border-base-600 dark:bg-base-700 focus:dark:outline-base-200 md:pb-4"
           ></textarea>
         </fieldset>
         <button
-          onClick={() => setModalIsOpen(true)}
+          onClick={handleSubmit}
           className="col-span-12 flex items-center justify-center gap-2 rounded bg-base-800 p-2 font-dm uppercase text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
         >
           <svg

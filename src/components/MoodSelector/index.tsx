@@ -1,10 +1,28 @@
-export default function MoodSelector() {
+import { type ChangeEvent, type Dispatch, type SetStateAction } from "react";
+
+interface props {
+  selectedMood: number | null;
+  setSelectedMood: Dispatch<SetStateAction<number | null>>;
+}
+
+export default function MoodSelector({ selectedMood, setSelectedMood }: props) {
+  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectedMood(+e.target.value);
+  };
   return (
     <fieldset className="col-span-12 flex flex-col justify-center gap-2 rounded border border-light-500 p-2 dark:border-base-600 lg:p-4">
       <legend className="px-2 text-sm">Mood</legend>
       <div className="grid grid-cols-10 gap-2">
         <div className="col-span-2 flex flex-1 flex-col">
-          <input className="peer sr-only" type="radio" name="mood" id="1" />
+          <input
+            className="peer sr-only"
+            type="radio"
+            name="mood"
+            id="1"
+            value={1}
+            checked={selectedMood === 1}
+            onChange={handleCheck}
+          />
           <label
             className="flex w-full cursor-pointer flex-col items-center rounded p-2 transition hover:bg-light-400 peer-checked:bg-light-500 dark:hover:bg-base-700 dark:peer-checked:bg-base-600"
             htmlFor="1"
@@ -25,7 +43,15 @@ export default function MoodSelector() {
           </label>
         </div>
         <div className="col-span-2 flex flex-1 flex-col">
-          <input className="peer sr-only" type="radio" name="mood" id="2" />
+          <input
+            className="peer sr-only"
+            type="radio"
+            name="mood"
+            id="2"
+            value={2}
+            checked={selectedMood === 2}
+            onChange={handleCheck}
+          />
           <label
             className="flex w-full cursor-pointer flex-col items-center rounded p-2 transition hover:bg-light-400 peer-checked:bg-light-500 dark:hover:bg-base-700 dark:peer-checked:bg-base-600"
             htmlFor="2"
@@ -46,7 +72,15 @@ export default function MoodSelector() {
           </label>
         </div>
         <div className="col-span-2 flex flex-1 flex-col">
-          <input className="peer sr-only" type="radio" name="mood" id="3" />
+          <input
+            className="peer sr-only"
+            type="radio"
+            name="mood"
+            id="3"
+            value={3}
+            checked={selectedMood === 3}
+            onChange={handleCheck}
+          />
           <label
             className="flex w-full cursor-pointer flex-col items-center rounded p-2 transition hover:bg-light-400 peer-checked:bg-light-500 dark:hover:bg-base-700 dark:peer-checked:bg-base-600"
             htmlFor="3"
@@ -67,7 +101,15 @@ export default function MoodSelector() {
           </label>
         </div>
         <div className="col-span-2 flex flex-1 flex-col">
-          <input className="peer sr-only" type="radio" name="mood" id="4" />
+          <input
+            className="peer sr-only"
+            type="radio"
+            name="mood"
+            id="4"
+            value={4}
+            checked={selectedMood === 4}
+            onChange={handleCheck}
+          />
           <label
             className="flex w-full cursor-pointer flex-col items-center rounded p-2 transition hover:bg-light-400 peer-checked:bg-light-500 dark:hover:bg-base-700 dark:peer-checked:bg-base-600"
             htmlFor="4"
@@ -88,7 +130,15 @@ export default function MoodSelector() {
           </label>
         </div>
         <div className="col-span-2 flex flex-1 flex-col">
-          <input className="peer sr-only" type="radio" name="mood" id="5" />
+          <input
+            className="peer sr-only"
+            type="radio"
+            name="mood"
+            id="5"
+            value={5}
+            checked={selectedMood === 5}
+            onChange={handleCheck}
+          />
           <label
             className="flex w-full cursor-pointer flex-col items-center rounded p-2 transition hover:bg-light-400 peer-checked:bg-light-500 dark:hover:bg-base-700 dark:peer-checked:bg-base-600"
             htmlFor="5"
@@ -105,7 +155,7 @@ export default function MoodSelector() {
                 d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2Zm0 9c-2 0-3.667.333-5 1a5 5 0 0 0 10 0c-1.333-.667-3-1-5-1ZM8.5 7c-1.152 0-2.122.78-2.412 1.84L6.05 9h4.9A2.5 2.5 0 0 0 8.5 7Zm7 0c-1.152 0-2.122.78-2.412 1.84L13.05 9h4.9a2.5 2.5 0 0 0-2.45-2Z"
               />
             </svg>
-            <span className="text-sm">Great</span>
+            <span className="text-sm">Awesome</span>
           </label>
         </div>
       </div>

@@ -19,6 +19,7 @@ model User {
 
     entries JournalEntry[]
     events  Event[]
+    Block   Block[]
 }
 
 model JournalEntry {
@@ -41,9 +42,28 @@ model Event {
     userId String?
     user   User?   @relation(fields: [userId], references: [id])
 
-    mood       Int
-    self_care  String[]
-    activities String[]
-    work       String[]
-    notes      String
+    mood   Int
+    blocks Block[]
+    notes  String?
+}
+
+enum BlockType {
+    SELF_CARE
+    ACTIVITY
+    HEALTH
+    WORK
+}
+
+model Block {
+    id        String    @id @default(cuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    type      BlockType
+    name      String
+
+    userId String?
+    user   User?   @relation(fields: [userId], references: [id])
+
+    eventId String
+    event   Event  @relation(fields: [eventId], references: [id])
 }
