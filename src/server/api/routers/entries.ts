@@ -8,6 +8,49 @@ import {
 } from "~/server/api/trpc";
 
 export const entriesRouter = createTRPCRouter({
+  getGuestTodayLog: publicProcedure.query(({ ctx }) => {
+    const today = new Date();
+
+    return ctx.prisma.entry.findMany({
+      where: {
+        createdAt: {
+          gte: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+          lt: new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate() + 1
+          ),
+        },
+      },
+      include: {
+        events: true,
+      },
+    });
+  }),
+
+  getTodayLog: protectedProcedure.query(async ({ ctx }) => {
+    const today = new Date();
+    const user = await ctx.prisma.user.findUnique({
+      where: {
+        clerkId: ctx.auth?.userId,
+      },
+    });
+
+    return ctx.prisma.entry.findMany({
+      where: {
+        userId: user?.id,
+        createdAt: {
+          gte: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+          lt: new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate() + 1
+          ),
+        },
+      },
+    });
+  }),
+
   createEntry: protectedProcedure
     .input(
       z.object({
