@@ -19,8 +19,8 @@ export default function MoodSelector({ selectedMood, setSelectedMood }: props) {
             type="radio"
             name="mood"
             id="1"
-            value={1}
-            checked={selectedMood === 1}
+            value={-2}
+            checked={selectedMood === -2}
             onChange={handleCheck}
           />
           <label
@@ -48,8 +48,8 @@ export default function MoodSelector({ selectedMood, setSelectedMood }: props) {
             type="radio"
             name="mood"
             id="2"
-            value={2}
-            checked={selectedMood === 2}
+            value={-1}
+            checked={selectedMood === -1}
             onChange={handleCheck}
           />
           <label
@@ -77,8 +77,8 @@ export default function MoodSelector({ selectedMood, setSelectedMood }: props) {
             type="radio"
             name="mood"
             id="3"
-            value={3}
-            checked={selectedMood === 3}
+            value={0}
+            checked={selectedMood === 0}
             onChange={handleCheck}
           />
           <label
@@ -97,7 +97,7 @@ export default function MoodSelector({ selectedMood, setSelectedMood }: props) {
                 d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10Zm-4-8v2h8v-2H8Zm0-3a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm8 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Z"
               />
             </svg>
-            <span className="text-sm">Meh</span>
+            <span className="text-sm">Okay</span>
           </label>
         </div>
         <div className="col-span-2 flex flex-1 flex-col">
@@ -106,8 +106,8 @@ export default function MoodSelector({ selectedMood, setSelectedMood }: props) {
             type="radio"
             name="mood"
             id="4"
-            value={4}
-            checked={selectedMood === 4}
+            value={1}
+            checked={selectedMood === 1}
             onChange={handleCheck}
           />
           <label
@@ -135,8 +135,8 @@ export default function MoodSelector({ selectedMood, setSelectedMood }: props) {
             type="radio"
             name="mood"
             id="5"
-            value={5}
-            checked={selectedMood === 5}
+            value={2}
+            checked={selectedMood === 2}
             onChange={handleCheck}
           />
           <label
