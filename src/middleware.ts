@@ -16,6 +16,7 @@ export default authMiddleware({
     "/api/trpc/journal.createGuestEntry",
     "/api/trpc/journal.updateGuestEntry",
     "/api/trpc/journal.deleteGuestEntry",
+    "/api/trpc/entries.createGuestEntry",
   ],
   ignoredRoutes: ["/api/webhooks/user"],
 });
