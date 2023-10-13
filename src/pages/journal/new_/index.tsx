@@ -49,18 +49,32 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
     mutate({
       mood,
       notes,
-      self_care_events: selfCareFieldset.checkboxes
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value),
-      activity_events: activityFieldset.checkboxes
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value),
-      work_events: workFieldset.checkboxes
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value),
-      health_events: healthFieldset.checkboxes
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value),
+      events: [
+        {
+          type: "SELF_CARE",
+          selected: selfCareFieldset.checkboxes
+            .filter((checkbox) => checkbox.checked)
+            .map((checkbox) => checkbox.value),
+        },
+        {
+          type: "ACTIVITY",
+          selected: activityFieldset.checkboxes
+            .filter((checkbox) => checkbox.checked)
+            .map((checkbox) => checkbox.value),
+        },
+        {
+          type: "WORK",
+          selected: workFieldset.checkboxes
+            .filter((checkbox) => checkbox.checked)
+            .map((checkbox) => checkbox.value),
+        },
+        {
+          type: "ACTIVITY",
+          selected: activityFieldset.checkboxes
+            .filter((checkbox) => checkbox.checked)
+            .map((checkbox) => checkbox.value),
+        },
+      ],
     });
 
     setMood(null);

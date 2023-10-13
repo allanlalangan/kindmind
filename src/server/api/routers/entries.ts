@@ -12,10 +12,12 @@ export const entriesRouter = createTRPCRouter({
       z.object({
         mood: z.number().nullable(),
         notes: z.string(),
-        self_care_events: z.array(z.string()),
-        activity_events: z.array(z.string()),
-        work_events: z.array(z.string()),
-        health_events: z.array(z.string()),
+        events: z.array(
+          z.object({
+            type: z.string(),
+            selected: z.array(z.string()),
+          })
+        ),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -32,13 +34,16 @@ export const entriesRouter = createTRPCRouter({
       z.object({
         mood: z.number().nullable(),
         notes: z.string(),
-        self_care_events: z.array(z.string()),
-        activity_events: z.array(z.string()),
-        work_events: z.array(z.string()),
-        health_events: z.array(z.string()),
+        events: z.array(
+          z.object({
+            type: z.string(),
+            selected: z.array(z.string()),
+          })
+        ),
       })
     )
     .mutation(({ ctx, input }) => {
-      console.log(input);
+      const events = input.events.filter((event) => event.selected.length > 0);
+      console.log(events);
     }),
 });
