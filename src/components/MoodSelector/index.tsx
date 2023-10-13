@@ -2,7 +2,7 @@ import { type ChangeEvent, type Dispatch, type SetStateAction } from "react";
 
 interface props {
   selectedMood: number | null;
-  setSelectedMood: Dispatch<SetStateAction<number | null>>;
+  setSelectedMood: Dispatch<SetStateAction<number>>;
 }
 
 export default function MoodSelector({ selectedMood, setSelectedMood }: props) {
