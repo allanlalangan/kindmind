@@ -19,7 +19,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   const today = new Date();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const [mood, setMood] = useState<number | null>(null);
+  const [mood, setMood] = useState<number>(0);
   const [notes, setNotes] = useState("");
   const [selfCareFieldset, setSelfCareFieldset] = useState(self_care_fieldset);
   const [activityFieldset, setActivityFieldset] = useState(activity_fieldset);
@@ -65,7 +65,7 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
       ],
     });
 
-    setMood(null);
+    setMood(0);
     setNotes("");
     setSelfCareFieldset(self_care_fieldset);
     setActivityFieldset(activity_fieldset);

@@ -11,7 +11,7 @@ export const entriesRouter = createTRPCRouter({
   createEntry: protectedProcedure
     .input(
       z.object({
-        mood: z.number().nullable(),
+        mood: z.number(),
         notes: z.string(),
         events: z.array(
           z.object({
@@ -27,13 +27,26 @@ export const entriesRouter = createTRPCRouter({
           clerkId: ctx.auth?.userId,
         },
       });
-      console.log(input);
+      await ctx.prisma.entry.create({
+        data: {
+          userId: user?.id,
+          mood: input.mood,
+          notes: input.notes,
+          events: {
+            create: input.events.map((event) => ({
+              userId: user?.id,
+              type: event.type as EventType,
+              name: event.name,
+            })),
+          },
+        },
+      });
     }),
 
   createGuestEntry: publicProcedure
     .input(
       z.object({
-        mood: z.number().nullable(),
+        mood: z.number(),
         notes: z.string(),
         events: z.array(
           z.object({
@@ -43,8 +56,21 @@ export const entriesRouter = createTRPCRouter({
         ),
       })
     )
-    .mutation(({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
       console.log(input.events);
+
+      await ctx.prisma.entry.create({
+        data: {
+          mood: input.mood,
+          notes: input.notes,
+          events: {
+            create: input.events.map((event) => ({
+              type: event.type as EventType,
+              name: event.name,
+            })),
+          },
+        },
+      });
     }),
   // events.forEach((event_type) => {
   //   event_type.selected.forEach((event_name) => {
