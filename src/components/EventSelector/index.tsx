@@ -8,7 +8,6 @@ interface props {
 }
 
 export default function EventSelector({ fieldset, setState }: props) {
-  console.log(fieldset);
   const handleCheck = (index: number) => {
     setState({
       ...fieldset,

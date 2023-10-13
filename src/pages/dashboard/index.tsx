@@ -8,14 +8,14 @@ export default function DashboardPage() {
   const user = useUser();
   let getTodayEntries;
   if (!user.isSignedIn) {
-    getTodayEntries = api.entries.getTodayGuestEntry.useQuery(undefined, {
+    getTodayEntries = api.journal.getTodayGuestEntry.useQuery(undefined, {
       onSuccess: (data) => {
         console.log("success", data);
       },
       refetchOnWindowFocus: false,
     });
   } else {
-    getTodayEntries = api.entries.getTodayEntry.useQuery(undefined, {
+    getTodayEntries = api.journal.getTodayEntry.useQuery(undefined, {
       onSuccess: (data) => {
         console.log("success", data);
       },

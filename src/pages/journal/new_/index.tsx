@@ -11,8 +11,11 @@ import {
   work_fieldset,
   health_fieldset,
 } from "~/lib/event_selectors";
+import { api } from "~/utils/api";
+import { useUser } from "@clerk/nextjs";
 
 const CreateJournalEntryPage: NextPageWithLayout = () => {
+  const user = useUser();
   const today = new Date();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -23,16 +26,42 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   const [workFieldset, setWorkFieldset] = useState(work_fieldset);
   const [healthFieldset, setHealthFieldset] = useState(health_fieldset);
 
+  let logEntry;
+
+  if (!user.isSignedIn) {
+    logEntry = api.entries.createGuestEntry.useMutation({
+      onSuccess: () => {
+        console.log("success");
+      },
+    });
+  } else {
+    logEntry = api.entries.createEntry.useMutation({
+      onSuccess: () => {
+        console.log("success");
+      },
+    });
+  }
+
+  const { mutate } = logEntry;
+
   const handleSubmit = () => {
     setModalIsOpen(false);
-    console.log(mood);
-    console.log(
-      selfCareFieldset.checkboxes,
-      activityFieldset.checkboxes,
-      workFieldset.checkboxes,
-      healthFieldset.checkboxes
-    );
-    console.log(notes);
+    mutate({
+      mood,
+      notes,
+      self_care_events: selfCareFieldset.checkboxes
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value),
+      activity_events: activityFieldset.checkboxes
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value),
+      work_events: workFieldset.checkboxes
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value),
+      health_events: healthFieldset.checkboxes
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value),
+    });
 
     setMood(null);
     setNotes("");

@@ -50,7 +50,7 @@ export default function EntryPage() {
   let updateEntry;
 
   if (!user.isSignedIn) {
-    getEntry = api.entries.getGuestEntry.useQuery(
+    getEntry = api.journal.getGuestEntry.useQuery(
       { id: id as string },
       {
         onSuccess: (data) => {
@@ -69,19 +69,19 @@ export default function EntryPage() {
       }
     );
 
-    updateEntry = api.entries.updateGuestEntry.useMutation({
+    updateEntry = api.journal.updateGuestEntry.useMutation({
       onSuccess: () => {
         void refetch();
       },
     });
 
-    deleteEntry = api.entries.deleteGuestEntry.useMutation({
+    deleteEntry = api.journal.deleteGuestEntry.useMutation({
       onSuccess: () => {
         void router.push("/journal");
       },
     });
   } else {
-    getEntry = api.entries.getEntry.useQuery(
+    getEntry = api.journal.getEntry.useQuery(
       { id: id as string },
       {
         onSuccess: (data) => {
@@ -100,13 +100,13 @@ export default function EntryPage() {
       }
     );
 
-    updateEntry = api.entries.updateEntry.useMutation({
+    updateEntry = api.journal.updateEntry.useMutation({
       onSuccess: (data) => {
         void refetch();
       },
     });
 
-    deleteEntry = api.entries.deleteEntry.useMutation({
+    deleteEntry = api.journal.deleteEntry.useMutation({
       onSuccess: () => {
         void router.push("/journal");
       },

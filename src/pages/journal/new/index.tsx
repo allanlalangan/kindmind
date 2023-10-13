@@ -53,14 +53,14 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
   let createEntry;
 
   if (!user.isSignedIn) {
-    createEntry = api.entries.createGuestEntry.useMutation({
+    createEntry = api.journal.createGuestEntry.useMutation({
       onSuccess: () => {
         console.log("success");
         void router.push("/journal?redirected=true");
       },
     });
   } else {
-    createEntry = api.entries.createEntry.useMutation({
+    createEntry = api.journal.createEntry.useMutation({
       onSuccess: () => {
         console.log("success");
         void router.push("/journal?redirected=true");

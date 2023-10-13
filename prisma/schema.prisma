@@ -17,9 +17,43 @@ model User {
 
     clerkId String @unique
 
-    entries JournalEntry[]
-    events  Event[]
-    Block   Block[]
+    journal_entries JournalEntry[]
+    events          Event[]
+    entries         Entry[]
+}
+
+model Entry {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    userId String?
+    user   User?   @relation(fields: [userId], references: [id])
+
+    mood   Int
+    events Event[]
+    notes  String?
+}
+
+enum EventType {
+    SELF_CARE
+    ACTIVITY
+    HEALTH
+    WORK
+}
+
+model Event {
+    id        String    @id @default(cuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    type      EventType
+    name      String
+
+    userId String?
+    user   User?   @relation(fields: [userId], references: [id])
+
+    entryId String
+    entry   Entry  @relation(fields: [entryId], references: [id])
 }
 
 model JournalEntry {
@@ -32,38 +66,4 @@ model JournalEntry {
 
     title   String @db.VarChar(255)
     content String @db.Text
-}
-
-model Event {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    userId String?
-    user   User?   @relation(fields: [userId], references: [id])
-
-    mood   Int
-    blocks Block[]
-    notes  String?
-}
-
-enum BlockType {
-    SELF_CARE
-    ACTIVITY
-    HEALTH
-    WORK
-}
-
-model Block {
-    id        String    @id @default(cuid())
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    type      BlockType
-    name      String
-
-    userId String?
-    user   User?   @relation(fields: [userId], references: [id])
-
-    eventId String
-    event   Event  @relation(fields: [eventId], references: [id])
 }
