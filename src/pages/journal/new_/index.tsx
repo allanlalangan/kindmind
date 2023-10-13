@@ -50,30 +50,18 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
       mood,
       notes,
       events: [
-        {
-          type: "SELF_CARE",
-          selected: selfCareFieldset.checkboxes
-            .filter((checkbox) => checkbox.checked)
-            .map((checkbox) => checkbox.value),
-        },
-        {
-          type: "ACTIVITY",
-          selected: activityFieldset.checkboxes
-            .filter((checkbox) => checkbox.checked)
-            .map((checkbox) => checkbox.value),
-        },
-        {
-          type: "WORK",
-          selected: workFieldset.checkboxes
-            .filter((checkbox) => checkbox.checked)
-            .map((checkbox) => checkbox.value),
-        },
-        {
-          type: "HEALTH",
-          selected: healthFieldset.checkboxes
-            .filter((checkbox) => checkbox.checked)
-            .map((checkbox) => checkbox.value),
-        },
+        ...selfCareFieldset.checkboxes
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => ({ type: "SELF_CARE", name: checkbox.value })),
+        ...activityFieldset.checkboxes
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => ({ type: "ACTIVITY", name: checkbox.value })),
+        ...workFieldset.checkboxes
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => ({ type: "WORK", name: checkbox.value })),
+        ...healthFieldset.checkboxes
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => ({ type: "HEALTH", name: checkbox.value })),
       ],
     });
 

@@ -1,3 +1,4 @@
+import { type EventType } from "@prisma/client";
 import { z } from "zod";
 
 import {
@@ -15,7 +16,7 @@ export const entriesRouter = createTRPCRouter({
         events: z.array(
           z.object({
             type: z.string(),
-            selected: z.array(z.string()),
+            name: z.string(),
           })
         ),
       })
@@ -37,13 +38,17 @@ export const entriesRouter = createTRPCRouter({
         events: z.array(
           z.object({
             type: z.string(),
-            selected: z.array(z.string()),
+            name: z.string(),
           })
         ),
       })
     )
     .mutation(({ ctx, input }) => {
-      const events = input.events.filter((event) => event.selected.length > 0);
-      console.log(events);
+      console.log(input.events);
     }),
+  // events.forEach((event_type) => {
+  //   event_type.selected.forEach((event_name) => {
+  //     console.log(event_name);
+  //   });
+  // });
 });
