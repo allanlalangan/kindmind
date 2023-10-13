@@ -69,8 +69,8 @@ const CreateJournalEntryPage: NextPageWithLayout = () => {
             .map((checkbox) => checkbox.value),
         },
         {
-          type: "ACTIVITY",
-          selected: activityFieldset.checkboxes
+          type: "HEALTH",
+          selected: healthFieldset.checkboxes
             .filter((checkbox) => checkbox.checked)
             .map((checkbox) => checkbox.value),
         },
