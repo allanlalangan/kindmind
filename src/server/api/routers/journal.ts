@@ -6,7 +6,7 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
-export const entriesRouter = createTRPCRouter({
+export const journalRouter = createTRPCRouter({
   getAll: protectedProcedure.query(async ({ ctx }) => {
     console.log(ctx.auth);
 

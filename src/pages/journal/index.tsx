@@ -11,14 +11,14 @@ export default function JournalPage() {
 
   let getAllEntriesQuery;
   if (!!user && user.isSignedIn) {
-    getAllEntriesQuery = api.entries.getAll.useQuery(undefined, {
+    getAllEntriesQuery = api.journal.getAll.useQuery(undefined, {
       onSuccess: (data) => {
         console.log("success", data);
       },
       refetchOnWindowFocus: false,
     });
   } else {
-    getAllEntriesQuery = api.entries.getGuestEntries.useQuery(undefined, {
+    getAllEntriesQuery = api.journal.getGuestEntries.useQuery(undefined, {
       onSuccess: (data) => {
         console.log("success", data);
       },
