@@ -1,14 +1,15 @@
 interface props {
   mood: number;
+  size?: number;
 }
 
-export default function MoodIcon({ mood }: props) {
+export default function MoodIcon({ mood, size }: props) {
   switch (mood) {
     case -2:
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="text-orange-500"
+          className={`${size ? `h-${size} w-${size} ` : ""}text-orange-500`}
           width="32"
           height="32"
           viewBox="0 0 24 24"
@@ -24,7 +25,7 @@ export default function MoodIcon({ mood }: props) {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="text-amber-500"
+          className={`${size ? `h-${size} w-${size} ` : ""}text-amber-500`}
           width="32"
           height="32"
           viewBox="0 0 24 24"
@@ -40,7 +41,9 @@ export default function MoodIcon({ mood }: props) {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="text-yellow-400 dark:text-yellow-200"
+          className={`${
+            size ? `h-${size} w-${size} ` : ""
+          }text-yellow-600 dark:text-yellow-200`}
           width="32"
           height="32"
           viewBox="0 0 24 24"
@@ -56,7 +59,9 @@ export default function MoodIcon({ mood }: props) {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="text-green-500 dark:text-green-300"
+          className={`${
+            size ? `h-${size} w-${size} ` : ""
+          }text-indigo-500 dark:text-indigo-400`}
           width="32"
           height="32"
           viewBox="0 0 24 24"
@@ -72,7 +77,9 @@ export default function MoodIcon({ mood }: props) {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="text-emerald-600 dark:text-emerald-500"
+          className={`${
+            size ? `h-${size} w-${size} ` : ""
+          }text-fuchsia-500 dark:text-fuchsia-500`}
           width="32"
           height="32"
           viewBox="0 0 24 24"
