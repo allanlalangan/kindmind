@@ -12,6 +12,19 @@ import {
   health_fieldset,
 } from "~/lib/event_selectors";
 import { api } from "~/utils/api";
+import MoodIcon from "~/components/MoodIcon";
+
+const getMoodIconLabel = (mood: number) => {
+  return mood === -2
+    ? "awful"
+    : mood === -1
+    ? "bad"
+    : mood === 0
+    ? "okay"
+    : mood === 1
+    ? "good"
+    : "awesome";
+};
 
 export default function DashboardPage() {
   const user = useUser();
@@ -97,11 +110,28 @@ export default function DashboardPage() {
           Dashboard
         </Link>
       </div>
-      <section className="col-span-12 flex items-center justify-center">
+      <section className="col-span-12 row-span-full row-start-2 flex flex-col gap-4 overflow-y-scroll p-4">
         {todayLog?.length === 0 ? (
           <p>You haven&apos;t logged an entry today.</p>
         ) : (
-          ""
+          todayLog?.map((entry) => (
+            <div
+              className="grid grid-cols-12 grid-rows-2 rounded border border-light-500 bg-light-400 p-4 dark:border-base-700 dark:bg-base-800"
+              key={entry.id}
+            >
+              <p className="col-span-6 font-dm text-2xl">
+                {entry.createdAt.toLocaleTimeString([], {
+                  hour: "numeric",
+                  minute: "2-digit",
+                })}
+              </p>
+              <div className="col-span-6 col-start-7 row-span-full flex items-center gap-2">
+                <MoodIcon size={12} mood={entry.mood} />
+                <span>Feeling {getMoodIconLabel(entry.mood)}</span>
+              </div>
+              <p className="col-span-6">notes: {entry.notes}</p>
+            </div>
+          ))
         )}
       </section>
       <button
