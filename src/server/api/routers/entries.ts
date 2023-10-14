@@ -25,6 +25,9 @@ export const entriesRouter = createTRPCRouter({
       include: {
         events: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }),
 
@@ -47,6 +50,12 @@ export const entriesRouter = createTRPCRouter({
             today.getDate() + 1
           ),
         },
+      },
+      include: {
+        events: true,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
   }),
