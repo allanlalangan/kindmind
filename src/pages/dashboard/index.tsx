@@ -137,7 +137,7 @@ export default function DashboardPage() {
                 </div>
               </div>
               {entry.events.length > 0 && (
-                <section className="col-span-12 row-span-4 row-start-2 flex flex-col gap-2">
+                <section className="col-span-12 row-start-2 flex flex-col gap-2">
                   {entry.events.filter((event) => event.type === "SELF_CARE")
                     .length > 0 && (
                     <fieldset className="rounded border border-light-700 p-2 dark:border-base-500">
