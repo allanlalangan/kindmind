@@ -1,3 +1,4 @@
+import { type EventType } from "@prisma/client";
 import { z } from "zod";
 
 import {
@@ -7,15 +8,69 @@ import {
 } from "~/server/api/trpc";
 
 export const entriesRouter = createTRPCRouter({
+  getGuestTodayLog: publicProcedure.query(({ ctx }) => {
+    const today = new Date();
+
+    return ctx.prisma.entry.findMany({
+      where: {
+        createdAt: {
+          gte: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+          lt: new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate() + 1
+          ),
+        },
+      },
+      include: {
+        events: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }),
+
+  getTodayLog: protectedProcedure.query(async ({ ctx }) => {
+    const today = new Date();
+    const user = await ctx.prisma.user.findUnique({
+      where: {
+        clerkId: ctx.auth?.userId,
+      },
+    });
+
+    return ctx.prisma.entry.findMany({
+      where: {
+        userId: user?.id,
+        createdAt: {
+          gte: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+          lt: new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate() + 1
+          ),
+        },
+      },
+      include: {
+        events: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }),
+
   createEntry: protectedProcedure
     .input(
       z.object({
-        mood: z.number().nullable(),
+        mood: z.number(),
         notes: z.string(),
-        self_care_events: z.array(z.string()),
-        activity_events: z.array(z.string()),
-        work_events: z.array(z.string()),
-        health_events: z.array(z.string()),
+        events: z.array(
+          z.object({
+            type: z.string(),
+            name: z.string(),
+          })
+        ),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -24,21 +79,54 @@ export const entriesRouter = createTRPCRouter({
           clerkId: ctx.auth?.userId,
         },
       });
-      console.log(input);
+      await ctx.prisma.entry.create({
+        data: {
+          userId: user?.id,
+          mood: input.mood,
+          notes: input.notes,
+          events: {
+            create: input.events.map((event) => ({
+              userId: user?.id,
+              type: event.type as EventType,
+              name: event.name,
+            })),
+          },
+        },
+      });
     }),
 
   createGuestEntry: publicProcedure
     .input(
       z.object({
-        mood: z.number().nullable(),
+        mood: z.number(),
         notes: z.string(),
-        self_care_events: z.array(z.string()),
-        activity_events: z.array(z.string()),
-        work_events: z.array(z.string()),
-        health_events: z.array(z.string()),
+        events: z.array(
+          z.object({
+            type: z.string(),
+            name: z.string(),
+          })
+        ),
       })
     )
-    .mutation(({ ctx, input }) => {
-      console.log(input);
+    .mutation(async ({ ctx, input }) => {
+      console.log(input.events);
+
+      await ctx.prisma.entry.create({
+        data: {
+          mood: input.mood,
+          notes: input.notes,
+          events: {
+            create: input.events.map((event) => ({
+              type: event.type as EventType,
+              name: event.name,
+            })),
+          },
+        },
+      });
     }),
+  // events.forEach((event_type) => {
+  //   event_type.selected.forEach((event_name) => {
+  //     console.log(event_name);
+  //   });
+  // });
 });
