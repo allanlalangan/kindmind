@@ -10,16 +10,15 @@ import {
 export const entriesRouter = createTRPCRouter({
   getGuestTodayLog: publicProcedure.query(({ ctx }) => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
 
     return ctx.prisma.entry.findMany({
       where: {
         createdAt: {
-          gte: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
-          lt: new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            today.getDate() + 1
-          ),
+          gte: today,
+          lt: tomorrow,
         },
       },
       include: {
@@ -33,6 +32,10 @@ export const entriesRouter = createTRPCRouter({
 
   getTodayLog: protectedProcedure.query(async ({ ctx }) => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
     const user = await ctx.prisma.user.findUnique({
       where: {
         clerkId: ctx.auth?.userId,
@@ -43,12 +46,8 @@ export const entriesRouter = createTRPCRouter({
       where: {
         userId: user?.id,
         createdAt: {
-          gte: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
-          lt: new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            today.getDate() + 1
-          ),
+          gte: today,
+          lt: tomorrow,
         },
       },
       include: {
