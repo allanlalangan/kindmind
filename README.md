@@ -1,5 +1,19 @@
-# Journal + Habit & Mood Tracker
+# KindMind
 
-I already have another journal project, so it doesn't make sense to build two projects that basically do the same thing. Astrology APIs cost too much for the little data they give you.
+A daily mood, activity, and habit tracking app.
 
-Journal with AI implementation will continue to be the main focus of this project. Currently rebranding...
+## Features to implement
+
+- [ ] Create webhook to sync Clerk and Supabase for preview and production deployments
+- [ ] Add calendar view and/or Github contributions-esque chart that allows users to view all of their daily logs
+- [ ] Track active streaks for each event
+- [ ] Allow users to filter calendar view by event
+- [ ] Add line chart view that allows users to view their mood over time
+- [ ] Implement HeadlessUI modals, popovers, and other components to add more interactivity
+
+## Misc tasks
+
+- [ ] Render loading states
+- [ ] Update color scheme
+- [ ] Add more icons, images, and possibly a basic logo
+- [ ] Update landing page
