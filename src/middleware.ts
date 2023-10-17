@@ -9,6 +9,7 @@ export default authMiddleware({
     "/dashboard",
     "/journal",
     "/journal/(.*)",
+    "/api/webhooks/user",
     "/api/trpc/journal.getGuestEntries",
     "/api/trpc/journal.getGuestEntry",
     "/api/trpc/journal.getTodayGuestEntry",
