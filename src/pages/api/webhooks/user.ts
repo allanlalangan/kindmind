@@ -41,7 +41,7 @@ export default async function handler(
         clerkId: id,
       },
     });
-    res.status(200).json({});
+    res.status(200).json({ message: "Received webhook" });
   }
 
   if (eventType === "user.deleted") {
