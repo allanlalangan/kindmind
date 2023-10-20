@@ -40,6 +40,7 @@ export default function DashboardPage() {
   const [healthFieldset, setHealthFieldset] = useState(health_fieldset);
 
   let getTodayLog;
+
   if (!user.isSignedIn) {
     getTodayLog = api.entries.getGuestTodayLog.useQuery(undefined, {
       onSuccess: (data) => {
@@ -55,7 +56,10 @@ export default function DashboardPage() {
       refetchOnWindowFocus: false,
     });
   }
+  const timezone = api.entries.getTimezoneOffset.useQuery(undefined, {});
 
+  const { data } = timezone;
+  console.log(data);
   const { data: todayLog, refetch: refetchDailyLog } = getTodayLog;
 
   let logEntry;
