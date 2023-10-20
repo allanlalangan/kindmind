@@ -7,59 +7,77 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
-// const now = new Date();
-
 const now = new Date();
-const timeZoneOffset = now.getTimezoneOffset();
-now.setHours(0, 0, 0, 0);
-now.setMinutes(now.getMinutes() - timeZoneOffset);
-
-const today = new Date(now.getTime() + timeZoneOffset * 60 * 1000);
-now.setDate(now.getDate() + 1);
-
-const tomorrow = new Date(now.getTime() + timeZoneOffset * 60 * 1000);
 
 export const entriesRouter = createTRPCRouter({
-  getGuestTodayLog: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.entry.findMany({
-      where: {
-        createdAt: {
-          gte: today,
-          lt: tomorrow,
-        },
-      },
-      include: {
-        events: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-  }),
+  getGuestTodayLog: publicProcedure
+    .input(
+      z.object({
+        timezone_offset: z.number(),
+      })
+    )
+    .query(({ input, ctx }) => {
+      now.setHours(0, 0, 0, 0);
+      now.setMinutes(now.getMinutes() - input.timezone_offset);
+      const today = new Date(now.getTime() + input.timezone_offset * 60 * 1000);
+      now.setDate(now.getDate() + 1);
 
-  getTodayLog: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.prisma.user.findUnique({
-      where: {
-        clerkId: ctx.auth?.userId,
-      },
-    });
-
-    return ctx.prisma.entry.findMany({
-      where: {
-        userId: user?.id,
-        createdAt: {
-          gte: today,
-          lt: tomorrow,
+      const tomorrow = new Date(
+        now.getTime() + input.timezone_offset * 60 * 1000
+      );
+      return ctx.prisma.entry.findMany({
+        where: {
+          createdAt: {
+            gte: today,
+            lt: tomorrow,
+          },
         },
-      },
-      include: {
-        events: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-  }),
+        include: {
+          events: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    }),
+
+  getTodayLog: protectedProcedure
+    .input(
+      z.object({
+        timezone_offset: z.number(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      now.setHours(0, 0, 0, 0);
+      now.setMinutes(now.getMinutes() - input.timezone_offset);
+      const today = new Date(now.getTime() + input.timezone_offset * 60 * 1000);
+      now.setDate(now.getDate() + 1);
+
+      const tomorrow = new Date(
+        now.getTime() + input.timezone_offset * 60 * 1000
+      );
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          clerkId: ctx.auth?.userId,
+        },
+      });
+
+      return ctx.prisma.entry.findMany({
+        where: {
+          userId: user?.id,
+          createdAt: {
+            gte: today,
+            lt: tomorrow,
+          },
+        },
+        include: {
+          events: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    }),
 
   createEntry: protectedProcedure
     .input(

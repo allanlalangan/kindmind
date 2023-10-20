@@ -28,7 +28,8 @@ const getMoodIconLabel = (mood: number) => {
 };
 
 export default function DashboardPage() {
-  const today = new Date();
+  const now = new Date();
+  const user_timezone_offset = now.getTimezoneOffset();
   const user = useUser();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -42,19 +43,25 @@ export default function DashboardPage() {
   let getTodayLog;
 
   if (!user.isSignedIn) {
-    getTodayLog = api.entries.getGuestTodayLog.useQuery(undefined, {
-      onSuccess: (data) => {
-        console.log("success", data);
-      },
-      refetchOnWindowFocus: false,
-    });
+    getTodayLog = api.entries.getGuestTodayLog.useQuery(
+      { timezone_offset: user_timezone_offset },
+      {
+        onSuccess: (data) => {
+          console.log("success", data);
+        },
+        refetchOnWindowFocus: false,
+      }
+    );
   } else {
-    getTodayLog = api.entries.getTodayLog.useQuery(undefined, {
-      onSuccess: (data) => {
-        console.log("success", data);
-      },
-      refetchOnWindowFocus: false,
-    });
+    getTodayLog = api.entries.getTodayLog.useQuery(
+      { timezone_offset: user_timezone_offset },
+      {
+        onSuccess: (data) => {
+          console.log("success", data);
+        },
+        refetchOnWindowFocus: false,
+      }
+    );
   }
 
   const { data: todayLog, refetch: refetchDailyLog } = getTodayLog;
@@ -116,7 +123,7 @@ export default function DashboardPage() {
         </Link>
       </div>
       <p className="col-span-6 row-start-2 flex items-center border-light-500 p-2 font-dm dark:border-base-800 lg:col-span-3 lg:p-4 lg:text-lg">
-        {today.toLocaleDateString("en-us", {
+        {now.toLocaleDateString("en-us", {
           weekday: "long",
           year: "numeric",
           month: "short",
