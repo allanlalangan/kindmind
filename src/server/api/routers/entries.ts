@@ -7,15 +7,14 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
-const now = new Date();
-const today = new Date(now);
-today.setHours(0, 0, 0, 0);
-const tomorrow = new Date(today);
-tomorrow.setDate(tomorrow.getDate() + 1);
-
 export const entriesRouter = createTRPCRouter({
   getGuestTodayLog: publicProcedure.query(({ ctx }) => {
-    console.log(today, tomorrow);
+    const now = new Date();
+    const today = new Date(now);
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
     return ctx.prisma.entry.findMany({
       where: {
         createdAt: {
@@ -33,6 +32,12 @@ export const entriesRouter = createTRPCRouter({
   }),
 
   getTodayLog: protectedProcedure.query(async ({ ctx }) => {
+    const now = new Date();
+    const today = new Date(now);
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
     const user = await ctx.prisma.user.findUnique({
       where: {
         clerkId: ctx.auth?.userId,
