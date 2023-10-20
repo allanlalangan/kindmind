@@ -13,13 +13,25 @@ const user_UTC_date = new Date(
   user_local_date.getTime() - timezone_offset * 60000
 );
 
+const start_of_day = new Date(
+  user_UTC_date.getFullYear(),
+  user_UTC_date.getMonth(),
+  user_UTC_date.getDate(),
+  0,
+  0,
+  0,
+  0
+);
+
+const end_of_day = new Date(user_UTC_date.getTime() + 24 * 60 * 60 * 1000);
+
 export const entriesRouter = createTRPCRouter({
   getGuestTodayLog: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.entry.findMany({
       where: {
         createdAt: {
-          gte: user_UTC_date,
-          lt: new Date(user_UTC_date.getTime() + 24 * 60 * 60 * 1000),
+          gte: start_of_day,
+          lt: end_of_day,
         },
       },
       include: {
@@ -42,8 +54,8 @@ export const entriesRouter = createTRPCRouter({
       where: {
         userId: user?.id,
         createdAt: {
-          gte: user_UTC_date,
-          lt: new Date(user_UTC_date.getTime() + 24 * 60 * 60 * 1000),
+          gte: start_of_day,
+          lt: end_of_day,
         },
       },
       include: {
