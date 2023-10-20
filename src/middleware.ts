@@ -18,6 +18,7 @@ export default authMiddleware({
     "/api/trpc/journal.deleteGuestEntry",
     "/api/trpc/entries.createGuestEntry",
     "/api/trpc/entries.getGuestTodayLog",
+    "/api/trpc/entries.getTimezoneOffset",
   ],
   ignoredRoutes: ["/api/webhooks/user"],
 });

@@ -20,6 +20,10 @@ now.setDate(now.getDate() + 1);
 const tomorrow = new Date(now.getTime() + timeZoneOffset * 60 * 1000);
 
 export const entriesRouter = createTRPCRouter({
+  getTimezoneOffset: publicProcedure.query(({ ctx }) => {
+    return { now, timeZoneOffset };
+  }),
+
   getGuestTodayLog: publicProcedure.query(({ ctx }) => {
     console.log(today);
     console.log(tomorrow);
