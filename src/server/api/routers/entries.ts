@@ -7,18 +7,19 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
-const today = new Date();
-today.setUTCHours(0, 0, 0, 0);
-const tomorrow = new Date(today);
-tomorrow.setUTCDate(today.getUTCDate() + 1);
+const user_local_date = new Date();
+const timezone_offset = user_local_date.getTimezoneOffset();
+const user_UTC_date = new Date(
+  user_local_date.getTime() - timezone_offset * 60000
+);
 
 export const entriesRouter = createTRPCRouter({
   getGuestTodayLog: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.entry.findMany({
       where: {
         createdAt: {
-          gte: today,
-          lt: tomorrow,
+          gte: user_UTC_date,
+          lt: new Date(user_UTC_date.getTime() + 24 * 60 * 60 * 1000),
         },
       },
       include: {
@@ -41,8 +42,8 @@ export const entriesRouter = createTRPCRouter({
       where: {
         userId: user?.id,
         createdAt: {
-          gte: today,
-          lt: tomorrow,
+          gte: user_UTC_date,
+          lt: new Date(user_UTC_date.getTime() + 24 * 60 * 60 * 1000),
         },
       },
       include: {
