@@ -7,31 +7,20 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
-const user_local_date = new Date();
-const timezone_offset = user_local_date.getTimezoneOffset();
-const user_UTC_date = new Date(
-  user_local_date.getTime() - timezone_offset * 60000
-);
-
-const start_of_day = new Date(
-  user_UTC_date.getFullYear(),
-  user_UTC_date.getMonth(),
-  user_UTC_date.getDate(),
-  0,
-  0,
-  0,
-  0
-);
-
-const end_of_day = new Date(user_UTC_date.getTime() + 24 * 60 * 60 * 1000);
+const now = new Date();
+const today = new Date(now);
+today.setHours(0, 0, 0, 0);
+const tomorrow = new Date(today);
+tomorrow.setDate(tomorrow.getDate() + 1);
 
 export const entriesRouter = createTRPCRouter({
   getGuestTodayLog: publicProcedure.query(({ ctx }) => {
+    console.log(today, tomorrow);
     return ctx.prisma.entry.findMany({
       where: {
         createdAt: {
-          gte: start_of_day,
-          lt: end_of_day,
+          gte: today,
+          lt: tomorrow,
         },
       },
       include: {
@@ -54,8 +43,8 @@ export const entriesRouter = createTRPCRouter({
       where: {
         userId: user?.id,
         createdAt: {
-          gte: start_of_day,
-          lt: end_of_day,
+          gte: today,
+          lt: tomorrow,
         },
       },
       include: {
