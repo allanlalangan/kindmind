@@ -56,10 +56,7 @@ export default function DashboardPage() {
       refetchOnWindowFocus: false,
     });
   }
-  const timezone = api.entries.getTimezoneOffset.useQuery(undefined, {});
 
-  const { data } = timezone;
-  console.log(data);
   const { data: todayLog, refetch: refetchDailyLog } = getTodayLog;
 
   let logEntry;
