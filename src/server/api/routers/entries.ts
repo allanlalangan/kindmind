@@ -15,28 +15,18 @@ export const entriesRouter = createTRPCRouter({
     .input(
       z.object({
         utc_string: z.string(),
-        timezone_offset: z.number(),
       })
     )
     .query(({ input, ctx }) => {
-      const utcMidnight = new Date(input.utc_string);
-      const start_of_next_day = new Date(utcMidnight);
-      start_of_next_day.setDate(start_of_next_day.getDate() + 1);
+      const today = new Date(input.utc_string);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
-      now.setHours(0, 0, 0, 0);
-      now.setMinutes(now.getMinutes() - input.timezone_offset);
-      const today = new Date(now.getTime() + input.timezone_offset * 60 * 1000);
-      now.setDate(now.getDate() + 1);
-      const tomorrow = new Date(
-        now.getTime() + input.timezone_offset * 60 * 1000
-      );
-
-      console.log(utcMidnight, start_of_next_day);
       return ctx.prisma.entry.findMany({
         where: {
           createdAt: {
-            gte: utcMidnight,
-            lt: start_of_next_day,
+            gte: today,
+            lt: tomorrow,
           },
         },
         include: {
@@ -52,21 +42,12 @@ export const entriesRouter = createTRPCRouter({
     .input(
       z.object({
         utc_string: z.string(),
-        timezone_offset: z.number(),
       })
     )
     .query(async ({ input, ctx }) => {
-      const utcMidnight = new Date(input.utc_string);
-      const start_of_next_day = new Date(utcMidnight);
-      start_of_next_day.setDate(start_of_next_day.getDate() + 1);
-
-      now.setHours(0, 0, 0, 0);
-      now.setMinutes(now.getMinutes() - input.timezone_offset);
-      const today = new Date(now.getTime() + input.timezone_offset * 60 * 1000);
-      now.setDate(now.getDate() + 1);
-      const tomorrow = new Date(
-        now.getTime() + input.timezone_offset * 60 * 1000
-      );
+      const today = new Date(input.utc_string);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
       const user = await ctx.prisma.user.findUnique({
         where: {
@@ -78,8 +59,8 @@ export const entriesRouter = createTRPCRouter({
         where: {
           userId: user?.id,
           createdAt: {
-            gte: utcMidnight,
-            lt: start_of_next_day,
+            gte: today,
+            lt: tomorrow,
           },
         },
         include: {
