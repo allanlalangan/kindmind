@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { type ReactElement } from "react";
+import ActivityCalendar from "react-activity-calendar";
 import DashboardLayout from "~/components/DashboardLayout";
 
 export default function DashboardPage() {
@@ -10,6 +11,34 @@ export default function DashboardPage() {
           Dashboard
         </Link>
       </div>
+      <section className="col-span-12 p-2 lg:p-4">
+        <ActivityCalendar
+          blockRadius={10}
+          data={[
+            {
+              count: 2,
+              date: "2023-06-14",
+              level: 1,
+            },
+            {
+              count: 16,
+              date: "2023-06-22",
+              level: 3,
+            },
+            {
+              count: 3,
+              date: "2023-07-05",
+              level: 1,
+            },
+            {
+              count: 10,
+              date: "2023-10-17",
+              level: 2,
+            },
+          ]}
+          labels={{}}
+        />
+      </section>
     </>
   );
 }
