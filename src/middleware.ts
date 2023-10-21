@@ -7,6 +7,7 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/dashboard",
+    "/today",
     "/journal",
     "/journal/(.*)",
     "/api/webhooks/user",

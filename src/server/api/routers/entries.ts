@@ -1,5 +1,4 @@
 import { type EventType } from "@prisma/client";
-import { start } from "repl";
 import { z } from "zod";
 
 import {
@@ -7,8 +6,6 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-
-const now = new Date();
 
 export const entriesRouter = createTRPCRouter({
   getGuestTodayLog: publicProcedure

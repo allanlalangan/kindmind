@@ -71,6 +71,15 @@ export default function DashboardLayout({
             <li>
               <Link
                 onClick={() => setNavIsOpen(false)}
+                href="/today"
+                className="underline-offset-2 hover:underline"
+              >
+                Daily Log
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={() => setNavIsOpen(false)}
                 href="/journal"
                 className="underline-offset-2 hover:underline"
               >
