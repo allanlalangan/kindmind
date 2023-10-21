@@ -58,7 +58,7 @@ export default function TodayPage() {
   return (
     <>
       <div className="col-span-12 row-start-1 flex items-baseline border-b border-light-500 p-2 font-dm text-2xl dark:border-base-800 lg:row-span-1 lg:p-4">
-        <Link className="underline-offset-2 hover:underline" href="/dashboard">
+        <Link className="underline-offset-2 hover:underline" href="/today">
           Daily Log
         </Link>
       </div>
