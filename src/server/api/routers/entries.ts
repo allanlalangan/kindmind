@@ -21,6 +21,7 @@ export const entriesRouter = createTRPCRouter({
 
       return ctx.prisma.entry.findMany({
         where: {
+          userId: null,
           createdAt: {
             gte: today,
             lt: tomorrow,
