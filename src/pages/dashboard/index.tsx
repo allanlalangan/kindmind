@@ -30,6 +30,11 @@ const getMoodIconLabel = (mood: number) => {
 export default function DashboardPage() {
   const now = new Date();
   const user_timezone_offset = now.getTimezoneOffset();
+
+  const localDate = new Date(); // Create a JavaScript date object for the local time
+  localDate.setHours(0, 0, 0, 0);
+  const utc_string = localDate.toUTCString(); // Convert to UTC in string format
+
   const user = useUser();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -44,7 +49,7 @@ export default function DashboardPage() {
 
   if (!user.isSignedIn) {
     getTodayLog = api.entries.getGuestTodayLog.useQuery(
-      { timezone_offset: user_timezone_offset },
+      { utc_string, timezone_offset: user_timezone_offset },
       {
         onSuccess: (data) => {
           console.log("success", data);
@@ -54,7 +59,7 @@ export default function DashboardPage() {
     );
   } else {
     getTodayLog = api.entries.getTodayLog.useQuery(
-      { timezone_offset: user_timezone_offset },
+      { utc_string, timezone_offset: user_timezone_offset },
       {
         onSuccess: (data) => {
           console.log("success", data);
