@@ -4,7 +4,7 @@ A daily mood, activity, and habit tracking app.
 
 ## Features to implement
 
-- [ ] Create webhook to sync Clerk and Supabase for preview and production deployments
+- [x] Create webhook to sync Clerk and Supabase for preview and production deployments
 - [ ] Add calendar view and/or Github contributions-esque chart that allows users to view all of their daily logs
 - [ ] Track active streaks for each event
 - [ ] Allow users to filter calendar view by event
