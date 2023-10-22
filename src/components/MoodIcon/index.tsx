@@ -1,3 +1,15 @@
+export const getMoodIconLabel = (mood: number) => {
+  return mood === -2
+    ? "awful"
+    : mood === -1
+    ? "bad"
+    : mood === 0
+    ? "okay"
+    : mood === 1
+    ? "good"
+    : "awesome";
+};
+
 interface props {
   mood: number;
   size?: number;

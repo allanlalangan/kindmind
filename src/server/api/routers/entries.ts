@@ -134,9 +134,20 @@ export const entriesRouter = createTRPCRouter({
         },
       });
     }),
-  // events.forEach((event_type) => {
-  //   event_type.selected.forEach((event_name) => {
-  //     console.log(event_name);
-  //   });
-  // });
+
+  deleteEntry: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.entry.delete({
+        where: { id: input.id },
+      });
+    }),
+
+  deleteGuestEntry: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.entry.delete({
+        where: { id: input.id },
+      });
+    }),
 });
