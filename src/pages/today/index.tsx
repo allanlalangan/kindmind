@@ -40,7 +40,7 @@ export default function TodayPage() {
     );
   }
 
-  const { data: todayLog, refetch: refetchDailyLog } = getTodayLog;
+  const { isLoading, data: todayLog, refetch: refetchDailyLog } = getTodayLog;
 
   return (
     <>
@@ -57,20 +57,70 @@ export default function TodayPage() {
           day: "numeric",
         })}
       </p>
-      <section className="col-span-12 row-span-full row-start-3 flex flex-col gap-4 overflow-y-scroll px-2 pb-12 lg:col-span-6 lg:row-start-3 lg:px-4 lg:pb-4">
-        {todayLog?.length === 0 ? (
-          <p>You haven&apos;t logged an entry today.</p>
-        ) : (
-          todayLog?.map((entry) => (
-            <Entry
-              key={entry.id}
-              entry={entry}
-              events={entry.events}
-              refetchDailyLog={() => void refetchDailyLog()}
-            />
-          ))
-        )}
-      </section>
+      {isLoading ? (
+        <span className="col-span-12 row-span-full row-start-3 flex flex-col items-center justify-start gap-2 p-2 lg:col-span-6 lg:p-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+          >
+            <g stroke="currentColor">
+              <circle
+                cx="12"
+                cy="12"
+                r="9.5"
+                fill="none"
+                stroke-linecap="round"
+                stroke-width="3"
+              >
+                <animate
+                  attributeName="stroke-dasharray"
+                  calcMode="spline"
+                  dur="1.5s"
+                  keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                  keyTimes="0;0.475;0.95;1"
+                  repeatCount="indefinite"
+                  values="0 150;42 150;42 150;42 150"
+                />
+                <animate
+                  attributeName="stroke-dashoffset"
+                  calcMode="spline"
+                  dur="1.5s"
+                  keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                  keyTimes="0;0.475;0.95;1"
+                  repeatCount="indefinite"
+                  values="0;-16;-59;-59"
+                />
+              </circle>
+              <animateTransform
+                attributeName="transform"
+                dur="2s"
+                repeatCount="indefinite"
+                type="rotate"
+                values="0 12 12;360 12 12"
+              />
+            </g>
+          </svg>
+          <p className="text-sm">Fetching entries...</p>
+        </span>
+      ) : (
+        <section className="col-span-12 row-span-full row-start-3 flex flex-col gap-4 overflow-y-scroll px-2 pb-12 lg:col-span-6 lg:row-start-3 lg:px-4 lg:pb-4">
+          {todayLog?.length === 0 ? (
+            <p>You haven&apos;t logged an entry today.</p>
+          ) : (
+            todayLog?.map((entry) => (
+              <Entry
+                key={entry.id}
+                entry={entry}
+                events={entry.events}
+                refetchDailyLog={() => void refetchDailyLog()}
+              />
+            ))
+          )}
+        </section>
+      )}
+
       <section className="fixed bottom-0 col-span-12 h-12 w-full border-light-500 bg-light-300 p-2 dark:border-base-800 dark:bg-base-900 lg:static lg:col-span-6 lg:col-start-7 lg:row-span-full lg:row-start-2 lg:h-auto lg:border-l lg:p-4">
         <p className="flex items-center font-dm lg:text-lg">Summary</p>
       </section>
