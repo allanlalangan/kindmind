@@ -62,7 +62,12 @@ export default function TodayPage() {
           <p>You haven&apos;t logged an entry today.</p>
         ) : (
           todayLog?.map((entry) => (
-            <Entry key={entry.id} entry={entry} events={entry.events} />
+            <Entry
+              key={entry.id}
+              entry={entry}
+              events={entry.events}
+              refetchDailyLog={() => void refetchDailyLog()}
+            />
           ))
         )}
       </section>

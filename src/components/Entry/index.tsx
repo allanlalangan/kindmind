@@ -1,14 +1,40 @@
 import { type Event, type Entry } from "@prisma/client";
 import MoodIcon, { getMoodIconLabel } from "../MoodIcon";
 import SelectorIcon from "../SelectorIcon";
+import { useUser } from "@clerk/nextjs";
+import { api } from "~/utils/api";
 
 interface props {
   entry: Entry;
   events: Event[];
+  refetchDailyLog: () => void;
 }
 
-export default function Entry({ entry, events }: props) {
-  console.log(entry);
+export default function Entry({ entry, events, refetchDailyLog }: props) {
+  const user = useUser();
+  let deleteEntry;
+  if (!user.isSignedIn) {
+    deleteEntry = api.entries.deleteGuestEntry.useMutation({
+      onSuccess: () => {
+        void refetchDailyLog();
+        console.log(`deleted entry ${entry.id}`);
+      },
+    });
+  } else {
+    deleteEntry = api.entries.deleteEntry.useMutation({
+      onSuccess: () => {
+        void refetchDailyLog();
+        console.log(`deleted entry ${entry.id}`);
+      },
+    });
+  }
+
+  const { mutate: mutateDelete } = deleteEntry;
+  const onDelete = () => {
+    mutateDelete({
+      id: entry.id,
+    });
+  };
   return (
     <div
       className="flex flex-col gap-3 rounded border border-light-600 bg-light-200 p-4 dark:border-base-700 dark:bg-base-800"
@@ -21,7 +47,10 @@ export default function Entry({ entry, events }: props) {
             minute: "2-digit",
           })}
         </p>
-        <button className="col-span-12 flex h-fit items-center justify-center gap-2 rounded border border-red-400 p-1 font-dm uppercase text-red-400 underline-offset-2 transition hover:border-red-500 hover:text-red-500 hover:underline active:border-red-700 active:text-red-700">
+        <button
+          onClick={onDelete}
+          className="col-span-12 flex h-fit items-center justify-center gap-2 rounded border border-red-400 p-1 font-dm uppercase text-red-400 underline-offset-2 transition hover:border-red-500 hover:text-red-500 hover:underline active:border-red-700 active:text-red-700"
+        >
           <svg
             className="h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"
