@@ -137,16 +137,28 @@ export const entriesRouter = createTRPCRouter({
 
   deleteEntry: protectedProcedure
     .input(z.object({ id: z.string() }))
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.entry.delete({
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.event.deleteMany({
+        where: {
+          entryId: input.id,
+        },
+      });
+
+      return await ctx.prisma.entry.delete({
         where: { id: input.id },
       });
     }),
 
   deleteGuestEntry: publicProcedure
     .input(z.object({ id: z.string() }))
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.entry.delete({
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.event.deleteMany({
+        where: {
+          entryId: input.id,
+        },
+      });
+
+      return await ctx.prisma.entry.delete({
         where: { id: input.id },
       });
     }),
