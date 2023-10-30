@@ -8,10 +8,9 @@ import AddEntryForm from "~/components/AddEntryForm";
 import { api } from "~/utils/api";
 
 export default function TodayPage() {
-  const now = new Date();
   const localDate = new Date();
   localDate.setHours(0, 0, 0, 0);
-  const utc_string = localDate.toUTCString();
+  const [selectedDate, setSelectedDate] = useState(localDate);
 
   const user = useUser();
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -20,7 +19,7 @@ export default function TodayPage() {
 
   if (!user.isSignedIn) {
     getTodayLog = api.entries.getGuestTodayLog.useQuery(
-      { utc_string },
+      { utc_string: selectedDate.toUTCString() },
       {
         onSuccess: (data) => {
           console.log("success", data);
@@ -30,7 +29,7 @@ export default function TodayPage() {
     );
   } else {
     getTodayLog = api.entries.getTodayLog.useQuery(
-      { utc_string },
+      { utc_string: selectedDate.toUTCString() },
       {
         onSuccess: (data) => {
           console.log("success", data);
@@ -42,6 +41,18 @@ export default function TodayPage() {
 
   const { isLoading, data: todayLog, refetch: refetchDailyLog } = getTodayLog;
 
+  const handleSelectPreviousDay = () => {
+    const previousDate = new Date(
+      selectedDate.setDate(selectedDate.getDate() - 1)
+    );
+    setSelectedDate(previousDate);
+  };
+  const handleSelectNextDay = () => {
+    if (localDate.getTime() === selectedDate.getTime()) return;
+    const nextDate = new Date(selectedDate.setDate(selectedDate.getDate() + 1));
+    setSelectedDate(nextDate);
+  };
+
   return (
     <>
       <div className="col-span-12 row-start-1 flex items-baseline border-b border-light-500 p-2 font-dm text-2xl dark:border-base-800 lg:row-span-1 lg:p-4">
@@ -49,14 +60,49 @@ export default function TodayPage() {
           Daily Log
         </Link>
       </div>
-      <p className="col-span-6 row-start-2 flex items-center border-light-500 p-2 font-dm dark:border-base-800 lg:col-span-3 lg:p-4 lg:text-lg">
-        {now.toLocaleDateString("en-us", {
-          weekday: "long",
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })}
-      </p>
+      <div className="col-span-6 row-start-2 flex items-center justify-between border-light-500 p-2 font-dm dark:border-base-800 lg:col-span-3 lg:p-4 lg:text-lg">
+        <button
+          className="disabled:opacity-30"
+          onClick={handleSelectPreviousDay}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6l1.41-1.42Z"
+            />
+          </svg>
+        </button>
+        <p>
+          {selectedDate.toLocaleDateString("en-us", {
+            weekday: "long",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+        </p>
+        <button
+          className="disabled:opacity-30"
+          disabled={localDate.getTime() === selectedDate.getTime()}
+          onClick={handleSelectNextDay}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z"
+            />
+          </svg>
+        </button>
+      </div>
       {isLoading ? (
         <span className="col-span-12 row-span-full row-start-3 flex flex-col items-center justify-start gap-2 p-2 lg:col-span-6 lg:p-4">
           <svg
@@ -107,7 +153,7 @@ export default function TodayPage() {
       ) : (
         <section className="col-span-12 row-span-full row-start-3 flex flex-col gap-4 overflow-y-scroll px-2 pb-12 lg:col-span-6 lg:row-start-3 lg:px-4 lg:pb-4">
           {todayLog?.length === 0 ? (
-            <p>You haven&apos;t logged an entry today.</p>
+            <p>No entries logged for this day.</p>
           ) : (
             todayLog?.map((entry) => (
               <Entry
