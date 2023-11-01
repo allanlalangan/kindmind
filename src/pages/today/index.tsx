@@ -1,12 +1,12 @@
-import { useState, type ReactElement, Fragment } from "react";
+import { useState, type ReactElement } from "react";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import { Popover, Transition } from "@headlessui/react";
 import DashboardLayout from "~/components/DashboardLayout";
 import DialogModal from "~/components/DialogModal";
 import Entry from "~/components/Entry";
 import AddEntryForm from "~/components/AddEntryForm";
 import { api } from "~/utils/api";
+import Calendar from "~/components/Calendar";
 
 export default function TodayPage() {
   const localDate = new Date();
@@ -69,7 +69,7 @@ export default function TodayPage() {
       <div className="col-span-12 row-start-2 flex items-center justify-between border-light-500 px-2 font-dm dark:border-base-800 lg:col-span-6 lg:text-lg">
         <div className="flex w-full">
           <button
-            className="rounded-l border border-base-950 bg-light-300 transition-colors hover:bg-light-400 active:bg-light-500 disabled:opacity-30 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900"
+            className="rounded-l border-y border-l border-base-950 bg-light-300 transition-colors hover:bg-light-400 active:bg-light-500 disabled:opacity-30 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900"
             onClick={handleSelectPreviousDay}
           >
             <svg
@@ -83,37 +83,14 @@ export default function TodayPage() {
               />
             </svg>
           </button>
-          <Popover className="relative flex-1">
-            <Popover.Button className="h-full w-full border-y border-base-950 bg-light-300 transition-colors hover:bg-light-400 active:bg-light-500 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900">
-              {selectedDate.toLocaleDateString("en-us", {
-                weekday: "long",
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}
-            </Popover.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute z-10 flex w-full flex-col items-center gap-2 rounded border border-light-600 bg-light-200 p-4 dark:border-base-700 dark:bg-base-800">
-                <Popover.Button
-                  onClick={handleSelectToday}
-                  className="rounded bg-base-800 p-2 font-dm text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
-                >
-                  Go to today
-                </Popover.Button>
-                <span className="text-sm">Calendar</span>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
+          <Calendar
+            localDate={localDate}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            handleSelectToday={handleSelectToday}
+          />
           <button
-            className="rounded-r border border-base-950 bg-light-300 transition-colors enabled:hover:bg-light-400 enabled:active:bg-light-500 disabled:text-base-950/30 dark:border-base-50 dark:bg-base-900 dark:enabled:hover:bg-base-800 dark:enabled:active:bg-base-900 dark:disabled:text-base-50/30"
+            className="rounded-r border-y border-r border-base-950 bg-light-300 transition-colors enabled:hover:bg-light-400 enabled:active:bg-light-500 disabled:border-opacity-30 disabled:text-base-950/30 dark:border-base-50 dark:bg-base-900 dark:enabled:hover:bg-base-800 dark:enabled:active:bg-base-900 dark:disabled:border-opacity-30 dark:disabled:text-base-50/30"
             disabled={localDate.getTime() === selectedDate.getTime()}
             onClick={handleSelectNextDay}
           >
