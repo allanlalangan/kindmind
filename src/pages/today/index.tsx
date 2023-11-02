@@ -16,6 +16,20 @@ export default function TodayPage() {
   const user = useUser();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  let getFirstEntry;
+
+  if (!user.isSignedIn) {
+    getFirstEntry = api.entries.getGuestFirstEntry.useQuery(undefined, {
+      refetchOnWindowFocus: false,
+    });
+  } else {
+    getFirstEntry = api.entries.getFirstEntry.useQuery(undefined, {
+      refetchOnWindowFocus: false,
+    });
+  }
+
+  const { data: firstEntry } = getFirstEntry;
+
   let getTodayLog;
 
   if (!user.isSignedIn) {
@@ -69,8 +83,9 @@ export default function TodayPage() {
       <div className="col-span-12 row-start-2 flex items-center justify-between border-light-500 px-2 font-dm dark:border-base-800 lg:col-span-6 lg:text-lg">
         <div className="flex w-full">
           <button
-            className="rounded-l border-y border-l border-base-950 bg-light-300 transition-colors hover:bg-light-400 active:bg-light-500 disabled:opacity-30 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900"
+            className="rounded-l border-y border-l border-base-950 bg-light-300 transition-colors enabled:hover:bg-light-400 enabled:active:bg-light-500 disabled:border-opacity-30 disabled:text-base-950/30 dark:border-base-50 dark:bg-base-900 dark:enabled:hover:bg-base-800 dark:enabled:active:bg-base-900 dark:disabled:border-opacity-30 dark:disabled:text-base-50/30"
             onClick={handleSelectPreviousDay}
+            disabled={!firstEntry || firstEntry.createdAt >= selectedDate}
           >
             <svg
               className="h-8 w-8"
@@ -88,6 +103,7 @@ export default function TodayPage() {
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
             handleSelectToday={handleSelectToday}
+            firstEntry={firstEntry ?? null}
           />
           <button
             className="rounded-r border-y border-r border-base-950 bg-light-300 transition-colors enabled:hover:bg-light-400 enabled:active:bg-light-500 disabled:border-opacity-30 disabled:text-base-950/30 dark:border-base-50 dark:bg-base-900 dark:enabled:hover:bg-base-800 dark:enabled:active:bg-base-900 dark:disabled:border-opacity-30 dark:disabled:text-base-50/30"
