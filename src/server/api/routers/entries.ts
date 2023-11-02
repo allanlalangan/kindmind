@@ -70,6 +70,34 @@ export const entriesRouter = createTRPCRouter({
       });
     }),
 
+  getGuestFirstEntry: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.entry.findFirst({
+      where: {
+        userId: null,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+  }),
+
+  getFirstEntry: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.prisma.user.findUnique({
+      where: {
+        clerkId: ctx.auth?.userId,
+      },
+    });
+
+    return ctx.prisma.entry.findFirst({
+      where: {
+        userId: user?.id,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+  }),
+
   createEntry: protectedProcedure
     .input(
       z.object({
