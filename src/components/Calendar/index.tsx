@@ -11,12 +11,14 @@ import {
 } from "date-fns";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { type Entry } from "@prisma/client";
 
 interface props {
   localDate: Date;
   selectedDate: Date;
   setSelectedDate: React.Dispatch<React.SetStateAction<Date>>;
   handleSelectToday: () => void;
+  firstEntry: Entry | null;
 }
 
 function classNames(...classes: (false | string | undefined)[]) {
@@ -38,10 +40,17 @@ export default function Calendar({
   selectedDate,
   setSelectedDate,
   handleSelectToday,
+  firstEntry,
 }: props) {
   const today = startOfToday();
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
   const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
+
+  let firstEntryDate: Date | null;
+  if (firstEntry) {
+    firstEntryDate = new Date(firstEntry.createdAt);
+    firstEntryDate.setHours(0, 0, 0, 0);
+  }
 
   const days = eachDayOfInterval({
     start: firstDayCurrentMonth,
@@ -93,7 +102,13 @@ export default function Calendar({
                 <button
                   type="button"
                   onClick={previousMonth}
-                  className="rounded-l border border-base-950 bg-light-300 transition-colors hover:bg-light-400 active:bg-light-500 disabled:opacity-30 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900"
+                  disabled={
+                    !firstEntry ||
+                    (!!firstEntry &&
+                      firstEntry.createdAt.getMonth() ===
+                        +format(firstDayCurrentMonth, "M") - 1)
+                  }
+                  className="rounded-l border border-base-950 bg-light-300 transition-colors enabled:hover:bg-light-400 enabled:active:bg-light-500 disabled:border-opacity-30 disabled:text-base-950/30 dark:border-base-50 dark:bg-base-900 dark:enabled:hover:bg-base-800 dark:enabled:active:bg-base-900 dark:disabled:border-opacity-30 dark:disabled:text-base-50/30"
                 >
                   <span className="sr-only">Previous month</span>
                   <svg
@@ -144,7 +159,12 @@ export default function Calendar({
                 <Popover.Button
                   key={dayIdx}
                   type="button"
-                  disabled={localDate.getTime() < day.getTime()}
+                  disabled={
+                    !firstEntry ||
+                    (!!firstEntryDate &&
+                      firstEntryDate.getTime() > day.getTime()) ||
+                    localDate.getTime() < day.getTime()
+                  }
                   onClick={() => setSelectedDate(day)}
                   className={classNames(
                     dayIdx === 0 && colStartClasses[getDay(day)],
