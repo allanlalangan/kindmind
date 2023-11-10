@@ -82,7 +82,6 @@ export default {
       }),
       fontFamily: {
         dm: ["var(--font-dm-sans)"],
-        source: ["var(--font-source)"],
       },
     },
   },
