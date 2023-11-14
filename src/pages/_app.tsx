@@ -1,7 +1,7 @@
 import { type AppProps, type AppType } from "next/app";
 import { api } from "~/utils/api";
 import "~/styles/globals.css";
-import { Source_Sans_3, DM_Sans } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { type ReactElement, type ReactNode } from "react";
 import { type NextPage } from "next";
@@ -12,12 +12,6 @@ const dm_sans = DM_Sans({
   display: "swap",
   weight: "400",
   variable: "--font-dm-sans",
-});
-const source_sans_3 = Source_Sans_3({
-  subsets: ["latin"],
-  display: "swap",
-  weight: "400",
-  variable: "--font-source",
 });
 
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
@@ -43,12 +37,10 @@ const App: AppType = ({
     <>
       <style jsx global>{`
         html {
-          font-family: ${source_sans_3.style.fontFamily}, sans-serif;
+          font-family: ${dm_sans.style.fontFamily}, sans-serif;
         }
       `}</style>
-      <div
-        className={`${dm_sans.variable} ${source_sans_3.variable} min-h-screen`}
-      >
+      <div className={`${dm_sans.variable} min-h-screen`}>
         <ThemeProvider attribute="class">
           <ClerkProvider {...pageProps}>
             {getLayout(<Component {...pageProps} />)}
