@@ -27,7 +27,10 @@ export default function DashboardPage() {
           </svg>
           <span>Daily Log</span>
         </Link>
-        <button className="col-span-6 flex flex-col items-center justify-center gap-2 rounded bg-base-800 px-2 pb-2.5 pt-2 uppercase text-base-50 underline-offset-2 transition-colors hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300 lg:flex-row">
+        <Link
+          href="/journal/emotions"
+          className="col-span-6 flex flex-col items-center justify-center gap-2 rounded bg-base-800 px-2 pb-2.5 pt-2 uppercase text-base-50 underline-offset-2 transition-colors hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300 lg:flex-row"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-12 w-12 lg:h-8 lg:w-8"
@@ -41,7 +44,7 @@ export default function DashboardPage() {
             />
           </svg>
           <span>Emotion Journal</span>
-        </button>
+        </Link>
         <button className="col-span-6 flex flex-col items-center justify-center gap-2 rounded bg-base-800 px-2 pb-2.5 pt-2 uppercase text-base-50 underline-offset-2 transition-colors hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300 lg:flex-row">
           <svg
             xmlns="http://www.w3.org/2000/svg"
