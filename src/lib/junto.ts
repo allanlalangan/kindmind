@@ -1,4 +1,10 @@
-export const emotions = [
+export interface emotion {
+  name: string;
+  core_emotion: string;
+  definition: string;
+}
+
+export const emotions: emotion[] = [
   {
     name: "euphoric",
     core_emotion: "joy",
