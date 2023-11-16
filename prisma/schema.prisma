@@ -20,6 +20,7 @@ model User {
     journal_entries JournalEntry[]
     events          Event[]
     entries         Entry[]
+    emotion_entries EmotionEntry[]
 }
 
 model Entry {
@@ -33,6 +34,28 @@ model Entry {
     mood   Int
     events Event[]
     notes  String?
+}
+
+enum CoreEmotionType {
+    JOY
+    SURPRISE
+    SADNESS
+    ANGER
+    FEAR
+    LOVE
+}
+
+model EmotionEntry {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    userId String?
+    user   User?   @relation(fields: [userId], references: [id])
+
+    name         String
+    core_emotion CoreEmotionType
+    intensity    Int
 }
 
 enum EventType {

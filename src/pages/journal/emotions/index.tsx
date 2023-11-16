@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { type ReactElement } from "react";
 import DashboardLayout from "~/components/DashboardLayout";
-import { emotions } from "~/lib/junto";
+import { type emotion, emotions } from "~/lib/junto";
+import { useState } from "react";
+import Slideover from "~/components/Slideover";
 
 export default function EmotionsPage() {
+  const [infoPaneIsOpen, setInfoPaneIsOpen] = useState(false);
+  const [selectedEmotion, setSelectedEmotion] = useState<emotion | null>(null);
+
   return (
     <>
       <div className="col-span-12 row-start-1 flex items-baseline border-b border-light-500 p-2 font-dm text-2xl dark:border-base-800 lg:row-span-1 lg:p-4">
@@ -11,14 +16,19 @@ export default function EmotionsPage() {
           Emotion Journal
         </Link>
       </div>
-      <section className="col-span-12 flex flex-col gap-2 lg:gap-4">
-        <ul className="m-2 grid grid-cols-12 gap-2 lg:m-4">
+      <section className="col-span-12 flex flex-col gap-2 p-2 lg:gap-4 lg:p-4">
+        <h2 className="text-lg">How are you feeling?</h2>
+        <ul className="grid grid-cols-12 gap-2">
           {emotions.map((emotion) => (
             <li
               className="col-span-12 sm:col-span-6 md:col-span-4"
               key={emotion.name}
             >
               <button
+                onClick={() => {
+                  setInfoPaneIsOpen(true);
+                  setSelectedEmotion(emotion);
+                }}
                 className={`${
                   emotion.core_emotion === "joy"
                     ? "bg-emerald-400 hover:bg-emerald-300 active:bg-emerald-500 "
@@ -41,6 +51,14 @@ export default function EmotionsPage() {
           ))}
         </ul>
       </section>
+      <Slideover
+        isOpen={infoPaneIsOpen}
+        handleClose={() => {
+          setInfoPaneIsOpen(false);
+          setSelectedEmotion(null);
+        }}
+        emotion={selectedEmotion}
+      />
     </>
   );
 }
