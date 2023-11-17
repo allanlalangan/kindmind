@@ -11,11 +11,6 @@ export default function EmotionsPage() {
 
   return (
     <>
-      <div className="col-span-12 row-start-1 flex items-baseline border-b border-light-500 p-2 font-dm text-2xl dark:border-base-800 lg:row-span-1 lg:p-4">
-        <Link className="underline-offset-2 hover:underline" href="/journal">
-          Emotion Journal
-        </Link>
-      </div>
       <section className="col-span-12 flex flex-col gap-2 p-2 lg:gap-4 lg:p-4">
         <h2 className="text-lg">How are you feeling?</h2>
         <ul className="grid grid-cols-12 gap-2">
