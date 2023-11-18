@@ -1,16 +1,22 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { type emotion } from "~/lib/junto";
+import * as Slider from "@radix-ui/react-slider";
 
 interface props {
+  children: React.ReactNode;
   isOpen: boolean;
   handleClose: () => void;
   emotion: emotion | null;
 }
 
-export default function Slideover({ isOpen, handleClose, emotion }: props) {
+export default function Slideover({
+  children,
+  isOpen,
+  handleClose,
+  emotion,
+}: props) {
   const now = new Date();
-
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={handleClose}>
@@ -121,6 +127,7 @@ export default function Slideover({ isOpen, handleClose, emotion }: props) {
                         <p className="relative mb-4 p-2">
                           {emotion?.definition}
                         </p>
+                        {children}
                         <button
                           disabled={!isOpen}
                           className="rounded bg-base-800 p-2 text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
