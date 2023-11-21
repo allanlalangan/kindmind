@@ -5,12 +5,53 @@ import { type emotion, emotions } from "~/lib/junto";
 import { useState } from "react";
 import Slideover from "~/components/Slideover";
 import * as Slider from "@radix-ui/react-slider";
+import { api } from "~/utils/api";
+import { useUser } from "@clerk/nextjs";
 
 export default function EmotionsPage() {
   const [selectedIntensity, setSetSelectedIntensity] = useState(5);
   const [infoPaneIsOpen, setInfoPaneIsOpen] = useState(false);
   const [selectedEmotion, setSelectedEmotion] = useState<emotion | null>(null);
   const [notes, setNotes] = useState("");
+  const user = useUser();
+
+  const handleCloseInfoPane = () => {
+    setInfoPaneIsOpen(false);
+    setSelectedEmotion(null);
+    setNotes("");
+  };
+
+  let createEmotionEntry;
+
+  if (!user.isSignedIn) {
+    createEmotionEntry = api.emotions.createGuestEmotionEntry.useMutation({
+      onSuccess: () => {
+        console.log("success");
+      },
+    });
+  } else {
+    createEmotionEntry = api.emotions.createEmotionEntry.useMutation({
+      onSuccess: () => {
+        console.log("success");
+      },
+    });
+  }
+
+  const { mutate } = createEmotionEntry;
+  const handleSubmit = () => {
+    // console.log(selectedEmotion, selectedIntensity, notes);
+    if (!!selectedEmotion) {
+      mutate({
+        emotion: selectedEmotion.name,
+        core_emotion: selectedEmotion.core_emotion.toUpperCase(),
+        intensity: selectedIntensity,
+        notes,
+      });
+      handleCloseInfoPane();
+    } else {
+      return;
+    }
+  };
 
   return (
     <>
@@ -51,12 +92,9 @@ export default function EmotionsPage() {
       </section>
       <Slideover
         isOpen={infoPaneIsOpen}
-        handleClose={() => {
-          setInfoPaneIsOpen(false);
-          setSelectedEmotion(null);
-          setNotes("");
-        }}
         emotion={selectedEmotion}
+        handleClose={handleCloseInfoPane}
+        handleSubmit={handleSubmit}
       >
         <section className="mb-4 flex flex-col rounded border border-light-500 p-4 dark:border-base-700">
           <p>Intensity</p>
