@@ -22,6 +22,7 @@ export default authMiddleware({
     "/api/trpc/entries.getGuestTodayLog",
     "/api/trpc/entries.getGuestFirstEntry",
     "/api/trpc/entries.deleteGuestEntry",
+    "/api/trpc/emotions.createGuestEmotionEntry",
   ],
   ignoredRoutes: ["/api/webhooks/user"],
 });
