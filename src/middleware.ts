@@ -23,6 +23,7 @@ export default authMiddleware({
     "/api/trpc/entries.getGuestFirstEntry",
     "/api/trpc/entries.deleteGuestEntry",
     "/api/trpc/emotions.createGuestEmotionEntry",
+    "/api/trpc/emotions.getGuestEmotionsForDay",
   ],
   ignoredRoutes: ["/api/webhooks/user"],
 });
