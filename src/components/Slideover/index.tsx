@@ -6,17 +6,20 @@ import * as Slider from "@radix-ui/react-slider";
 interface props {
   children: React.ReactNode;
   isOpen: boolean;
-  handleClose: () => void;
   emotion: emotion | null;
+  handleClose: () => void;
+  handleSubmit: () => void;
 }
 
 export default function Slideover({
   children,
   isOpen,
-  handleClose,
   emotion,
+  handleClose,
+  handleSubmit,
 }: props) {
   const now = new Date();
+
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={handleClose}>
@@ -129,6 +132,7 @@ export default function Slideover({
                         </p>
                         {children}
                         <button
+                          onClick={handleSubmit}
                           disabled={!isOpen}
                           className="rounded bg-base-800 p-2 text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"
                         >
