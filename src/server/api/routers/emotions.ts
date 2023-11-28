@@ -8,6 +8,74 @@ import {
 } from "~/server/api/trpc";
 
 export const emotionsRouter = createTRPCRouter({
+  getGuestRecent: publicProcedure
+    .input(
+      z.object({
+        utc_string: z.string(),
+      })
+    )
+    .query(({ input, ctx }) => {
+      const today = new Date(input.utc_string);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      return ctx.prisma.emotionEntry.findMany({
+        where: {
+          userId: null,
+          createdAt: {
+            gte: today,
+            lt: tomorrow,
+          },
+        },
+        take: 5,
+        orderBy: {
+          createdAt: "desc",
+        },
+        select: {
+          createdAt: true,
+          name: true,
+          core_emotion: true,
+        },
+      });
+    }),
+
+  getRecent: protectedProcedure
+    .input(
+      z.object({
+        utc_string: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const today = new Date(input.utc_string);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          clerkId: ctx.auth?.userId,
+        },
+      });
+
+      return ctx.prisma.emotionEntry.findMany({
+        where: {
+          userId: user?.id,
+          createdAt: {
+            gte: today,
+            lt: tomorrow,
+          },
+        },
+        take: 5,
+        orderBy: {
+          createdAt: "desc",
+        },
+        select: {
+          createdAt: true,
+          name: true,
+          core_emotion: true,
+        },
+      });
+    }),
+
   getGuestEmotionsForDay: publicProcedure
     .input(
       z.object({
