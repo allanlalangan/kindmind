@@ -1,8 +1,39 @@
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { type ReactElement } from "react";
 import DashboardLayout from "~/components/DashboardLayout";
+import { api } from "~/utils/api";
 
 export default function DashboardPage() {
+  const localDate = new Date();
+  localDate.setHours(0, 0, 0, 0);
+  let getRecentEmotions;
+
+  const user = useUser();
+
+  if (!user.isSignedIn) {
+    getRecentEmotions = api.emotions.getGuestRecent.useQuery(
+      { utc_string: localDate.toUTCString() },
+      {
+        onSuccess: (data) => {
+          console.log("success", data);
+        },
+        refetchOnWindowFocus: false,
+      }
+    );
+  } else {
+    getRecentEmotions = api.emotions.getRecent.useQuery(
+      { utc_string: localDate.toUTCString() },
+      {
+        onSuccess: (data) => {
+          console.log("success", data);
+        },
+        refetchOnWindowFocus: false,
+      }
+    );
+  }
+
+  const { data: recentEmotions, isLoading } = getRecentEmotions;
   return (
     <section className="col-span-12 grid grid-cols-12 gap-2 p-2 lg:p-4">
       <Link
@@ -21,37 +52,49 @@ export default function DashboardPage() {
         </svg>
         <span>Daily Log</span>
       </Link>
-      <Link
-        href="/journal/emotions"
-        className="col-span-6 flex flex-col items-center justify-center gap-2 rounded bg-base-800 px-2 pb-2.5 pt-2 uppercase text-base-50 underline-offset-2 transition-colors hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300 lg:flex-row"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12 lg:h-8 lg:w-8"
-          viewBox="0 0 15 15"
+      <section className="col-span-12 rounded border border-light-500 bg-light-200 dark:border-base-700 dark:bg-base-800 lg:col-span-6">
+        <h3 className="flex w-full items-center justify-center border-b border-light-500 p-2 text-xl dark:border-base-700">
+          Emotions
+        </h3>
+
+        {isLoading ? (
+          <p>Loading</p>
+        ) : recentEmotions?.length !== 0 ? (
+          <div className="mx-4 mb-2 mt-4 flex border-spacing-7 flex-col rounded border border-light-500 p-2 dark:border-base-700">
+            <h4 className="text-lg">Recent Emotions</h4>
+            <ul className="flex flex-col">
+              {recentEmotions?.map((emotion, i) => (
+                <li key={i} className="flex items-center justify-between">
+                  <p className="">{emotion.name}</p>
+                  <p className="">
+                    {emotion.createdAt.toLocaleTimeString([], {
+                      hour: "numeric",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div className="mx-4 mb-2 mt-4 flex h-32 border-spacing-7 flex-col items-center justify-center rounded border-2 border-dashed p-2 dark:border-base-700">
+            <p className="">You haven&apos;t logged any emotions today</p>
+          </div>
+        )}
+        <Link
+          href="/journal/emotions"
+          className="mx-4 mb-4 flex flex-col items-center justify-center gap-2 rounded bg-base-800 px-2 pb-2.5 pt-2 text-base-50 underline-offset-2 transition-colors hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300 lg:flex-row"
         >
-          <path
-            fill="currentColor"
-            fill-rule="evenodd"
-            d="M.877 7.5a6.623 6.623 0 1 1 13.246 0a6.623 6.623 0 0 1-13.246 0Zm2.904-4.284A5.649 5.649 0 0 1 7.1 1.84v4.693L3.781 3.216Zm-.565.565A5.649 5.649 0 0 0 1.84 7.1h4.693L3.216 3.781ZM6.534 7.9H1.841a5.649 5.649 0 0 0 1.375 3.319L6.534 7.9Zm-2.753 3.884A5.65 5.65 0 0 0 7.1 13.16V8.466l-3.319 3.318ZM7.9 8.466v4.693a5.65 5.65 0 0 0 3.318-1.375L7.9 8.466Zm3.884 2.752A5.648 5.648 0 0 0 13.16 7.9H8.466l3.318 3.318ZM8.466 7.1h4.693a5.65 5.65 0 0 0-1.375-3.319L8.466 7.1Zm2.753-3.884A5.649 5.649 0 0 0 7.9 1.84v4.693l3.319-3.318Z"
-            clip-rule="evenodd"
-          />
-        </svg>
-        <span>Emotion Journal</span>
-      </Link>
-      <button className="col-span-6 flex flex-col items-center justify-center gap-2 rounded bg-base-800 px-2 pb-2.5 pt-2 uppercase text-base-50 underline-offset-2 transition-colors hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300 lg:flex-row">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12 lg:h-8 lg:w-8"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="currentColor"
-            d="M5.55 19L2 15.45l1.4-1.4l2.125 2.125l4.25-4.25l1.4 1.425L5.55 19Zm0-8L2 7.45l1.4-1.4l2.125 2.125l4.25-4.25l1.4 1.425L5.55 11ZM13 17v-2h9v2h-9Zm0-8V7h9v2h-9Z"
-          />
-        </svg>
-        <span>Habit Tracker</span>
-      </button>
+          <span>Go to emotion tracker</span>
+        </Link>
+      </section>
+      <section className="col-span-12 rounded border border-light-500 bg-light-200 dark:border-base-700 dark:bg-base-800 lg:col-span-6">
+        <h3 className="flex w-full items-center justify-center border-b border-light-500 p-2 text-xl dark:border-base-700">
+          Habits
+        </h3>
+
+        <div className="mx-4 mb-2 mt-4 flex border-spacing-7 flex-col rounded border border-light-500 p-2 dark:border-base-700"></div>
+      </section>
     </section>
   );
 }
