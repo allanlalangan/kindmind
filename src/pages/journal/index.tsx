@@ -123,7 +123,7 @@ export default function JournalPage() {
                 } flex items-center justify-between border-light-500 dark:border-base-800`}
               >
                 <Link
-                  href={`/journal/${entry.id}`}
+                  href={`/journal/entry/${entry.id}`}
                   className={`flex w-full items-center justify-start gap-2 p-2 transition hover:bg-light-200 hover:dark:bg-base-800 lg:p-4 ${
                     router.query.id === entry.id &&
                     "bg-light-200 dark:bg-base-800"
