@@ -1,7 +1,5 @@
-import { useState } from "react";
 import ThemeSwitch from "../ThemeSwitch";
 import Link from "next/link";
-import { UserButton, useUser } from "@clerk/nextjs";
 import Head from "next/head";
 
 export default function DashboardLayout({
@@ -11,8 +9,6 @@ export default function DashboardLayout({
   children: React.ReactNode;
   pageTitle?: string;
 }) {
-  const user = useUser();
-  const [navIsOpen, setNavIsOpen] = useState(false);
   return (
     <>
       <Head>
@@ -24,99 +20,44 @@ export default function DashboardLayout({
           <div className="col-span-4"></div>
           <div className="col-span-4 flex items-center justify-center">
             <Link
-              className="col-span-4 underline-offset-2 hover:underline"
-              href="/dashboard"
+              href="/"
+              className="font-dm text-2xl tracking-wide underline-offset-2 hover:underline lg:hidden"
             >
-              Dashboard
+              kindMind
             </Link>
           </div>
           <div className="col-span-4 flex items-center justify-end">
-            <button
-              onClick={() => setNavIsOpen(!navIsOpen)}
-              className="rounded border border-base-950 bg-light-300 p-1 transition-colors hover:bg-light-400 active:bg-light-500 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900 lg:hidden"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
-                />
-              </svg>
-            </button>
+            <ThemeSwitch />
           </div>
         </header>
-        <aside
-          className={`${
-            !navIsOpen ? "-translate-x-full" : ""
-          } fixed z-10 row-span-full row-start-3 flex h-screen w-1/2 flex-col bg-light-400 px-4 py-2 transition dark:bg-base-950 md:w-1/3 lg:col-start-1 lg:col-end-3 lg:w-1/6 lg:-translate-x-0`}
-        >
+        <aside className="fixed bottom-0 z-10 row-span-full flex h-16 w-full flex-col justify-center bg-light-400 px-4 py-2 transition dark:bg-base-950 lg:col-start-1 lg:col-end-3 lg:h-screen lg:w-1/6 lg:-translate-x-0 lg:items-start lg:justify-start">
           <Link
-            onClick={() => setNavIsOpen(false)}
             href="/"
-            className="font-dm text-3xl tracking-wide"
+            className="hidden font-dm text-3xl tracking-wide underline-offset-2 hover:underline lg:block"
           >
             kindMind
           </Link>
-          <ul className="mt-4">
-            <li>
-              <Link
-                onClick={() => setNavIsOpen(false)}
-                href="/dashboard"
-                className="underline-offset-2 hover:underline"
-              >
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={() => setNavIsOpen(false)}
-                href="/today"
-                className="underline-offset-2 hover:underline"
-              >
-                Daily Log
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={() => setNavIsOpen(false)}
-                href="/journal"
-                className="underline-offset-2 hover:underline"
-              >
-                Journal
-              </Link>
-            </li>
-          </ul>
-          <div className="flex flex-1 flex-col lg:justify-end">
-            <ThemeSwitch />
-          </div>
-          <button
-            onClick={() => setNavIsOpen(!navIsOpen)}
-            className={`absolute right-0 top-1 p-2 lg:hidden`}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
+          <nav className="flex items-center justify-evenly lg:mt-2 lg:flex-col lg:items-start">
+            <Link
+              href="/dashboard"
+              className="underline-offset-2 hover:underline"
             >
-              <path
-                fill="currentColor"
-                fillRule="evenodd"
-                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12L5.47 6.53a.75.75 0 0 1 0-1.06Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
+              Dashboard
+            </Link>
+
+            <Link href="/today" className="underline-offset-2 hover:underline">
+              Daily Log
+            </Link>
+
+            <Link
+              href="/journal"
+              className="underline-offset-2 hover:underline"
+            >
+              Journal
+            </Link>
+          </nav>
         </aside>
-        <main className="col-span-12 row-span-full row-start-2 grid grid-cols-12 grid-rows-12 lg:col-start-3 lg:col-end-13">
+        <main className="col-span-12 row-span-full row-start-2 mb-16 grid grid-cols-12 grid-rows-12 lg:col-start-3 lg:col-end-13 lg:mb-0">
           {children}
         </main>
       </div>
