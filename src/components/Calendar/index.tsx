@@ -68,14 +68,25 @@ export default function Calendar({
   }
 
   return (
-    <Popover className="relative flex-1">
-      <Popover.Button className="h-full w-full border border-base-950 bg-light-300 transition-colors hover:bg-light-400 active:bg-light-500 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900">
-        {selectedDate.toLocaleDateString("en-us", {
+    <Popover className="relative flex w-96 justify-end">
+      <Popover.Button className="h-8 w-8 rounded bg-light-300 transition-colors hover:bg-light-400 active:bg-light-500 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900">
+        {/* {selectedDate.toLocaleDateString("en-us", {
           weekday: "long",
           year: "numeric",
           month: "short",
           day: "numeric",
-        })}
+        })} */}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <g fill="currentColor">
+            <path d="M12.75 12.75a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m-5.25 3a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5m.75 1.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m1.5-1.5a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5m.75 1.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m1.5-1.5a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5m.75 1.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m1.5-1.5a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5m.75 1.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m1.5-1.5a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5m-1.5-3a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m1.5.75a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5" />
+            <path
+              fill-rule="evenodd"
+              d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75m13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5z"
+              clip-rule="evenodd"
+            />
+          </g>
+        </svg>
+        <span className="sr-only">View Calendar</span>
       </Popover.Button>
       <Transition
         as={Fragment}
@@ -86,7 +97,7 @@ export default function Calendar({
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <Popover.Panel className="absolute z-10 flex w-full flex-col items-center gap-2 rounded border border-light-600 bg-light-200 p-2 dark:border-base-700 dark:bg-base-800 lg:p-4">
+        <Popover.Panel className="absolute top-full z-10 flex w-full flex-col items-center gap-2 rounded border border-light-600 bg-light-200 p-2 dark:border-base-700 dark:bg-base-800 lg:p-4">
           <Popover.Button
             onClick={handleSelectToday}
             className="w-full rounded bg-base-800 p-2 font-dm text-sm text-base-50 transition hover:bg-base-700 active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300"

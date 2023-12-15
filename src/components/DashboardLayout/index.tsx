@@ -16,7 +16,7 @@ export default function DashboardLayout({
         <meta name="description" content="Journal + Mood & Habit Tracker App" />
       </Head>
       <div className="grid h-screen grid-cols-12 grid-rows-24">
-        <header className="col-span-12 row-span-1 grid grid-cols-12 border-b border-light-500 bg-light-300 px-4 py-2 transition dark:border-base-800 dark:bg-base-900 lg:col-start-3 lg:col-end-13 lg:justify-end">
+        <header className="col-span-12 row-span-1 grid grid-cols-12 border-b border-light-500 bg-light-300 px-2 py-2 transition dark:border-base-800 dark:bg-base-900 lg:col-start-3 lg:col-end-13 lg:justify-end">
           <div className="col-span-4"></div>
           <div className="col-span-4 flex items-center justify-center">
             <Link
@@ -44,11 +44,18 @@ export default function DashboardLayout({
             >
               Dashboard
             </Link>
-
-            <Link href="/today" className="underline-offset-2 hover:underline">
-              Daily Log
+            <Link
+              href="/journal/habits"
+              className="underline-offset-2 hover:underline"
+            >
+              Habits
             </Link>
-
+            <Link
+              href="/journal/emotions"
+              className="underline-offset-2 hover:underline"
+            >
+              Emotions
+            </Link>
             <Link
               href="/journal"
               className="underline-offset-2 hover:underline"
