@@ -80,6 +80,8 @@ export default function DashboardPage() {
   }
 
   const { data: firstEntry } = getFirstEntry;
+  console.log(selectedDate);
+
   return (
     <>
       <section className="col-span-12 flex flex-col border-b border-light-500 p-2 dark:border-base-700">
@@ -89,6 +91,7 @@ export default function DashboardPage() {
             localDate={localDate}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
+            setSelectedWeek={setSelectedWeek}
             handleSelectToday={handleSelectToday}
             firstEntry={firstEntry ?? null}
           />

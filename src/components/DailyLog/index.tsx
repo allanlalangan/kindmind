@@ -92,8 +92,8 @@ export default function DailyLog({ localDate, selectedDate }: props) {
           <p className="text-lg">Fetching entries...</p>
         </span>
       ) : (
-        <section className="col-span-12 row-span-full row-start-2 flex flex-col gap-2 border-b p-2 dark:border-base-800 lg:col-span-6 lg:border-b-0 lg:border-r lg:border-light-500">
-          <p className="text-xl">
+        <section className="relative col-span-12 row-span-full row-start-2 flex flex-col gap-2 overflow-y-scroll border-light-500 p-2 dark:border-base-800 lg:col-span-6 lg:border-b-0 lg:border-r">
+          <p className="flex w-full items-center justify-start bg-light-300 text-xl dark:bg-base-900">
             {selectedDate.toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
