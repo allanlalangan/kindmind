@@ -1,8 +1,8 @@
 import { useUser } from "@clerk/nextjs";
 import { add, addDays, eachDayOfInterval, format, isToday } from "date-fns";
-import Link from "next/link";
 import { useState, type ReactElement } from "react";
 import Calendar from "~/components/Calendar";
+import DailyLog from "~/components/DailyLog";
 import DashboardLayout from "~/components/DashboardLayout";
 import { api } from "~/utils/api";
 
@@ -11,6 +11,7 @@ function classNames(...classes: (false | string | undefined)[]) {
 }
 
 export default function DashboardPage() {
+  const user = useUser();
   const today = new Date();
   const localDate = new Date();
   localDate.setHours(0, 0, 0, 0);
@@ -29,9 +30,6 @@ export default function DashboardPage() {
   const [selectedDate, setSelectedDate] = useState(localDate);
   const [selectedWeek, setSelectedWeek] = useState(daysOfCurrentWeek);
 
-  const handleSelectToday = () => {
-    setSelectedDate(localDate);
-  };
   const previousWeek = () => {
     const firstDayPreviousWeek = add(selectedWeek[0] ?? localDate, {
       weeks: -1,
@@ -63,8 +61,13 @@ export default function DashboardPage() {
   const goToCurrentWeek = () => {
     setSelectedWeek(daysOfCurrentWeek);
   };
+
+  const handleSelectToday = () => {
+    setSelectedDate(localDate);
+    goToCurrentWeek();
+  };
+
   let getFirstEntry;
-  const user = useUser();
 
   if (!user.isSignedIn) {
     getFirstEntry = api.entries.getGuestFirstEntry.useQuery(undefined, {
@@ -134,10 +137,10 @@ export default function DashboardPage() {
               >
                 <p className="truncate">{format(day, "E")}</p>
                 <button
+                  onClick={() => setSelectedDate(day)}
                   className={classNames(
-                    isToday(day)
-                      ? "bg-orange-500 text-white hover:bg-orange-400"
-                      : "",
+                    isToday(day) ? "bg-orange-500 text-white" : "",
+                    selectedDate === day ? "bg-violet-500" : "",
                     "flex h-8 w-8 flex-col items-center justify-center rounded-full"
                   )}
                   key={day.toString()}
@@ -170,20 +173,7 @@ export default function DashboardPage() {
           </button>
         </div>
       </section>
-      <section className="col-span-12 row-span-full row-start-2 flex flex-col gap-2 border-b p-2 dark:border-base-800 lg:col-span-6 lg:border-b-0 lg:border-r lg:border-light-500">
-        <Link
-          href="/journal/habits"
-          className="flex flex-col items-center justify-center gap-2 rounded bg-base-800 px-2 pb-2.5 pt-2 text-base-50 underline-offset-2 transition-colors hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300 lg:h-14 lg:flex-row"
-        >
-          <span>Go to Habit Tracker</span>
-        </Link>
-        <Link
-          href="/journal/emotions"
-          className="flex flex-col items-center justify-center gap-2 rounded bg-base-800 px-2 pb-2.5 pt-2 text-base-50 underline-offset-2 transition-colors hover:bg-base-700 hover:underline active:bg-base-900 dark:bg-base-200 dark:text-base-950 dark:hover:bg-base-100 dark:active:bg-base-300 lg:h-14 lg:flex-row"
-        >
-          <span>Go to Emotion Tracker</span>
-        </Link>
-      </section>
+      <DailyLog localDate={localDate} selectedDate={selectedDate} />
     </>
   );
 }
