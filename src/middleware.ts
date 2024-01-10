@@ -25,6 +25,7 @@ export default authMiddleware({
     "/api/trpc/entries.getGuestFirstEntry,emotions.getGuestRecent,entries.getGuestTodayLog",
     "/api/trpc/entries.getGuestTodayLog",
     "/api/trpc/entries.getGuestFirstEntry",
+    "/api/trpc/entries.getGuestTodayLog,entries.getGuestFirstEntry",
     "/api/trpc/entries.deleteGuestEntry",
     "/api/trpc/emotions.createGuestEmotionEntry",
     "/api/trpc/emotions.getGuestEmotionsForDay",

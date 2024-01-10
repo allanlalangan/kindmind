@@ -17,6 +17,7 @@ interface props {
   localDate: Date;
   selectedDate: Date;
   setSelectedDate: React.Dispatch<React.SetStateAction<Date>>;
+  setSelectedWeek: React.Dispatch<React.SetStateAction<Date[]>>;
   handleSelectToday: () => void;
   firstEntry: Entry | null;
 }
@@ -39,6 +40,7 @@ export default function Calendar({
   localDate,
   selectedDate,
   setSelectedDate,
+  setSelectedWeek,
   handleSelectToday,
   firstEntry,
 }: props) {
@@ -67,15 +69,21 @@ export default function Calendar({
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
 
+  function handleSelectDay(day: Date) {
+    const dayIndex = getDay(day);
+    const firstDayOfWeek = add(day, { days: -dayIndex });
+    const lastDayOfWeek = add(day, { days: 6 - dayIndex });
+    setSelectedWeek(
+      eachDayOfInterval({
+        start: firstDayOfWeek,
+        end: lastDayOfWeek,
+      })
+    );
+    setSelectedDate(day);
+  }
   return (
     <Popover className="relative flex w-96 justify-end">
       <Popover.Button className="h-8 w-8 rounded bg-light-300 transition-colors hover:bg-light-400 active:bg-light-500 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900">
-        {/* {selectedDate.toLocaleDateString("en-us", {
-          weekday: "long",
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })} */}
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g fill="currentColor">
             <path d="M12.75 12.75a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m-5.25 3a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5m.75 1.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m1.5-1.5a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5m.75 1.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m1.5-1.5a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5m.75 1.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m1.5-1.5a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5m.75 1.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m1.5-1.5a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5m-1.5-3a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m1.5.75a.75.75 0 1 0 0-1.5a.75.75 0 0 0 0 1.5" />
@@ -176,7 +184,7 @@ export default function Calendar({
                       firstEntryDate.getTime() > day.getTime()) ||
                     localDate.getTime() < day.getTime()
                   }
-                  onClick={() => setSelectedDate(day)}
+                  onClick={() => handleSelectDay(day)}
                   className={classNames(
                     dayIdx === 0 && colStartClasses[getDay(day)],
                     isEqual(day, selectedDate) &&
