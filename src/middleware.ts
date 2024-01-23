@@ -14,6 +14,7 @@ export default authMiddleware({
     "/journal/emotions",
     "/journal/emotions/new",
     "/journal/habits",
+    "/journal/habits/new",
     "/api/webhooks/user",
     "/api/trpc/journal.getGuestEntries",
     "/api/trpc/journal.getGuestEntry",
