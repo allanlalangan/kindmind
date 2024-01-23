@@ -9,6 +9,7 @@ export default authMiddleware({
     "/dashboard",
     "/today",
     "/journal",
+    "/journal/new",
     "/journal/entry/(.*)",
     "/journal/emotions",
     "/journal/emotions/new",

@@ -142,8 +142,12 @@ export default function DashboardPage() {
                 <button
                   onClick={() => setSelectedDate(day)}
                   className={classNames(
-                    isToday(day) ? "bg-orange-500 text-white" : "",
-                    selectedDate === day ? "bg-violet-500 text-white" : "",
+                    isToday(day)
+                      ? "border-2 border-amber-300 text-base-100"
+                      : "",
+                    selectedDate.toString() === day.toString()
+                      ? "border-violet-500 bg-violet-500 text-white"
+                      : "",
                     "flex h-8 w-8 flex-col items-center justify-center rounded-full"
                   )}
                   key={day.toString()}
