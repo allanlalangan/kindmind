@@ -30,7 +30,7 @@ export default function DashboardLayout({
                   <>
                     {route !== "[id]" && (
                       <span key={i} className="capitalize">
-                        route
+                        {route}
                       </span>
                     )}
                     {i !== routeTree.length - 1 &&
