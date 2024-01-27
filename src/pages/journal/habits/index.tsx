@@ -4,8 +4,8 @@ import DashboardLayout from "~/components/DashboardLayout";
 
 export default function HabitsPage() {
   return (
-    <section className="col-span-12 row-span-full flex flex-col gap-2 p-2 lg:gap-4 lg:p-4">
-      <div className="flex h-full items-center justify-center rounded border border-dashed border-light-500 dark:border-base-700">
+    <section className="col-span-12 row-span-full flex flex-col gap-2 p-4 lg:gap-4">
+      <div className="flex h-full flex-col items-center justify-center rounded border border-dashed border-light-500 dark:border-base-700 lg:flex-row">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-32 w-32 text-light-800 dark:text-base-600"

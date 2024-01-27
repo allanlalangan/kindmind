@@ -31,20 +31,8 @@ export default function JournalPage() {
     isLoading,
     refetch: refetchEntries,
   } = getAllEntriesQuery;
-
-  const redirected = router.query.redirected === "true";
-  // useEffect(() => {
-  //   if (redirected) {
-  //     void refetchEntries();
-  //   }
-  // }, [redirected, refetchEntries]);
   return (
     <>
-      <div className="col-span-12 row-start-1 flex items-baseline border-b border-light-500 p-2 font-dm text-2xl dark:border-base-800 lg:row-span-1 lg:p-4">
-        <Link className="underline-offset-2 hover:underline" href="/journal">
-          Journal
-        </Link>
-      </div>
       <div className="col-span-12 flex w-full items-center justify-between border-light-500 p-2 dark:border-base-800 lg:col-span-4 lg:row-span-1 lg:border-r lg:p-4">
         <h2 className="font-dm text-xl">Recent Entries</h2>
         <Link
@@ -65,7 +53,7 @@ export default function JournalPage() {
           </span>
         </Link>
       </div>
-      <section className="col-span-12 row-span-full row-start-3 flex w-full flex-col justify-start border-light-500 dark:border-base-800 lg:col-span-4 lg:row-span-full lg:row-start-3 lg:border-r">
+      <section className="col-span-12 row-span-full row-start-2 flex w-full flex-col justify-start border-light-500 dark:border-base-800 lg:col-span-4 lg:row-span-full lg:row-start-2 lg:border-r">
         {isLoading ? (
           <span className="flex flex-col items-center justify-center gap-2 p-2 lg:col-span-6 lg:p-4">
             <svg

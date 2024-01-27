@@ -1,6 +1,7 @@
 import ThemeSwitch from "../ThemeSwitch";
 import Link from "next/link";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function DashboardLayout({
   children,
@@ -9,6 +10,11 @@ export default function DashboardLayout({
   children: React.ReactNode;
   pageTitle?: string;
 }) {
+  const router = useRouter();
+  const routeTree = router.route.slice(1).split("/");
+  console.log(routeTree);
+  const currentRoute = routeTree[routeTree.length - 1];
+  console.log(currentRoute);
   return (
     <>
       <Head>
@@ -17,16 +23,33 @@ export default function DashboardLayout({
       </Head>
       <div className="grid h-screen grid-cols-12 grid-rows-24">
         <header className="col-span-12 row-span-1 grid grid-cols-12 border-b border-light-500 bg-light-300 px-2 py-2 transition dark:border-base-800 dark:bg-base-900 lg:col-start-3 lg:col-end-13 lg:justify-end">
-          <div className="col-span-4"></div>
-          <div className="col-span-4 flex items-center justify-center">
+          {currentRoute !== "dashboard" ? (
+            <div className="col-span-8 flex items-center gap-1">
+              <div className="flex items-baseline gap-1.5">
+                {routeTree?.map((route, i) => (
+                  <>
+                    {route !== "[id]" && (
+                      <span key={i} className="capitalize">
+                        route
+                      </span>
+                    )}
+                    {i !== routeTree.length - 1 &&
+                      routeTree[i + 1] !== "[id]" && (
+                        <span className="text-xl">&gt;</span>
+                      )}
+                  </>
+                ))}
+              </div>
+            </div>
+          ) : (
             <Link
               href="/"
-              className="font-dm text-2xl tracking-wide underline-offset-2 hover:underline lg:hidden"
+              className="col-span-8 flex items-center text-xl underline-offset-2 hover:underline lg:sr-only"
             >
               kindMind
             </Link>
-          </div>
-          <div className="col-span-4 flex items-center justify-end">
+          )}
+          <div className="col-span-4 col-start-9 flex items-center justify-end">
             <ThemeSwitch />
           </div>
         </header>
