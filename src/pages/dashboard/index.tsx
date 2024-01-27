@@ -85,30 +85,32 @@ export default function DashboardPage() {
   return (
     <>
       <section className="col-span-12 flex flex-col border-b border-light-500 p-2 dark:border-base-700">
-        <h3 className="flex w-full items-center text-4xl">Welcome</h3>
-        <div className="flex justify-end gap-1">
-          <Calendar
-            localDate={localDate}
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            setSelectedWeek={setSelectedWeek}
-            handleSelectToday={handleSelectToday}
-            firstEntry={firstEntry ?? null}
-          />
-          <button onClick={goToCurrentWeek} type="button" className="h-8 w-8">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h1.325q.825 0 1.413.588T7.325 6v12q0 .825-.587 1.413T5.325 20zm7.35 0q-.825 0-1.412-.587T9.35 18V6q0-.825.588-1.412T11.35 4h1.325q.825 0 1.413.588T14.675 6v12q0 .825-.587 1.413T12.675 20zm7.325 0q-.825 0-1.412-.587T16.675 18V6q0-.825.588-1.412T18.675 4H20q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20z"
-              />
-            </svg>
-            <span className="sr-only">Go to current week</span>
-          </button>
+        <div className="flex justify-between gap-1">
+          <span className="text-2xl">Dashboard</span>
+          <div className="flex items-center gap-2">
+            <Calendar
+              localDate={localDate}
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              setSelectedWeek={setSelectedWeek}
+              handleSelectToday={handleSelectToday}
+              firstEntry={firstEntry ?? null}
+            />
+            <button onClick={goToCurrentWeek} type="button" className="h-8 w-8">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h1.325q.825 0 1.413.588T7.325 6v12q0 .825-.587 1.413T5.325 20zm7.35 0q-.825 0-1.412-.587T9.35 18V6q0-.825.588-1.412T11.35 4h1.325q.825 0 1.413.588T14.675 6v12q0 .825-.587 1.413T12.675 20zm7.325 0q-.825 0-1.412-.587T16.675 18V6q0-.825.588-1.412T18.675 4H20q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20z"
+                />
+              </svg>
+              <span className="sr-only">Go to current week</span>
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-9">
           <button
