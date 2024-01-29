@@ -87,7 +87,7 @@ export default function DashboardPage() {
       <section className="col-span-12 flex flex-col border-b border-light-500 p-2 dark:border-base-700">
         <div className="flex justify-between gap-1">
           <span className="text-2xl">Dashboard</span>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-1 items-center gap-2">
             <Calendar
               localDate={localDate}
               selectedDate={selectedDate}
