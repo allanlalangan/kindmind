@@ -82,7 +82,7 @@ export default function Calendar({
     setSelectedDate(day);
   }
   return (
-    <Popover className="relative flex w-96 justify-end">
+    <Popover className="relative flex w-full justify-end">
       <Popover.Button className="h-8 w-8 rounded bg-light-300 transition-colors hover:bg-light-400 active:bg-light-500 dark:border-base-50 dark:bg-base-900 dark:hover:bg-base-800 dark:active:bg-base-900">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g fill="currentColor">
